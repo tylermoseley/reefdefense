@@ -1,5 +1,4 @@
-var w = 640,
-  h = 480;
+var w = 800, h = 750;
 
 /*
 For Fullscreen put this code:
@@ -13,5 +12,6 @@ var game = new Phaser.Game(w, h, Phaser.AUTO, 'gameContainer');
 game.state.add('boot', bootState);
 game.state.add('load', loadState);
 game.state.add('menu', menuState);
+game.state.add('play0', playState0);
 
 game.state.start('boot');
