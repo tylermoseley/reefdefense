@@ -1,5 +1,8 @@
 var menuState = {
-
+    preload: function(){
+        game.load.audio("button", "reefdefense\Assets\audio\zapsplat_multimedia_button_click_007_53868.mp3");
+        game.load.audio("music", "reefdefense\Assets\audio\kv-ocean.mp3");
+    },
     create: function () {
 
         // game.add.plugin(Phaser.Plugin.Debug);
@@ -13,5 +16,8 @@ var menuState = {
     }
 };
 function startGame () {
+    var snd = game.add.audio("button");
+    snd.play();
     game.state.start('play0');
+    
 }
