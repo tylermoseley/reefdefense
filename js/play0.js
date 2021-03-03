@@ -1,6 +1,4 @@
-var map, layer, marker, cursors, currentDataString, title
-
-var playState0 = {
+playState0 = {
 
     preload: function() {
         game.load.tilemap('Map2', 'Assets/Map/Map2.json', null, Phaser.Tilemap.TILED_JSON);
@@ -17,42 +15,42 @@ var playState0 = {
 
         layer.resizeWorld();
 
-        //  Our painting marker
+        //  hover box
         marker = game.add.graphics();
-        marker.lineStyle(2, 0xffffff, 1);
+        marker.lineStyle(2, "0xFFFFFF", 1);
         marker.drawRect(0, 0, 32, 32);
 
+        // call updateMarker when mouse is moved
         game.input.addMoveCallback(updateMarker, this);
 
+        // call getTileProperties function when tile is clicked
         game.input.onDown.add(getTileProperties, this);
 
+        // set cursors variable to keyboard cursor input
         cursors = game.input.keyboard.createCursorKeys();
     },
 
     update: function() {
-        if (cursors.left.isDown)
-        {
-            game.camera.x -= 4;
-        }
-        else if (cursors.right.isDown)
-        {
-            game.camera.x += 4;
-        }
 
-        if (cursors.up.isDown)
-        {
-            game.camera.y -= 4;
+        // move camera with cursors with "speed" set
+        // (setting to factors of 32 makes it hard to see movement)
+        scrollSpd = 8
+        if (cursors.left.isDown) {
+            game.camera.x -= scrollSpd;
+        } else if (cursors.right.isDown) {
+            game.camera.x += scrollSpd;
         }
-        else if (cursors.down.isDown)
-        {
-            game.camera.y += 4;
+        if (cursors.up.isDown) {
+            game.camera.y -= scrollSpd;
+        } else if (cursors.down.isDown) {
+            game.camera.y += scrollSpd;
         }
     }
 
 }
 
+// main handler for mouse clicks
 function getTileProperties() {
-
     x = layer.getTileX(game.input.activePointer.worldX);
     y = layer.getTileY(game.input.activePointer.worldY);
 
@@ -65,15 +63,14 @@ function getTileProperties() {
 
 }
 
+// display rectangle on mouse location
 function updateMarker() {
-
     marker.x = layer.getTileX(game.input.activePointer.worldX) * 32;
     marker.y = layer.getTileY(game.input.activePointer.worldY) * 32;
-
 }
 
+// send mouse over tile info to debugger (need to figure out how to display)
 function render() {
-
     if(currentDataString){
         game.debug.text('Tile properties: ' + currentDataString, 16, 550);
     } else {
