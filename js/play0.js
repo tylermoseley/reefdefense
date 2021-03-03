@@ -6,6 +6,8 @@ playState0 = {
     },
 
     create: function () {
+        game.add.plugin(Phaser.Plugin.Debug);
+
         game.add.text(80, 150, 'loading game ...', {font: '30px Courier', fill: '#fff'});
 
         map = game.add.tilemap('Map2');
@@ -46,7 +48,6 @@ playState0 = {
             game.camera.y += scrollSpd;
         }
     }
-
 }
 
 // main handler for mouse clicks
@@ -58,22 +59,17 @@ function getTileProperties() {
 
     // Note: JSON.stringify will convert the object tile properties to a string
     currentDataString = JSON.stringify( tile.properties );
-
     tile.properties.wibble = true;
 
+    if(currentDataString){
+        game.debug.text('Tile properties: ' + currentDataString + "("+x+","+y+")", 16, 16);
+    } else {
+        game.debug.text("Click on a tile to reveal the properties of the tile", 16, 16);
+    }
 }
 
 // display rectangle on mouse location
 function updateMarker() {
     marker.x = layer.getTileX(game.input.activePointer.worldX) * 32;
     marker.y = layer.getTileY(game.input.activePointer.worldY) * 32;
-}
-
-// send mouse over tile info to debugger (need to figure out how to display)
-function render() {
-    if(currentDataString){
-        game.debug.text('Tile properties: ' + currentDataString, 16, 550);
-    } else {
-        game.debug.text("Click on a tile to reveal the properties of the tile", 16, 550);
-    }
 }
