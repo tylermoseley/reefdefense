@@ -7,7 +7,15 @@ var w = window.innerWidth * window.devicePixelRatio,
     h = window.innerHeight * window.devicePixelRatio;
 */
 
-var game = new Phaser.Game(w, h, Phaser.AUTO, 'gameContainer');
+var config = {
+    width: 800,
+    height: 600,
+    renderer: Phaser.Auto,
+    parent: 'gameContainer',
+    mouseWheel: true
+}
+
+var game = new Phaser.Game(config);
 
 game.state.add('boot', bootState);
 game.state.add('load', loadState);
