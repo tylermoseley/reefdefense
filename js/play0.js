@@ -12,8 +12,8 @@ playState0 = {
 
         map = game.add.tilemap('Map2');
         map.addTilesetImage('Water');
-
-        layer = map.createLayer('Tile Layer 1');
+        
+        layer = map.createLayer('Base');
         layer.resizeWorld();
 
         //  hover box
