@@ -1,8 +1,13 @@
 playState0 = {
 
     preload: function() {
-        game.load.tilemap('Map2', 'Assets/Map/Map2.json', null, Phaser.Tilemap.TILED_JSON);
+        game.load.tilemap('Map0', 'Assets/Map/Map0.json', null, Phaser.Tilemap.TILED_JSON);
         game.load.image('Water', 'Assets/Tilesets/water_tileset.png');
+        game.load.image('sand', 'Assets/Tilesets/sand.png');
+        game.load.image('caveleft', 'Assets/Tilesets/caveleft.png');
+        game.load.image('caveright', 'Assets/Tilesets/caveright.png');
+        game.load.image('cavetop', 'Assets/Tilesets/cavetop.png');
+        game.load.image('cavebottom', 'Assets/Tilesets/cavebottom.png');
     },
 
     create: function () {
@@ -10,11 +15,20 @@ playState0 = {
 
         game.add.text(80, 150, 'loading game ...', {font: '30px Courier', fill: '#fff'});
 
-        map = game.add.tilemap('Map2');
+        map = game.add.tilemap('Map0');
         map.addTilesetImage('Water');
-        
-        layer = map.createLayer('Base');
+        map.addTilesetImage('sand');
+        map.addTilesetImage('caveleft');
+        map.addTilesetImage('caveright');
+        map.addTilesetImage('cavetop');
+        map.addTilesetImage('cavebottom');
+
+        SandBottom = map.createLayer('SandBottom');
+        WaterEdgesMid = map.createLayer('WaterEdgesMid');
+        layer = map.createLayer('PathsTop');
         layer.resizeWorld();
+
+
 
         //  hover box
         marker = game.add.graphics();
