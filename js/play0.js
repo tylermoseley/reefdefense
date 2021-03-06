@@ -3,7 +3,7 @@ playState0 = {
     preload: function() {
         game.load.tilemap('Map0', 'Assets/Map/Map0.json', null, Phaser.Tilemap.TILED_JSON);
         game.load.image('Water', 'Assets/Tilesets/water_tileset.png');
-        game.load.spritesheet("Crab", 'Assets/spritesheets/crabSheet.png')
+        game.load.spritesheet('Crab', 'Assets/spritesheets/crabSheet.png', 320, 320)
         game.load.image('sand', 'Assets/Tilesets/sand.png');
         game.load.image('caveleft', 'Assets/Tilesets/caveleft.png');
         game.load.image('caveright', 'Assets/Tilesets/caveright.png');
@@ -64,7 +64,6 @@ playState0 = {
         startButton.anchor.setTo(0.5, 0.5)
         startButton.scale.setTo(0.2,0.2)
 
-
     },
 
     update: function() {
@@ -94,6 +93,8 @@ playState0 = {
             }
         }
 
+        checkCoral();
+
     }
 }
 
@@ -107,6 +108,7 @@ for (i=0; i<=31; i++) {
 }
 // initialize corals list and coralid index sequence
 coralid = "c0"
+previousCoralID = coralid
 
 class Coral {
     constructor (id) {
@@ -119,13 +121,6 @@ class Coral {
             this.sprite = game.add.sprite(tile.worldX, tile.worldY, "bubble")
             this.sprite.animations.add("ripple", [0,3])
             gameBoard[tile.x][tile.y] = this
-
-            //reload start button
-            startButton = game.add.button(380, 310, 'start', startLevel, this, 2, 1, 0);
-            startButton.fixedToCamera = true;
-            startButton.anchor.setTo(0.5, 0.5)
-            startButton.scale.setTo(0.2,0.2)
-            
             return 1;
         // no coral is added for now, change for conflict resolution
         } else if (gameBoard[tile.x][tile.y] !== "None") {
@@ -154,6 +149,18 @@ function clickHandler() {
 
 }
 
+function checkCoral(){
+
+    if (previousCoralID !== coralid) {
+        startButton = game.add.button(380, 310, 'start', startLevel, this, 2, 1, 0);
+        startButton.fixedToCamera = true;
+        startButton.anchor.setTo(0.5, 0.5)
+        startButton.scale.setTo(0.2,0.2)
+
+        previousCoralID = coralid
+    }
+}
+
 // display rectangle on mouse location
 function updateMarker() {
     marker.x = layer.getTileX(game.input.activePointer.worldX) * 32;
@@ -161,7 +168,24 @@ function updateMarker() {
 }
 
 // level start funciton
-
 function startLevel() {
     console.log('started')
+
+    speed = 1
+
+    crab = game.add.sprite(100, 512, 'Crab')
+    crab.anchor.setTo(0.5, 0.5);
+    crab.scale.setTo(-0.2, 0.2);
+
+    game.physics.enable(crab);
+
+    crab.animations.add('walk', [0,1,2,3,4,5]);
+    crab.animations.play('walk', 18, true);
+
+    
+    
+}
+
+function crabMove(crab, speed) {
+    crab.x += speed
 }
