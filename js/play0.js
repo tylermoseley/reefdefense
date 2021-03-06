@@ -30,7 +30,9 @@ playState0 = {
         layer = map.createLayer('PathsTop');
         layer.resizeWorld();
 
-
+        // center camera
+        game.camera.x = ((32**2-game.width)/2);
+        game.camera.y = ((32**2-game.height)/2);
 
         //  hover box
         marker = game.add.graphics();
@@ -52,6 +54,8 @@ playState0 = {
             a: game.input.keyboard.addKey(Phaser.Keyboard.A),
             d: game.input.keyboard.addKey(Phaser.Keyboard.D),
         };
+
+        game.add.sprite((32**2/2)-40, (32**2/2)-40, "clam")
 
         // mouseWheel to capture scrolling for alternate movement
         // up/down only in phaser <3.2*
