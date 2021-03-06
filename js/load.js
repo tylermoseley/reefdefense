@@ -13,6 +13,7 @@ var loadState = {
         //images, spritesheets, bitmaps...
         game.load.image('home-background', 'assets/img/backgrounds/UnderWater.png');
         game.load.atlasJSONHash('PlayButton', 'Assets/img/PlayButton/PlayButton.png', 'Assets/img/PlayButton/PlayButton.json')
+        game.load.image('start', 'Assets/img/start.png')
 
         //sounds, efx, music...
         //Example: game.load.audio('rockas', 'assets/snd/rockas.wav');
