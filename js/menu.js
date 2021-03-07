@@ -16,13 +16,13 @@ var menuState = {
         game.add.image(0, 0, 'home-background');
         game.add.button(250, 338, 'PlayButton', startGame, this, 2, 1, 0);
     
-        bubble = game.add.sprite(200, 200, "bubble");
-        bubble.scale.setTo(1.5, 1.5)
-        bubble.animations.add("ripple", [0,3]);
+        // bubble = game.add.sprite(200, 200, "bubble");
+        // bubble.scale.setTo(1.5, 1.5)
+        // bubble.animations.add("ripple", [0,3]);
         
     },
     update: function(){
-        bubble.animations.play("ripple", 4, true)
+        // bubble.animations.play("ripple", 4, true)
     }
 };
 function startGame () {
