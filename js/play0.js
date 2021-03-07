@@ -57,7 +57,6 @@ playState0 = {
             d: game.input.keyboard.addKey(Phaser.Keyboard.D),
         };
 
-
         // add clam to center on load
         clam = game.add.sprite((32**2/2)-40, (32**2/2)-40, "clam")
         game.physics.enable(clam)
@@ -103,9 +102,9 @@ playState0 = {
         //tower2_button.anchor.setTo(1, 0);
         tower2_button.scale.setTo(.04,.04)
 
-        tower2_cost = game.add.text(795, 80, "Press 2\n20G", {font: "10px Arial", text: "bold()", fill: "#000000", align: "right"})
-        tower2_cost.fixedToCamera = true;
-        tower2_cost.anchor.setTo(1,0)
+        tower1_cost = game.add.text(795, 80, "Press 2\n20G", {font: "10px Arial", text: "bold()", fill: "#000000", align: "right"})
+        tower1_cost.fixedToCamera = true;
+        tower1_cost.anchor.setTo(1,0)
 
         bullets = game.add.group();
         bullets.enableBody = true;
@@ -295,7 +294,6 @@ function clickHandler() {
     tower1_button.bringToTop();
     tower1_cost.bringToTop();
     tower2_button.bringToTop();
-    tower2_cost.bringToTop();
 }
 
 //same problem as before if i put the shop in a different function
