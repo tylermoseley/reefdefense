@@ -1,4 +1,4 @@
-var bullet, gameOver = 0
+var bullet, gameOver = 0, towertype = 1,
 
 playState0 = {
     preload: function() {
@@ -58,6 +58,12 @@ playState0 = {
             d: game.input.keyboard.addKey(Phaser.Keyboard.D),
         };
 
+        towerKeys = {
+            one: game.input.keyboard.addKey(Phaser.Keyboard.ONE),
+            two: game.input.keyboard.addKey(Phaser.Keyboard.TWO),
+            three: game.input.keyboard.addKey(Phaser.Keyboard.THREE),
+            
+        }
         // add clam to center on load
         clam = game.add.sprite(512 - 32, 512-45, "Clam");
         clam.animations.add('Resting', [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]);
@@ -144,6 +150,16 @@ playState0 = {
 
         // move camera with cursors with "speed" set
         // (setting to factors of 32 makes it hard to see movement)
+
+        if (towerKeys.one.isDown){
+            towertype = 1
+        }
+        if (towerKeys.two.isDown){
+            towertype = 2
+        }
+        if (towerKeys.three.isDown){
+            towertype = 3
+        }
         scrollSpd = 8
         if (cursors.left.isDown || wasd.a.isDown) {
             game.camera.x -= scrollSpd;
@@ -156,6 +172,7 @@ playState0 = {
             game.camera.y += scrollSpd;
         }
 
+        
         // resting animation on for all corals on gameBoard
         for (i = 0; i <= 31; i += 1) {
             for (j = 0; j <= 31; j += 1) {
@@ -300,9 +317,10 @@ function clickHandler() {
 
     // create new coral object in corals list under pointer
     // add type for property for diff corals later
+    
     tempCoral = new Coral(
         id = coralid,
-        type = 2
+        type = towertype
     );
 
 
