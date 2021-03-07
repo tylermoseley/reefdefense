@@ -8,8 +8,9 @@ playState0 = {
         game.load.image('caveright', 'Assets/Tilesets/caveright.png');
         game.load.image('cavetop', 'Assets/Tilesets/cavetop.png');
         game.load.image('cavebottom', 'Assets/Tilesets/cavebottom.png');
-        game.load.spritesheet('Crab', 'Assets/spritesheets/crabSheet.png', 320, 320)
-        game.load.spritesheet('Bullet', 'Assets/spritesheets/bullet.png', 32, 64)
+        game.load.spritesheet('Crab', 'Assets/spritesheets/crabSheet.png', 320, 320);
+        game.load.spritesheet('Bullet', 'Assets/spritesheets/bullet.png', 32, 64);
+        game.load.spritesheet('Clam', 'Assets/spritesheets/clam.png', 64, 64);
     },
 
     create: function () {
@@ -57,8 +58,11 @@ playState0 = {
         };
 
         // add clam to center on load
-        clam = game.add.sprite((32**2/2)-40, (32**2/2)-40, "clam")
-        game.physics.enable(clam)
+        clam = game.add.sprite(512 - 32, 512-45, "Clam");
+        clam.animations.add('Resting', [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]);
+        clam.animations.play('Resting', 18, true)
+        clam.scale.setTo(1.1, 1.1)
+        game.physics.enable(clam);
 
 
         // mouseWheel to capture scrolling for alternate movement
@@ -69,8 +73,8 @@ playState0 = {
         //added a start level button
         startButton = game.add.button(380, 310, 'start', startLevel, this, 2, 1, 0);
         startButton.fixedToCamera = true;
-        startButton.anchor.setTo(0.5, 0.5)
-        startButton.scale.setTo(0.2,0.2)
+        startButton.anchor.setTo(0.5, 0.5);
+        startButton.scale.setTo(0.2,0.2);
 
         bullets = game.add.group();
         bullets.enableBody = true;
