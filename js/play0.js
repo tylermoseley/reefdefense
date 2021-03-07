@@ -16,7 +16,7 @@ playState0 = {
 
     create: function () {
 
-        game.add.plugin(Phaser.Plugin.Debug);
+        // game.add.plugin(Phaser.Plugin.Debug);
 
         game.add.text(80, 150, 'loading game ...', {font: '30px Courier', fill: '#fff'});
 
@@ -98,23 +98,29 @@ playState0 = {
         moneyTXT.fixedToCamera = true;
         moneyTXT.anchor.setTo(1,0)
 
-        tower1_button = game.add.sprite(725, 40, 'tower1');
+        tower1_button = game.add.sprite(725, 30, 'tower1');
         tower1_button.fixedToCamera = true;
         //tower1_button.anchor.setTo(1, 0);
-        tower1_button.scale.setTo(.04,.04)
 
         tower1_cost = game.add.text(795, 40, "Press 1\n10G", {font: "10px Arial", text: "bold()", fill: "#000000", align: "right"})
         tower1_cost.fixedToCamera = true;
         tower1_cost.anchor.setTo(1,0)
 
-        tower2_button = game.add.sprite(725, 80, 'tower1');
+        tower2_button = game.add.sprite(725, 80, 'tower2');
         tower2_button.fixedToCamera = true;
         //tower2_button.anchor.setTo(1, 0);
-        tower2_button.scale.setTo(.04,.04)
 
         tower2_cost = game.add.text(795, 80, "Press 2\n20G", {font: "10px Arial", text: "bold()", fill: "#000000", align: "right"})
         tower2_cost.fixedToCamera = true;
         tower2_cost.anchor.setTo(1,0)
+
+        tower3_button = game.add.sprite(725, 120, 'tower3');
+        tower3_button.fixedToCamera = true;
+        //tower2_button.anchor.setTo(1, 0);
+
+        tower3_cost = game.add.text(795, 120, "Press 3\n20G", {font: "10px Arial", text: "bold()", fill: "#000000", align: "right"})
+        tower3_cost.fixedToCamera = true;
+        tower3_cost.anchor.setTo(1,0)
 
         bullets = game.add.group();
         bullets.enableBody = true;
@@ -220,6 +226,17 @@ class Coral {
                 this.range = 256;
                 break;
         }
+        switch (this.type) {
+            case 1:
+                this.spriteName = 'tower1'
+                break;
+            case 2:
+                this.spriteName = 'tower2'
+                break;
+            case 3:
+                this.spriteName = 'tower3'
+                break;
+        }
         this.nextFire = 0
         this.fireRate = 400
         // this.bullet = bullets.getFirstDead();
@@ -231,7 +248,7 @@ class Coral {
         if (tile == null){
             return 0;
         } else if (gameBoard[tile.x][tile.y] === "None") {
-            this.sprite = game.add.sprite(tile.worldX, tile.worldY, "bubble")
+            this.sprite = game.add.sprite(tile.worldX, tile.worldY, this.spriteName)
             game.physics.enable(this.sprite);
             this.sprite.animations.add("ripple", [0,3])
             gameBoard[tile.x][tile.y] = this
@@ -317,6 +334,8 @@ function clickHandler() {
     tower1_cost.bringToTop();
     tower2_button.bringToTop();
     tower2_cost.bringToTop();
+    tower3_button.bringToTop();
+    tower3_cost.bringToTop();
 }
 
 //same problem as before if i put the shop in a different function
