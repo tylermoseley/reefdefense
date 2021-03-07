@@ -263,6 +263,7 @@ for (i=0; i<=31; i++) {
 }
 // initialize corals list and coralid index sequence
 coralid = "c0"
+previousCoralID = coralid
 defending = 0
 
 // main handler for mouse clicks
