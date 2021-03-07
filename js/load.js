@@ -15,7 +15,9 @@ var loadState = {
         game.load.atlasJSONHash('PlayButton', 'Assets/img/PlayButton/PlayButton.png', 'Assets/img/PlayButton/PlayButton.json')
         game.load.image('start', 'Assets/img/start.png')
         game.load.image('shop_bar', 'Assets/img/backgrounds/Grey Bar.png')
-        game.load.image('tower1', 'Assets/spritesheets/coral placeholder1.png')
+        game.load.spritesheet('tower1', 'Assets/spritesheets/coral placeholder1.png', 820, 731)
+        game.load.spritesheet('tower2', 'Assets/spritesheets/coral placeholder1.png', 820, 731)
+        game.load.spritesheet('tower3', 'Assets/spritesheets/coral placeholder1.png', 820, 731)
         game.load.image('gold', 'Assets/spritesheets/gold placeholder.png')
 
         //sounds, efx, music...

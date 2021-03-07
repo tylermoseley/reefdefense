@@ -101,7 +101,7 @@ playState0 = {
         tower1_cost.fixedToCamera = true;
         tower1_cost.anchor.setTo(1,0)
 
-        tower2_button = game.add.sprite(725, 80, 'tower1');
+        tower2_button = game.add.sprite(725, 80, 'tower2');
         tower2_button.fixedToCamera = true;
         //tower2_button.anchor.setTo(1, 0);
         tower2_button.scale.setTo(.04,.04)
@@ -109,6 +109,15 @@ playState0 = {
         tower2_cost = game.add.text(795, 80, "Press 2\n20G", {font: "10px Arial", text: "bold()", fill: "#000000", align: "right"})
         tower2_cost.fixedToCamera = true;
         tower2_cost.anchor.setTo(1,0)
+
+        tower3_button = game.add.sprite(725, 120, 'tower3');
+        tower3_button.fixedToCamera = true;
+        //tower2_button.anchor.setTo(1, 0);
+        tower3_button.scale.setTo(.04,.04)
+
+        tower3_cost = game.add.text(795, 120, "Press 3\n20G", {font: "10px Arial", text: "bold()", fill: "#000000", align: "right"})
+        tower3_cost.fixedToCamera = true;
+        tower3_cost.anchor.setTo(1,0)
 
         bullets = game.add.group();
         bullets.enableBody = true;
@@ -203,6 +212,17 @@ class Coral {
                 this.range = 256;
                 break;
         }
+        switch (this.type) {
+            case 1:
+                this.spriteName = 'tower1'
+                break;
+            case 2:
+                this.spriteName = 'tower2'
+                break;
+            case 3:
+                this.spriteName = 'tower3'
+                break;
+        }
         this.nextFire = 0
         this.fireRate = 400
         // this.bullet = bullets.getFirstDead();
@@ -214,7 +234,7 @@ class Coral {
         if (tile == null){
             return 0;
         } else if (gameBoard[tile.x][tile.y] === "None") {
-            this.sprite = game.add.sprite(tile.worldX, tile.worldY, "bubble")
+            this.sprite = game.add.sprite(tile.worldX, tile.worldY, this.spriteName)
             game.physics.enable(this.sprite);
             this.sprite.animations.add("ripple", [0,3])
             gameBoard[tile.x][tile.y] = this
