@@ -1,4 +1,5 @@
 var bullet, gameOver = 0
+
 playState0 = {
     preload: function() {
         game.load.tilemap('Map0', 'Assets/Map/Map0.json', null, Phaser.Tilemap.TILED_JSON);
@@ -68,13 +69,46 @@ playState0 = {
         // mouseWheel to capture scrolling for alternate movement
         // up/down only in phaser <3.2*
         // mouseWheel = game.input.mouseWheel;
-
+        
 
         //added a start level button
         startButton = game.add.button(380, 310, 'start', startLevel, this, 2, 1, 0);
         startButton.fixedToCamera = true;
         startButton.anchor.setTo(0.5, 0.5);
         startButton.scale.setTo(0.2,0.2);
+
+        //shop
+        shopbar = game.add.sprite(800, 0, 'shop_bar');
+        shopbar.fixedToCamera = true;
+        shopbar.anchor.setTo(1, 0)
+        shopbar.scale.setTo(1,1)
+
+        gold = game.add.sprite(750, 0, "gold");
+        gold.fixedToCamera = true;
+        gold.anchor.setTo(1,0)
+        gold.scale.setTo(.03,.03)
+
+        moneyTXT = game.add.text(790, 5, "100", {font: "18px Arial", fill: "#000000", align: "left" });
+        moneyTXT.fixedToCamera = true;
+        moneyTXT.anchor.setTo(1,0)
+
+        tower1_button = game.add.sprite(725, 40, 'tower1');
+        tower1_button.fixedToCamera = true;
+        //tower1_button.anchor.setTo(1, 0);
+        tower1_button.scale.setTo(.04,.04)
+
+        tower1_cost = game.add.text(795, 40, "Press 1\n10G", {font: "10px Arial", text: "bold()", fill: "#000000", align: "right"})
+        tower1_cost.fixedToCamera = true;
+        tower1_cost.anchor.setTo(1,0)
+
+        tower2_button = game.add.sprite(725, 80, 'tower1');
+        tower2_button.fixedToCamera = true;
+        //tower2_button.anchor.setTo(1, 0);
+        tower2_button.scale.setTo(.04,.04)
+
+        tower1_cost = game.add.text(795, 80, "Press 2\n20G", {font: "10px Arial", text: "bold()", fill: "#000000", align: "right"})
+        tower1_cost.fixedToCamera = true;
+        tower1_cost.anchor.setTo(1,0)
 
         bullets = game.add.group();
         bullets.enableBody = true;
@@ -128,6 +162,8 @@ playState0 = {
                 }
             }
         }
+
+        //shop_bar();
 
         if(defending & gameOver == 0) {
             crabMove(crab, 0.25)
@@ -255,10 +291,37 @@ function clickHandler() {
 
     game.debug.text(coralid, 12, 36)
     game.debug.text("Tile: world: {"+tile.worldX+","+tile.worldY+"} index: ("+tile.x+","+tile.y+")", 12, 16);
-
     startButton.bringToTop();
+    shopbar.bringToTop();
+    gold.bringToTop();
+    moneyTXT.bringToTop();
+    tower1_button.bringToTop();
+    tower1_cost.bringToTop();
+    tower2_button.bringToTop();
 }
 
+//same problem as before if i put the shop in a different function
+/*
+function shop_bar(){
+    if (previousCoralID !== coralid){
+        shopbar = game.add.sprite(800, 0, 'shop_bar');
+        shopbar.fixedToCamera = true;
+        shopbar.anchor.setTo(1, 0);
+        shopbar.scale.setTo(1,1)
+
+        moneyTXT = game.add.text(775, 20, "money", {font: "12px Arial", fill: "#000000", align: "left" });
+        moneyTXT.fixedToCamera = true;
+        moneyTXT.anchor.setTo(1,0)
+
+        tower1_button = game.add.button(800, 40, 'tower1', startLevel, this, 2, 1, 0);
+        tower1_button.fixedToCamera = true;
+        tower1_button.anchor.setTo(1, 0);
+        tower1_button.scale.setTo(.08,.08)
+
+        previousCoralID = coralid
+    }
+}
+*/
 // display rectangle on mouse location
 function updateMarker() {
     marker.x = layer.getTileX(game.input.activePointer.worldX) * 32;

@@ -14,6 +14,9 @@ var loadState = {
         game.load.image('home-background', 'assets/img/backgrounds/UnderWater.png');
         game.load.atlasJSONHash('PlayButton', 'Assets/img/PlayButton/PlayButton.png', 'Assets/img/PlayButton/PlayButton.json')
         game.load.image('start', 'Assets/img/start.png')
+        game.load.image('shop_bar', 'Assets/img/backgrounds/Grey Bar.png')
+        game.load.image('tower1', 'Assets/spritesheets/coral placeholder1.png')
+        game.load.image('gold', 'Assets/spritesheets/gold placeholder.png')
 
         //sounds, efx, music...
         //Example: game.load.audio('rockas', 'assets/snd/rockas.wav');
