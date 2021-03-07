@@ -1,4 +1,11 @@
-var bullet, gameOver = 0, towertype = 1,
+var bullet, gameOver=0, towertype=1, snd, coralid="c0", defending=0, gameBoard=[]
+// create empty 32x32 gameBoard (maybe add dimension variable if board size change)
+for (i=0; i<=31; i++) {
+    gameBoard.push([])
+    for (j=0; j<=31; j++){
+        gameBoard[i].push("None")
+    }
+}
 
 playState0 = {
     preload: function() {
@@ -19,7 +26,7 @@ playState0 = {
         // game.add.plugin(Phaser.Plugin.Debug);
 
         game.add.text(80, 150, 'loading game ...', {font: '30px Courier', fill: '#fff'});
-
+        // tile map and layers
         map = game.add.tilemap('Map0');
         map.addTilesetImage('Water');
         map.addTilesetImage('sand');
@@ -27,7 +34,6 @@ playState0 = {
         map.addTilesetImage('caveright');
         map.addTilesetImage('cavetop');
         map.addTilesetImage('cavebottom');
-
         SandBottom = map.createLayer('SandBottom');
         WaterEdgesMid = map.createLayer('WaterEdgesMid');
         layer = map.createLayer('PathsTop');
@@ -51,19 +57,20 @@ playState0 = {
         // set cursors variable to keyboard cursor input
         cursors = game.input.keyboard.createCursorKeys();
 
+        // key presses
         wasd = {
             w: game.input.keyboard.addKey(Phaser.Keyboard.W),
             s: game.input.keyboard.addKey(Phaser.Keyboard.S),
             a: game.input.keyboard.addKey(Phaser.Keyboard.A),
             d: game.input.keyboard.addKey(Phaser.Keyboard.D),
         };
-
         towerKeys = {
             one: game.input.keyboard.addKey(Phaser.Keyboard.ONE),
             two: game.input.keyboard.addKey(Phaser.Keyboard.TWO),
             three: game.input.keyboard.addKey(Phaser.Keyboard.THREE),
             
         }
+
         // add clam to center on load
         clam = game.add.sprite(512 - 32, 512-45, "Clam");
         clam.animations.add('Resting', [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]);
@@ -122,6 +129,7 @@ playState0 = {
         tower3_cost.fixedToCamera = true;
         tower3_cost.anchor.setTo(1,0)
 
+        // create bullets group
         bullets = game.add.group();
         bullets.enableBody = true;
         bullets.physicsBodyType = Phaser.Physics.ARCADE;
@@ -144,10 +152,7 @@ playState0 = {
     },
 
     update: function() {
-
-        // move camera with cursors with "speed" set
-        // (setting to factors of 32 makes it hard to see movement)
-
+        // set tower type based on number keys
         if (towerKeys.one.isDown){
             towertype = 1
         }
@@ -157,6 +162,9 @@ playState0 = {
         if (towerKeys.three.isDown){
             towertype = 3
         }
+
+        // move camera with cursors with "speed" set
+        // (setting to factors of 32 makes it hard to see movement)
         scrollSpd = 8
         if (cursors.left.isDown || wasd.a.isDown) {
             game.camera.x -= scrollSpd;
@@ -170,7 +178,7 @@ playState0 = {
         }
 
         
-        // resting animation on for all corals on gameBoard
+        // resting state for all corals on gameBoard
         for (i = 0; i <= 31; i += 1) {
             for (j = 0; j <= 31; j += 1) {
                 if (typeof gameBoard[i][j] === 'object') {
@@ -180,14 +188,12 @@ playState0 = {
                         } else {
                             gameBoard[i][j].resting();
                         }
-                        // game.physics.arcade.overlap(gameBoard[i][j].sprite, crab, collectStar, null, this);
                     }
                 }
             }
         }
 
-        //shop_bar();
-
+        // initial hard coding for enemy wave
         if(defending & gameOver == 0) {
             crabMove(crab, 0.25)
             game.physics.arcade.overlap(bullet, crab, crabHit)
@@ -204,6 +210,7 @@ async function crabHit () {
     crab.tint = 0xFFFFFF;
 }
 
+// game over event
 function clamHit () {
     clam.kill();
     GOText = game.add.text(game.camera.x, game.camera.y, 'Game Over', {font: '55px Courier', fill: '#fff'});
@@ -211,6 +218,7 @@ function clamHit () {
     gameOver = 1
 }
 
+// coral class for coral objects
 class Coral {
     constructor (id, type) {
         this.id = id
@@ -218,22 +226,14 @@ class Coral {
         switch (this.type) {
             case 1:
                 this.range = 64;
-                break;
-            case 2:
-                this.range = 128;
-                break;
-            case 3:
-                this.range = 256;
-                break;
-        }
-        switch (this.type) {
-            case 1:
                 this.spriteName = 'tower1'
                 break;
             case 2:
+                this.range = 128;
                 this.spriteName = 'tower2'
                 break;
             case 3:
+                this.range = 256;
                 this.spriteName = 'tower3'
                 break;
         }
@@ -241,12 +241,14 @@ class Coral {
         this.fireRate = 400
         // this.bullet = bullets.getFirstDead();
     }
+    // locating coral method
     locate (tile, gameBoard) {
-        // there is nothing on gameBoard, place coral object
         // add currency check here later
+
         // tile == null means there is no water on the mid layer
         if (tile == null){
             return 0;
+        // if there is nothing on gameBoard, place coral object
         } else if (gameBoard[tile.x][tile.y] === "None") {
             this.sprite = game.add.sprite(tile.worldX, tile.worldY, this.spriteName)
             game.physics.enable(this.sprite);
@@ -257,14 +259,16 @@ class Coral {
             this.worldX = tile.worldX
             this.worldY = tile.worldY
             return 1;
-        // no coral is added for now, change for conflict resolution
+        // if coral already exists,no coral is added for now, change for conflict resolution
         } else if (gameBoard[tile.x][tile.y] !== "None") {
             return 0;
         }
     }
+    // resting animation
     resting () {
         this.sprite.animations.play("ripple", 4, true)
     }
+    // seek out enemy in range and fire if so
     seekEnemies (crab, bullets) {
         this.crabDistance = Phaser.Math.distance(
             this.sprite.centerX,
@@ -278,29 +282,17 @@ class Coral {
             this.sprite.animations.play("ripple", 4, true)
         }
     }
+    // fire bullets at crab at rate determined at construction of coral
     fire (crab, bullets) {
         if (game.time.now > this.nextFire) {
             this.nextFire = game.time.now + this.fireRate;
             bullet = bullets.getFirstDead();
-            // this.bullet.anchor.setTo(0.25)
             bullet.reset(this.sprite.centerX, this.sprite.centerY);
             game.physics.arcade.moveToObject(bullet, crab, 200);
             bullet.rotation = game.physics.arcade.angleToXY(bullet, crab.centerX, crab.centerY)
         }
     }
 }
-
-// create empty 32x32 gameBoard (maybe add dimension variable if board size change)
-gameBoard = [];
-for (i=0; i<=31; i++) {
-    gameBoard.push([])
-    for (j=0; j<=31; j++){
-        gameBoard[i].push("None")
-    }
-}
-// initialize corals list and coralid index sequence
-coralid = "c0"
-defending = 0
 
 // main handler for mouse clicks
 function clickHandler() {
@@ -324,8 +316,10 @@ function clickHandler() {
     // locate coral with curent id to game board (increment coralid with prefix if success)
     if ( tempCoral.locate(watertile, gameBoard) ) {coralid = coralid.slice(0,1) + (Number(coralid.slice(1)) + 1)};
 
-    game.debug.text(coralid, 12, 36)
-    game.debug.text("Tile: world: {"+tile.worldX+","+tile.worldY+"} index: ("+tile.x+","+tile.y+")", 12, 16);
+    // game.debug.text(coralid, 12, 36)
+    // game.debug.text("Tile: world: {"+tile.worldX+","+tile.worldY+"} index: ("+tile.x+","+tile.y+")", 12, 16);
+
+    // keep controls on top after building corals
     startButton.bringToTop();
     shopbar.bringToTop();
     gold.bringToTop();
@@ -375,15 +369,15 @@ function sleep(seconds) {
 async function startLevel() {
     startButton.destroy();
 //code to add countdown counter for enemy waves
-    // countdown = game.add.text(game.camera.x+100, game.camera.y+200, 'Starting in ... 3', {font: '55px Courier', fill: '#fff'});
-    // await sleep(1);
-    // countdown.text = "Starting in ... 2"
-    // await sleep(1);
-    // countdown.text = "Starting in ... 1"
-    // await sleep(1);
-    // countdown.text = "Defend!"
-    // await sleep(1);
-    // countdown.destroy();
+    countdown = game.add.text(game.camera.x+100, game.camera.y+200, 'Starting in ... 3', {font: '55px Courier', fill: '#fff'});
+    await sleep(1);
+    countdown.text = "Starting in ... 2"
+    await sleep(1);
+    countdown.text = "Starting in ... 1"
+    await sleep(1);
+    countdown.text = "Defend!"
+    await sleep(1);
+    countdown.destroy();
 
     speed = 1
     defending = 1
