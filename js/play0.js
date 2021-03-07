@@ -181,11 +181,4 @@ function startLevel() {
 
     crab.animations.add('walk', [0,1,2,3,4,5]);
     crab.animations.play('walk', 18, true);
-
-    
-    
-}
-
-function crabMove(crab, speed) {
-    crab.x += speed
 }
