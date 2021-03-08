@@ -101,7 +101,8 @@ playState0 = {
         gold.anchor.setTo(1,0)
         gold.scale.setTo(.03,.03)
 
-        moneyTXT = game.add.text(790, 5, "100", {font: "18px Arial", fill: "#000000", align: "left" });
+        //money 
+        moneyTXT = game.add.text(790, 5, balance, {font: "18px Arial", fill: "#000000", align: "left" });
         moneyTXT.fixedToCamera = true;
         moneyTXT.anchor.setTo(1,0)
 
@@ -202,6 +203,9 @@ playState0 = {
     }
 }
 
+var balance = 100;
+var prices = [10 , 20, 30]
+
 // this will change once enemy groups implemented.
 async function crabHit () {
     bullet.kill();
@@ -227,14 +231,17 @@ class Coral {
             case 1:
                 this.range = 64;
                 this.spriteName = 'tower1'
+                this.cost = prices[0]
                 break;
             case 2:
                 this.range = 128;
                 this.spriteName = 'tower2'
+                this.cost = prices[1]
                 break;
             case 3:
                 this.range = 256;
                 this.spriteName = 'tower3'
+                this.cost = prices[2]
                 break;
         }
         this.nextFire = 0
@@ -249,7 +256,8 @@ class Coral {
         if (tile == null){
             return 0;
         // if there is nothing on gameBoard, place coral object
-        } else if (gameBoard[tile.x][tile.y] === "None") {
+        } else if (gameBoard[tile.x][tile.y] === "None" && balance >= this.cost) {
+            balance -= this.cost
             this.sprite = game.add.sprite(tile.worldX, tile.worldY, this.spriteName)
             game.physics.enable(this.sprite);
             this.sprite.animations.add("resting"+this.id, [0,1,2,3])
@@ -320,6 +328,8 @@ function clickHandler() {
 
     // game.debug.text(coralid, 12, 36)
     // game.debug.text("Tile: world: {"+tile.worldX+","+tile.worldY+"} index: ("+tile.x+","+tile.y+")", 12, 16);
+
+    moneyTXT.text = balance;
 
     // keep controls on top after building corals
     startButton.bringToTop();
