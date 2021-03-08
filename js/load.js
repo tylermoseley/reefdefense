@@ -11,7 +11,7 @@ var loadState = {
         var loadingLabel = game.add.text(80, 150, 'loading...', {font: '30px Courier', fill: '#fff'});
 
         //images, spritesheets, bitmaps...
-        game.load.image('home-background', 'assets/img/backgrounds/UnderWater.png');
+        game.load.image('home-background', 'Assets/img/backgrounds/UnderWater.png');
         game.load.atlasJSONHash('PlayButton', 'Assets/img/PlayButton/PlayButton.png', 'Assets/img/PlayButton/PlayButton.json')
         game.load.image('start', 'Assets/img/start.png')
         game.load.image('shop_bar', 'Assets/img/backgrounds/Grey Bar.png')
