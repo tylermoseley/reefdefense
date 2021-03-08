@@ -252,7 +252,9 @@ class Coral {
         } else if (gameBoard[tile.x][tile.y] === "None") {
             this.sprite = game.add.sprite(tile.worldX, tile.worldY, this.spriteName)
             game.physics.enable(this.sprite);
-            this.sprite.animations.add("ripple", [0,3])
+            this.sprite.animations.add("resting"+this.id, [0,1,2,3])
+            this.sprite.animations.add("attacking"+this.id, [3,4,5,6])
+            this.sprite.animations.play("resting"+this.id, 3, true)
             gameBoard[tile.x][tile.y] = this
             this.x = tile.x
             this.y = tile.y
@@ -266,7 +268,7 @@ class Coral {
     }
     // resting animation
     resting () {
-        this.sprite.animations.play("ripple", 4, true)
+        this.sprite.animations.play("resting"+this.id, 3, true)
     }
     // seek out enemy in range and fire if so
     seekEnemies (crab, bullets) {
@@ -276,10 +278,10 @@ class Coral {
             crab.centerX,
             crab.centerY)
         if (this.crabDistance < this.range) {
-            this.sprite.animations.paused = true;
+            this.sprite.animations.play("attacking"+this.id, 12, true);
             this.fire(crab, bullets);
         } else {
-            this.sprite.animations.play("ripple", 4, true)
+            this.sprite.animations.play("resting"+this.id, 3, true);
         }
     }
     // fire bullets at crab at rate determined at construction of coral
