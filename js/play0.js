@@ -74,9 +74,14 @@ playState0 = {
         // add clam to center on load
         clam = game.add.sprite(512 - 32, 512-45, "Clam");
         clam.animations.add('Resting', [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]);
-        clam.animations.play('Resting', 18, true)
+        
+
+        var ClamBubbles = game.add.audio("ClamBubbles");
+
         clam.scale.setTo(1.1, 1.1)
         game.physics.enable(clam);
+
+        Clam(ClamBubbles);
 
 
         // mouseWheel to capture scrolling for alternate movement
@@ -201,6 +206,15 @@ playState0 = {
             game.physics.arcade.overlap(crab, clam, clamHit)
         }
     }
+}
+
+async function Clam(ClamBubbles){
+    while(true){
+        clam.animations.play('Resting', 16)
+        ClamBubbles.play();
+        await sleep(8)
+        console.log('its working')
+    }    
 }
 
 var balance = 100;
