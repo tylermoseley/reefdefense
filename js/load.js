@@ -22,6 +22,7 @@ var loadState = {
 
         //sounds, efx, music...
         //Example: game.load.audio('rockas', 'assets/snd/rockas.wav');
+        game.load.audio('ClamBubbles', 'Assets/audio/ClamBubbles.mp3')
 
         //data, JSON, Querys...
         //Example: game.load.json('version', 'http://phaser.io/version.json');
