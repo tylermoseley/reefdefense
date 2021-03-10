@@ -213,7 +213,6 @@ async function Clam(ClamBubbles){
         clam.animations.play('Resting', 16)
         ClamBubbles.play();
         await sleep(8)
-        console.log('its working')
     }    
 }
 
@@ -234,6 +233,8 @@ function clamHit () {
     GOText = game.add.text(game.camera.x, game.camera.y, 'Game Over', {font: '55px Courier', fill: '#fff'});
     GOText.fixedToCamera = true;
     gameOver = 1
+    var gameOver = game.add.audio("GameOver")
+    gameOver.play();
 }
 
 // coral class for coral objects
@@ -246,21 +247,26 @@ class Coral {
                 this.range = 64;
                 this.spriteName = 'tower1'
                 this.cost = prices[0]
+                //added same sound for all towers for now on shoot, can swap easily later
+                this.popSound = game.add.audio("PopSound")
                 break;
             case 2:
                 this.range = 128;
                 this.spriteName = 'tower2'
                 this.cost = prices[1]
+                this.popSound = game.add.audio("PopSound")
                 break;
             case 3:
                 this.range = 256;
                 this.spriteName = 'tower3'
                 this.cost = prices[2]
+                this.popSound = game.add.audio("PopSound")
                 break;
         }
         this.nextFire = 0
         this.fireRate = 400
         // this.bullet = bullets.getFirstDead();
+        this.moneyBag = game.add.audio("MoneyBag")
     }
     // locating coral method
     locate (tile, gameBoard) {
@@ -277,6 +283,8 @@ class Coral {
             this.sprite.animations.add("resting"+this.id, [0,1,2,3])
             this.sprite.animations.add("attacking"+this.id, [3,4,5,6])
             this.sprite.animations.play("resting"+this.id, 3, true)
+            this.moneyBag.play();
+            
             gameBoard[tile.x][tile.y] = this
             this.x = tile.x
             this.y = tile.y
@@ -314,6 +322,7 @@ class Coral {
             bullet.reset(this.sprite.centerX, this.sprite.centerY);
             game.physics.arcade.moveToObject(bullet, crab, 200);
             bullet.rotation = game.physics.arcade.angleToXY(bullet, crab.centerX, crab.centerY)
+            this.popSound.play("", 0, .2);
         }
     }
 }
