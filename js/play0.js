@@ -120,9 +120,10 @@ playState0 = {
         tower1_cost.fixedToCamera = true;
         tower1_cost.anchor.setTo(1,0)
 
-        tower2_button = game.add.sprite(725, 80, 'tower2');
+        tower2_button = game.add.sprite(723, 80, 'tower2');
         tower2_button.fixedToCamera = true;
-        //tower2_button.anchor.setTo(1, 0);
+        tower2_button.anchor.setTo(0, 0);
+        tower2_button.scale.setTo(.9, .9)
 
         tower2_cost = game.add.text(795, 80, "Press 2\n20G", {font: "10px Arial", text: "bold()", fill: "#000000", align: "right"})
         tower2_cost.fixedToCamera = true;
