@@ -101,19 +101,20 @@ playState0 = {
         shopbar.anchor.setTo(1, 0)
         shopbar.scale.setTo(1,1)
 
-        gold = game.add.sprite(750, 0, "gold");
+        gold = game.add.sprite(755, 2, "gold");
         gold.fixedToCamera = true;
         gold.anchor.setTo(1,0)
-        gold.scale.setTo(.03,.03)
+        gold.scale.setTo(.035,.035)
 
         //money 
         moneyTXT = game.add.text(790, 5, balance, {font: "18px Arial", fill: "#000000", align: "left" });
         moneyTXT.fixedToCamera = true;
         moneyTXT.anchor.setTo(1,0)
 
-        tower1_button = game.add.sprite(725, 30, 'tower1');
+        tower1_button = game.add.sprite(728, 38, 'tower1');
         tower1_button.fixedToCamera = true;
-        //tower1_button.anchor.setTo(1, 0);
+        tower1_button.anchor.setTo(0, 0);
+        tower1_button.scale.setTo(0.8,0.8);
 
         tower1_cost = game.add.text(795, 40, "Press 1\n10G", {font: "10px Arial", text: "bold()", fill: "#000000", align: "right"})
         tower1_cost.fixedToCamera = true;
@@ -127,11 +128,12 @@ playState0 = {
         tower2_cost.fixedToCamera = true;
         tower2_cost.anchor.setTo(1,0)
 
-        tower3_button = game.add.sprite(725, 120, 'tower3');
+        tower3_button = game.add.sprite(728, 123, 'tower3');
         tower3_button.fixedToCamera = true;
-        //tower2_button.anchor.setTo(1, 0);
+        tower3_button.anchor.setTo(0, 0);
+        tower3_button.scale.setTo(0.8,0.8);
 
-        tower3_cost = game.add.text(795, 120, "Press 3\n20G", {font: "10px Arial", text: "bold()", fill: "#000000", align: "right"})
+        tower3_cost = game.add.text(795, 125, "Press 3\n20G", {font: "10px Arial", text: "bold()", fill: "#000000", align: "right"})
         tower3_cost.fixedToCamera = true;
         tower3_cost.anchor.setTo(1,0)
 
