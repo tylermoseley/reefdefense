@@ -15,6 +15,7 @@ var menuState = {
 
         game.add.image(0, 0, 'home-background');
         game.add.button(250, 338, 'PlayButton', startGame, this, 2, 1, 0);
+        game.add.button(250, 500, 'tutorialButton', startGame, this, 2, 1, 0);
     
         // bubble = game.add.sprite(200, 200, "bubble");
         // bubble.scale.setTo(1.5, 1.5)
@@ -30,4 +31,8 @@ function startGame () {
     snd.play();
     game.state.start('play0');
     
+}
+
+function tutorialStage() {
+    game.state.start('tutorialState')
 }
