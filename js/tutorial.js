@@ -1,4 +1,4 @@
-tutorialState = {
+var tutorialState = {
     preload: function() {
         game.load.tilemap('Map0', 'Assets/Map/Map0.json', null, Phaser.Tilemap.TILED_JSON);
         game.load.image('Water', 'Assets/Tilesets/water_tileset.png');
@@ -198,9 +198,9 @@ tutorialState = {
 function tutorialTXT (){
     game.add.text(80, 150, 'Reef Defense is a tower defense game where the main objective is to build towers to \nprotect the clam from the oncoming waves of enemies trying to steal the pearl', {font: '18px Courier', fill: '#fff'});
     
-
 }
-
+/*
 function deleteTXT(){
-
+    
 }
+*/
