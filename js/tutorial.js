@@ -147,8 +147,12 @@ var tutorialState = {
         tutorialTXT0 = game.add.text(game.width / 2 - 180, 10, "Welcome to Reef Defense!",{font: "16px Arial", text: "bold()", fill: "#ffffff", align: "left"})
         tutorialTXT0.fixedToCamera = true;
 
-        tutorialTXT1 = game.add.text(game.width / 2 - 180, 10, "Reef Defense is a tower defense game where the main objective is\n to build towers to protect the clam from the oncoming waves\n of enemies trying to steal the pearl",{font: "16px Arial", text: "bold()", fill: "#ffffff", align: "left"})
-        tutorialTXT1.fixedToCamera = true;
+        if (tutorialKeys.spacebar.isDown){
+            game.input.onDown.addOnce(removeTXT, this)
+            counter +=1
+            tutorialTXT1 = game.add.text(game.width / 2 - 180, 10, "Reef Defense is a tower defense game where the main objective is\n to build towers to protect the clam from the oncoming waves\n of enemies trying to steal the pearl",{font: "16px Arial", text: "bold()", fill: "#ffffff", align: "left"})
+            tutorialTXT1.fixedToCamera = true;
+        };
 
         // create bullets group
         bullets = game.add.group();
@@ -264,6 +268,10 @@ function clickHandler() {
     textbox.bringToTop();
     skipTXT.bringToTop();
     tutorialTXT1.bringToTop();
+}
+
+function removeTXT(){
+    text.destroy();
 }
 /*
 function testMessageBox() {
