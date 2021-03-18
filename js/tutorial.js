@@ -10,6 +10,7 @@ var tutorialState = {
         game.load.spritesheet('Crab', 'Assets/spritesheets/crabSheet.png', 320, 320);
         game.load.spritesheet('Bullet', 'Assets/spritesheets/bullet.png', 32, 64);
         game.load.spritesheet('Clam', 'Assets/spritesheets/clam.png', 64, 64);
+        game.load.image('TXTbox', 'Assets/spritesheets/Textbox blue.png')
     },
 
     create: function(){
@@ -45,6 +46,8 @@ var tutorialState = {
         // set cursors variable to keyboard cursor input
         cursors = game.input.keyboard.createCursorKeys();
 
+        ///testMessageBox()
+
         // key presses
         wasd = {
             w: game.input.keyboard.addKey(Phaser.Keyboard.W),
@@ -57,8 +60,15 @@ var tutorialState = {
             two: game.input.keyboard.addKey(Phaser.Keyboard.TWO),
             three: game.input.keyboard.addKey(Phaser.Keyboard.THREE),
             
-        }
+        };
+        tutorialKeys = {
+            spacebar: game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR),
+            esc: game.input.keyboard.addKey(Phaser.Keyboard.ESC)
+        };
+        ///spacebar.events.onDown.add(this.testMessageBox,this)
 
+        
+        
         // add clam to center on load
         clam = game.add.sprite(512 - 32, 512-45, "Clam");
         clam.animations.add('Resting', [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]);
@@ -122,6 +132,20 @@ var tutorialState = {
         tower3_cost = game.add.text(795, 120, "Press 3\n20G", {font: "10px Arial", text: "bold()", fill: "#000000", align: "right"})
         tower3_cost.fixedToCamera = true;
         tower3_cost.anchor.setTo(1,0)
+
+        textbox = game.add.sprite(game.width/2, 10, "TXTbox");
+        textbox.fixedToCamera = true;
+        ///textbox.scale(1.4, 1.4);
+
+        /*
+        msgBox.x = game.width / 2 - msgBox.width / 2;
+        msgBox.y = game.height / 2 - msgBox.height / 2;
+        */
+    
+        tutorialTXT1 = game.add.text(game.width / 2 - 100, 10, "Welcome to Reef Defense!",{font: "20px Arial", text: "bold()", fill: "#ffffff", align: "left"})
+        tutorialTXT1.fixedToCamera = true;
+
+
 
         // create bullets group
         bullets = game.add.group();
@@ -195,6 +219,87 @@ var tutorialState = {
     }
 };
 
+
+// main handler for mouse clicks
+function clickHandler() {
+    pointerX = SandBottom.getTileX(game.input.activePointer.worldX);
+    pointerY = SandBottom.getTileY(game.input.activePointer.worldY);
+    tile = map.getTile(pointerX, pointerY, SandBottom);
+
+    waterpointerX = WaterEdgesMid.getTileX(game.input.activePointer.worldX);
+    waterpointerY = WaterEdgesMid.getTileY(game.input.activePointer.worldY);
+    watertile = map.getTile(pointerX, pointerY, WaterEdgesMid);
+
+    // create new coral object in corals list under pointer
+    // add type for property for diff corals later
+    
+    tempCoral = new Coral(
+        id = coralid,
+        type = towertype
+    );
+
+
+    // locate coral with curent id to game board (increment coralid with prefix if success)
+    if ( tempCoral.locate(watertile, gameBoard) ) {coralid = coralid.slice(0,1) + (Number(coralid.slice(1)) + 1)};
+
+    // game.debug.text(coralid, 12, 36)
+    // game.debug.text("Tile: world: {"+tile.worldX+","+tile.worldY+"} index: ("+tile.x+","+tile.y+")", 12, 16);
+
+    moneyTXT.text = balance;
+
+    // keep controls on top after building corals
+    startButton.bringToTop();
+    shopbar.bringToTop();
+    gold.bringToTop();
+    moneyTXT.bringToTop();
+    tower1_button.bringToTop();
+    tower1_cost.bringToTop();
+    tower2_button.bringToTop();
+    tower2_cost.bringToTop();
+    tower3_button.bringToTop();
+    tower3_cost.bringToTop();
+    textbox.bringToTop();
+    tutorialTXT1.bringToTop();
+}
+/*
+function testMessageBox() {
+    w = game.width * 0.7
+    h = game.height * 0.5
+    this.showMessageBox("Welcome to Reef Defense!", w , h);
+
+};
+
+function showMessageBox(text, w , h ){
+    //change this later to destroy txt, not box
+    if (this.msgBox){
+        this.msgBox.destroy();
+    }
+    var msgBox = game.add.group();
+    var back = game.add.image("TXTbox");
+    var text1 = game.add.text(0, 0, text);
+    text1.wordWrap = true;
+    text1.wordWrapWidth = w* .9;
+
+    back.width = w;
+    back.height = h;
+
+    msgBox.add(back);
+    msgBox.add(text1);
+
+    msgBox.x = game.width / 2 - msgBox.width / 2;
+    msgBox.y = game.height / 2 - msgBox.height / 2;
+
+    text1.x = back.width / 2 - text1.width / 2;
+    text1.y = back.height /2 - text1.height / 2;
+
+    this.msgBox = msgBox;
+};
+
+function hideBox(){
+    this.msgBox.destroy();
+}
+
+*/
 function tutorialTXT (){
     game.add.text(80, 150, 'Reef Defense is a tower defense game where the main objective is to build towers to \nprotect the clam from the oncoming waves of enemies trying to steal the pearl', {font: '18px Courier', fill: '#fff'});
     

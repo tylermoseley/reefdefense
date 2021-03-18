@@ -35,5 +35,6 @@ function startGame () {
 
 function tutorialStage () {
     var snd = game.add.audio("button");
+    snd.play();
     game.state.start('tutorial');
 }
