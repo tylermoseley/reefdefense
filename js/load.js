@@ -19,7 +19,7 @@ var loadState = {
         game.load.spritesheet('tower2', 'Assets/spritesheets/Blue Coral Circle.png', 32, 32)
         game.load.spritesheet('tower3', 'Assets/spritesheets/Grass Coral.png', 32, 40)
         game.load.image('gold', 'Assets/spritesheets/gold placeholder.png')
-        game.load.image('start', 'Assets/img/start.png')
+        
         game.load.image('tutorialButton', 'Assets/img/PlayButton/Tutorial button.png')
 
         //sounds, efx, music...

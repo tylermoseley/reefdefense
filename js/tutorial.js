@@ -133,19 +133,22 @@ var tutorialState = {
         tower3_cost.fixedToCamera = true;
         tower3_cost.anchor.setTo(1,0)
 
-        textbox = game.add.sprite(game.width/2, 10, "TXTbox");
+        textbox = game.add.sprite(game.width/2 - 200, 10, "TXTbox");
         textbox.fixedToCamera = true;
-        ///textbox.scale(1.4, 1.4);
+        textbox.scale.setTo(6, 1.5);
 
+        skipTXT = game.add.text(game.width/2  , 70, "press spacebar to proceed",{font: "10px Arial", text: "bold()", fill: "#ffffff", align: "right"} )
+        skipTXT.fixedToCamera = true;
         /*
         msgBox.x = game.width / 2 - msgBox.width / 2;
         msgBox.y = game.height / 2 - msgBox.height / 2;
         */
     
-        tutorialTXT1 = game.add.text(game.width / 2 - 100, 10, "Welcome to Reef Defense!",{font: "20px Arial", text: "bold()", fill: "#ffffff", align: "left"})
+        tutorialTXT0 = game.add.text(game.width / 2 - 180, 10, "Welcome to Reef Defense!",{font: "16px Arial", text: "bold()", fill: "#ffffff", align: "left"})
+        tutorialTXT0.fixedToCamera = true;
+
+        tutorialTXT1 = game.add.text(game.width / 2 - 180, 10, "Reef Defense is a tower defense game where the main objective is\n to build towers to protect the clam from the oncoming waves\n of enemies trying to steal the pearl",{font: "16px Arial", text: "bold()", fill: "#ffffff", align: "left"})
         tutorialTXT1.fixedToCamera = true;
-
-
 
         // create bullets group
         bullets = game.add.group();
@@ -259,6 +262,7 @@ function clickHandler() {
     tower3_button.bringToTop();
     tower3_cost.bringToTop();
     textbox.bringToTop();
+    skipTXT.bringToTop();
     tutorialTXT1.bringToTop();
 }
 /*

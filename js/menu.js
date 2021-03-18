@@ -14,8 +14,10 @@ var menuState = {
         BG_music.play("", 0, .2, true);
 
         game.add.image(0, 0, 'home-background');
-        game.add.button(250, 338, 'PlayButton', startGame, this, 2, 1, 0);
-        game.add.button(250, 500, 'tutorialButton', tutorialStage, this, 2, 1, 0);
+        game.add.button(250, 150, 'PlayButton', startGame, this, 2, 1, 0);
+        tutorial_button = game.add.button(250, 300, 'tutorialButton', tutorialStage, this, 2, 1, 0);
+        tutorial_button.scale.setTo(10,4)
+
     
         // bubble = game.add.sprite(200, 200, "bubble");
         // bubble.scale.setTo(1.5, 1.5)
