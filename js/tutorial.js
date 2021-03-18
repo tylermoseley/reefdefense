@@ -1,3 +1,4 @@
+var counter = 0;
 var tutorialState = {
     preload: function() {
         game.load.tilemap('Map0', 'Assets/Map/Map0.json', null, Phaser.Tilemap.TILED_JSON);
@@ -146,13 +147,28 @@ var tutorialState = {
     
         tutorialTXT0 = game.add.text(game.width / 2 - 180, 10, "Welcome to Reef Defense!",{font: "16px Arial", text: "bold()", fill: "#ffffff", align: "left"})
         tutorialTXT0.fixedToCamera = true;
+        
+        tutorialTXT1 = game.add.text(game.width / 2 - 180, 10, "Reef Defense is a tower defense game where the main objective is\n to build towers to protect the clam from the oncoming waves\n of enemies trying to steal the pearl",{font: "16px Arial", text: "bold()", fill: "#ffffff", align: "left"})
+        tutorialTXT1.fixedToCamera = true;
+        tutorialTXT1.setVisible(false);
+        
 
+        tutorialTXT2 = game.add.text(game.width / 2 - 180, 10, "At the top right, you will see the shop with the top",{font: "16px Arial", text: "bold()", fill: "#ffffff", align: "left"});
+        tutorialTXT2.fixedToCamera = true;
+        tutorialTXT2.setVisible(false);
+
+        visibleTXT();
+        visibleTXT();
+
+        /*
         if (tutorialKeys.spacebar.isDown){
             game.input.onDown.addOnce(removeTXT, this)
             counter +=1
             tutorialTXT1 = game.add.text(game.width / 2 - 180, 10, "Reef Defense is a tower defense game where the main objective is\n to build towers to protect the clam from the oncoming waves\n of enemies trying to steal the pearl",{font: "16px Arial", text: "bold()", fill: "#ffffff", align: "left"})
             tutorialTXT1.fixedToCamera = true;
         };
+        */
+
 
         // create bullets group
         bullets = game.add.group();
@@ -267,12 +283,24 @@ function clickHandler() {
     tower3_cost.bringToTop();
     textbox.bringToTop();
     skipTXT.bringToTop();
-    tutorialTXT1.bringToTop();
 }
 
 function removeTXT(){
     text.destroy();
 }
+
+function visibleTXT(counter){
+    if(tutorialKeys.spacebar.isDown){
+    Txt = "tutorialTXT"+counter;
+    Txt.setVisible(false);
+    Txt_next = "tutorialTXT"+(counter+1);
+    Txt_next.setVisible(true)
+
+    Txt_next.bringToTop()
+    counter+= 1
+    }
+}
+
 /*
 function testMessageBox() {
     w = game.width * 0.7
