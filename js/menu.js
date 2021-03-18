@@ -33,7 +33,7 @@ function startGame () {
     
 }
 
-function tutorialStage() {
+function tutorialStage () {
     var snd = game.add.audio("button");
     game.state.start('tutorial');
 }

@@ -193,7 +193,7 @@ var tutorialState = {
             game.physics.arcade.overlap(crab, clam, clamHit)
         }
     }
-}
+};
 
 function tutorialTXT (){
     game.add.text(80, 150, 'Reef Defense is a tower defense game where the main objective is to build towers to \nprotect the clam from the oncoming waves of enemies trying to steal the pearl', {font: '18px Courier', fill: '#fff'});
