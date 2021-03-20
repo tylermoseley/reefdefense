@@ -138,7 +138,7 @@ var tutorialState = {
         textbox.fixedToCamera = true;
         textbox.scale.setTo(6, 1.5);
 
-        skipTXT = game.add.text(game.width/2  , 70, "press spacebar to proceed",{font: "10px Arial", text: "bold()", fill: "#ffffff", align: "right"} )
+        skipTXT = game.add.text(game.width/2  , 70, "press spacebar to proceed, press esc to exit to main menu",{font: "10px Arial", text: "bold()", fill: "#ffffff", align: "right"} )
         skipTXT.fixedToCamera = true;
         /*
         msgBox.x = game.width / 2 - msgBox.width / 2;
@@ -147,18 +147,19 @@ var tutorialState = {
     
         tutorialTXT0 = game.add.text(game.width / 2 - 180, 10, "Welcome to Reef Defense!",{font: "16px Arial", text: "bold()", fill: "#ffffff", align: "left"})
         tutorialTXT0.fixedToCamera = true;
-        
-        tutorialTXT1 = game.add.text(game.width / 2 - 180, 10, "Reef Defense is a tower defense game where the main objective is\n to build towers to protect the clam from the oncoming waves\n of enemies trying to steal the pearl",{font: "16px Arial", text: "bold()", fill: "#ffffff", align: "left"})
+        tutorialTXT0.visible = true
+
+
+        tutorialTXT1 = game.add.text(game.width / 2 - 180, 10, "Reef Defense is a tower defense game where the main objective is\n to build towers to protect the clam from the oncoming waves\n of enemies trying to steal the pearl",{font: "16px Arial", text: "bold()", fill: "#ffffff", align: "left"});
         tutorialTXT1.fixedToCamera = true;
-        tutorialTXT1.setVisible(false);
+        tutorialTXT1.visible =false
+
         
 
         tutorialTXT2 = game.add.text(game.width / 2 - 180, 10, "At the top right, you will see the shop with the top",{font: "16px Arial", text: "bold()", fill: "#ffffff", align: "left"});
         tutorialTXT2.fixedToCamera = true;
-        tutorialTXT2.setVisible(false);
+        tutorialTXT2.visible = false
 
-        visibleTXT();
-        visibleTXT();
 
         /*
         if (tutorialKeys.spacebar.isDown){
@@ -217,7 +218,13 @@ var tutorialState = {
             game.camera.y += scrollSpd;
         }
 
-        
+        if (tutorialKeys.spacebar.isDown){
+            if (tutorialTXT0.visible == true){
+                removeTXT(tutorialTXT0);
+                setVisibleFunc(tutorialTXT1);
+            }
+            
+        }
         // resting state for all corals on gameBoard
         for (i = 0; i <= 31; i += 1) {
             for (j = 0; j <= 31; j += 1) {
@@ -283,23 +290,28 @@ function clickHandler() {
     tower3_cost.bringToTop();
     textbox.bringToTop();
     skipTXT.bringToTop();
+    tutorialTXT0.bringToTop();
+    tutorialTXT1.bringToTop();
 }
 
-function removeTXT(){
+function removeTXT(text){
     text.destroy();
 }
 
-function visibleTXT(counter){
-    if(tutorialKeys.spacebar.isDown){
-    Txt = "tutorialTXT"+counter;
-    Txt.setVisible(false);
-    Txt_next = "tutorialTXT"+(counter+1);
-    Txt_next.setVisible(true)
-
-    Txt_next.bringToTop()
-    counter+= 1
-    }
+function setVisibleFunc(text){
+    text.visible = true
 }
+function visibleTXT(TXTnumber, counter){
+    TXTnumber.visible = false;
+    
+    counter+=1
+    Txt_next = "tutorialTXT"+(counter+1);
+    Txt_next.visible = true;
+
+
+
+    }
+
 
 /*
 function testMessageBox() {
