@@ -145,21 +145,42 @@ var tutorialState = {
         msgBox.y = game.height / 2 - msgBox.height / 2;
         */
     
+        /// Tutorial Text
         tutorialTXT0 = game.add.text(game.width / 2 - 180, 10, "Welcome to Reef Defense!",{font: "16px Arial", text: "bold()", fill: "#ffffff", align: "left"})
         tutorialTXT0.fixedToCamera = true;
         tutorialTXT0.visible = true
-
 
         tutorialTXT1 = game.add.text(game.width / 2 - 180, 10, "Reef Defense is a tower defense game where the main objective is\n to build towers to protect the clam from the oncoming waves\n of enemies trying to steal the pearl",{font: "16px Arial", text: "bold()", fill: "#ffffff", align: "left"});
         tutorialTXT1.fixedToCamera = true;
         tutorialTXT1.visible =false
 
-        
-
-        tutorialTXT2 = game.add.text(game.width / 2 - 180, 10, "At the top right, you will see the shop with the top",{font: "16px Arial", text: "bold()", fill: "#ffffff", align: "left"});
+        tutorialTXT2 = game.add.text(game.width / 2 - 180, 10, "Move the camera with w, a, s, d",{font: "16px Arial", text: "bold()", fill: "#ffffff", align: "left"});
         tutorialTXT2.fixedToCamera = true;
         tutorialTXT2.visible = false
 
+        tutorialTXT3 = game.add.text(game.width / 2 - 180, 10, "On the top right shows you the shop as well as your current gold",{font: "16px Arial", text: "bold()", fill: "#ffffff", align: "left"})
+        tutorialTXT3.fixedToCamera = true;
+        tutorialTXT3.visible = false
+
+        tutorialTXT4 = game.add.text(game.width / 2 - 180, 10, "Right next to each turrent is the amount of gold it costs",{font: "16px Arial", text: "bold()", fill: "#ffffff", align: "left"})
+        tutorialTXT4.fixedToCamera = true;
+        tutorialTXT4.visible = false
+
+        tutorialTXT5 = game.add.text(game.width / 2 - 180, 10, "To place turrents, press the corresponding number of the tower \nyou want to place",{font: "16px Arial", text: "bold()", fill: "#ffffff", align: "left"})
+        tutorialTXT5.fixedToCamera = true;
+        tutorialTXT5.visible = false
+
+        tutorialTXT6 = game.add.text(game.width / 2 - 180, 10, "Then use left mouse click to place it on the tile you want",{font: "16px Arial", text: "bold()", fill: "#ffffff", align: "left"})
+        tutorialTXT6.fixedToCamera = true;
+        tutorialTXT6.visible = false
+
+        tutorialTXT7 = game.add.text(game.width / 2 - 180, 10, "When you're ready to start the wave, click on the 'start' button",{font: "16px Arial", text: "bold()", fill: "#ffffff", align: "left"})
+        tutorialTXT7.fixedToCamera = true;
+        tutorialTXT7.visible = false
+
+        tutorialTXT8 = game.add.text(game.width / 2 - 180, 10, "Every wave will be more difficult than the last so plan well, \nand good luck!",{font: "16px Arial", text: "bold()", fill: "#ffffff", align: "left"})
+        tutorialTXT8.fixedToCamera = true;
+        tutorialTXT8.visible = false
 
         /*
         if (tutorialKeys.spacebar.isDown){
@@ -228,6 +249,11 @@ var tutorialState = {
                 removeTXT(tutorialTXT1);
                 setVisibleFunc(tutorialTXT2);
             }
+        }
+
+
+        if (tutorialKeys.esc.isDown){
+            game.state.start("menu")
         }
         // resting state for all corals on gameBoard
         for (i = 0; i <= 31; i += 1) {
