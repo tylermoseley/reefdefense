@@ -1,4 +1,5 @@
 var counter = 0;
+
 var tutorialState = {
     preload: function() {
         game.load.tilemap('Map0', 'Assets/Map/Map0.json', null, Phaser.Tilemap.TILED_JSON);
@@ -240,7 +241,6 @@ var tutorialState = {
         }
 
         if (tutorialKeys.spacebar.isDown){
-            counter += 1
             if (tutorialTXT0.visible == true){
                 removeTXT(tutorialTXT0);
                 setVisibleFunc(tutorialTXT1);
@@ -322,6 +322,7 @@ function clickHandler() {
     skipTXT.bringToTop();
     tutorialTXT0.bringToTop();
     tutorialTXT1.bringToTop();
+    tutorialTXT2.bringToTop();
 }
 
 function removeTXT(text){
@@ -342,6 +343,15 @@ function visibleTXT(TXTnumber, counter){
 
     }
 
+
+var spacebar_input = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+spacebar_input.onDown.add(spacebar_count, this);
+
+function spacebar_count(){
+    if(cursors.space.isDown){
+        counter+=1;
+    }
+};
 
 /*
 function testMessageBox() {
