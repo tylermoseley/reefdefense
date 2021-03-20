@@ -219,11 +219,15 @@ var tutorialState = {
         }
 
         if (tutorialKeys.spacebar.isDown){
+            counter += 1
             if (tutorialTXT0.visible == true){
                 removeTXT(tutorialTXT0);
                 setVisibleFunc(tutorialTXT1);
             }
-            
+            else if (counter == 1){
+                removeTXT(tutorialTXT1);
+                setVisibleFunc(tutorialTXT2);
+            }
         }
         // resting state for all corals on gameBoard
         for (i = 0; i <= 31; i += 1) {
