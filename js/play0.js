@@ -8,7 +8,7 @@ for (i=0; i<=31; i++) {
 }
 
 EnemyWaves = []
-enemies = ['Crab', 'Crab', 'Crab']
+enemies = ['Crab', 'Eel', 'Jellyfish']
 startLocations = ['top', 'bottom', 'left', 'right']
 
 for (i=0; i<=30; i++) {
@@ -375,24 +375,47 @@ function WavePlacements(wave) {
     if ( (game.time.now > nextPlacement) & (EnemyWaves[wave].spawnCount < EnemyWaves[wave].enemyCount) ) {
         nextPlacement = game.time.now + EnemyWaves[wave].spawnDelay // set spawn delay by wave
         enemy = enemies.getFirstDead()
+        switch(EnemyWaves[wave].sprite){
+            case 'Crab':
+                enemy.scale.setTo(0.2, 0.2);
+                enemy.animations.add('walk', [0,1,2,3,4,5]);
+                enemy.animations.play('walk', 18, true);
+                break;
+            case 'Eel':
+                enemy.animations.add('swim', [0,1,2,3,4,5,6,7,8,9,10,11])
+                enemy.animations.play('swim', 12, true);
+                break;
+            case 'Jellyfish':
+                enemy.scale.setTo(1.3, 1.3);
+                enemy.animations.add('swim', [0,1,2,3,4,5,6,7])
+                enemy.animations.play('swim', 8, true);
+                break;
+        }
         enemy.anchor.setTo(0.5, 0.5);
-        enemy.scale.setTo(0.2, 0.2);
-        enemy.animations.add('walk', [0,1,2,3,4,5]);
-        enemy.animations.play('walk', 18, true);
+        
         switch (EnemyWaves[wave].spawnLocation) {
             case 'left':
                 var spawnX = 32
                 var spawnY = 512
                 break
             case 'top':
+                if (EnemyWaves[wave].sprite == 'Eel'){
+                    enemy.angle += 90
+                }
                 var spawnX = 512
                 var spawnY = 32
                 break
             case 'right':
+                if (EnemyWaves[wave].sprite == 'Eel'){
+                    enemy.scale.setTo(-1,1);
+                }
                 var spawnX = 992
                 var spawnY = 512
                 break
             case 'bottom':
+                if (EnemyWaves[wave].sprite == 'Eel'){
+                    enemy.angle -= 90
+                }
                 var spawnX = 512
                 var spawnY = 992
                 break
