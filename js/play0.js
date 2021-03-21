@@ -247,6 +247,14 @@ async function enemyHit (bullet, enemy) {
     bullet.kill()
     if (enemy.health == 1) {
         EnemyWaves[wave].killCount++
+        if (enemy.key == 'Eel' || enemy.key == 'Jellyfish') {
+            zap = game.add.audio('Zap', 0.3)
+            zap.play()
+        }
+        else {
+            crunch = game.add.audio('Crunch', 0.5)
+            crunch.play()
+        }
         balance+=5
         layerRise()
     }
