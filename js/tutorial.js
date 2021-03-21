@@ -18,6 +18,12 @@ var tutorialState = {
     create: function(){
         game.add.text(80, 150, 'loading game ...', {font: '30px Courier', fill: '#fff'});
         // tile map and layers
+        //counter = 1
+        //slide = game.add.image("water")
+        //slide.LoadTexture(imageList[counter])
+        //still need to preload them all
+        //imageList =  [" ", " ", " ",]
+        //counter+=1
         map = game.add.tilemap('Map0');
         map.addTilesetImage('Water');
         map.addTilesetImage('sand');
@@ -145,11 +151,30 @@ var tutorialState = {
         msgBox.x = game.width / 2 - msgBox.width / 2;
         msgBox.y = game.height / 2 - msgBox.height / 2;
         */
-    
+       ///could do the same logic with gameload
+       ///example
+        /*
+        TutorialExample = [
+            {
+                text:"Welcome to Reef Defense!";
+                height: 35
+            }
+            {
+                text: 
+            }
+        ]
+        */
+        /// instead of text[list], use tutorial_TXT[counter].text
+        /// 
+
+        tutorial_TXT = game.add.text(game.width / 2 - 180, 10, "Welcome to Reef Defense!",{font: "16px Arial", text: "bold()", fill: "#ffffff", align: "left"})
+        tutorial_TXT.fixedToCamera = true;
+        tutorial_TXT.visible = true
+
         /// Tutorial Text
         tutorialTXT0 = game.add.text(game.width / 2 - 180, 10, "Welcome to Reef Defense!",{font: "16px Arial", text: "bold()", fill: "#ffffff", align: "left"})
         tutorialTXT0.fixedToCamera = true;
-        tutorialTXT0.visible = true
+        tutorialTXT0.visible = false
 
         tutorialTXT1 = game.add.text(game.width / 2 - 180, 10, "Reef Defense is a tower defense game where the main objective is\n to build towers to protect the clam from the oncoming waves\n of enemies trying to steal the pearl",{font: "16px Arial", text: "bold()", fill: "#ffffff", align: "left"});
         tutorialTXT1.fixedToCamera = true;
@@ -182,6 +207,16 @@ var tutorialState = {
         tutorialTXT8 = game.add.text(game.width / 2 - 180, 10, "Every wave will be more difficult than the last so plan well, \nand good luck!",{font: "16px Arial", text: "bold()", fill: "#ffffff", align: "left"})
         tutorialTXT8.fixedToCamera = true;
         tutorialTXT8.visible = false
+        tutorialTextList = [
+            "Reef Defense is a tower defense game where the main objective is\n to build towers to protect the clam from the oncoming waves\n of enemies trying to steal the pearl",
+            "Move the camera with w, a, s, d",
+
+        ] 
+        counter = 0
+
+        ///add changetxt function, start it at 0
+        ///tutorialTXT.text = 
+
 
         /*
         if (tutorialKeys.spacebar.isDown){
@@ -190,6 +225,22 @@ var tutorialState = {
             tutorialTXT1 = game.add.text(game.width / 2 - 180, 10, "Reef Defense is a tower defense game where the main objective is\n to build towers to protect the clam from the oncoming waves\n of enemies trying to steal the pearl",{font: "16px Arial", text: "bold()", fill: "#ffffff", align: "left"})
             tutorialTXT1.fixedToCamera = true;
         };
+        */
+        tutorialKeys.spacebar.onDown.add(changeTXT())
+
+        /*
+        if (tutorialKeys.spacebar.onDown){
+
+            if (tutorialTXT0.visible == true){
+                removeTXT(tutorialTXT0);
+                setVisibleFunc(tutorialTXT1);
+            }
+            else if (counter == 1){
+                removeTXT(tutorialTXT1);
+                setVisibleFunc(tutorialTXT2);
+
+            }
+        }
         */
 
 
@@ -240,16 +291,6 @@ var tutorialState = {
             game.camera.y += scrollSpd;
         }
 
-        if (tutorialKeys.spacebar.isDown){
-            if (tutorialTXT0.visible == true){
-                removeTXT(tutorialTXT0);
-                setVisibleFunc(tutorialTXT1);
-            }
-            else if (counter == 1){
-                removeTXT(tutorialTXT1);
-                setVisibleFunc(tutorialTXT2);
-            }
-        }
 
 
         if (tutorialKeys.esc.isDown){
@@ -330,7 +371,9 @@ function removeTXT(text){
 }
 
 function setVisibleFunc(text){
-    text.visible = true
+    text.visible = true;
+    counter+= 1;
+
 }
 function visibleTXT(TXTnumber, counter){
     TXTnumber.visible = false;
@@ -342,16 +385,6 @@ function visibleTXT(TXTnumber, counter){
 
 
     }
-
-
-var spacebar_input = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
-spacebar_input.onDown.add(spacebar_count, this);
-
-function spacebar_count(){
-    if(cursors.space.isDown){
-        counter+=1;
-    }
-};
 
 /*
 function testMessageBox() {
@@ -392,9 +425,11 @@ function hideBox(){
 }
 
 */
-function tutorialTXT (){
-    game.add.text(80, 150, 'Reef Defense is a tower defense game where the main objective is to build towers to \nprotect the clam from the oncoming waves of enemies trying to steal the pearl', {font: '18px Courier', fill: '#fff'});
-    
+
+function changeTXT(){
+    tutorial_TXT.text = textList[counter]
+    counter++
+
 }
 /*
 function deleteTXT(){
