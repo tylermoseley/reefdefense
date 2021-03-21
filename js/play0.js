@@ -19,6 +19,8 @@ playState0 = {
         game.load.spritesheet('Crab', 'Assets/spritesheets/crabSheet.png', 320, 320);
         game.load.spritesheet('Bullet', 'Assets/spritesheets/bullet.png', 32, 64);
         game.load.spritesheet('Clam', 'Assets/spritesheets/clam.png', 64, 64);
+        game.load.spritesheet('Eel', 'Assets/spritesheets/eel.png', 90, 32);
+        game.load.spritesheet('Jellyfish', 'Assets/spritesheets/jellyfish.png', 32, 32)
     },
 
     create: function () {
