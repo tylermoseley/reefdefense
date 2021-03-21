@@ -26,6 +26,8 @@ var loadState = {
         game.load.audio('PopSound', 'Assets/audio/PopSound.mp3')
         game.load.audio('GameOver', 'Assets/audio/GameOver.wav')
         game.load.audio('MoneyBag', 'Assets/audio/MoneyBag.wav')
+        game.load.audio('Zap', 'Assets/audio/electricZap.wav')
+        game.load.audio('Crunch', 'Assets/audio/crunch.mp3')
 
         //data, JSON, Querys...
         //Example: game.load.json('version', 'http://phaser.io/version.json');
