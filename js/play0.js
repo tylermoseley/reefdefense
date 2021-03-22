@@ -268,7 +268,7 @@ async function enemyHit (bullet, enemy) {
 // game over event
 function clamHit () {
     clam.kill();
-    GOText = game.add.text(game.camera.x, game.camera.y, 'Game Over', {font: '55px Courier', fill: '#fff'});
+    GOText = game.add.text(game.camera.x + 125, game.camera.y + 30, 'Game Over', {font: '55px Courier', fill: '#fff'});
     GOText.fixedToCamera = true;
     gameOver = 1
     var gameOverAudio = game.add.audio("GameOver")
@@ -381,6 +381,7 @@ function WaveStart(wave) {
 // called from upadate function to place enemies on delay if not total configured wave count not met
 function WavePlacements(wave) {
     if ( (game.time.now > nextPlacement) & (EnemyWaves[wave].spawnCount < EnemyWaves[wave].enemyCount) ) {
+        layerRise();
         nextPlacement = game.time.now + EnemyWaves[wave].spawnDelay // set spawn delay by wave
         enemy = enemies.getFirstDead()
         switch(EnemyWaves[wave].sprite){
@@ -408,7 +409,7 @@ function WavePlacements(wave) {
                 break
             case 'top':
                 if (EnemyWaves[wave].sprite == 'Eel'){
-                    enemy.angle += 90
+                    enemy.angle = 90
                 }
                 var spawnX = 512
                 var spawnY = 32
@@ -422,7 +423,7 @@ function WavePlacements(wave) {
                 break
             case 'bottom':
                 if (EnemyWaves[wave].sprite == 'Eel'){
-                    enemy.angle -= 90
+                    enemy.angle = 270
                 }
                 var spawnX = 512
                 var spawnY = 992
