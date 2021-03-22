@@ -182,7 +182,7 @@ var tutorialState1 = {
             "Every wave will be more difficult than the last so plan well, \nand good luck!",
             "Press escape to return to the main menu"
         ]; 
-        
+
         tutorial_TXT = game.add.text(game.width / 2 - 180, 10, "Welcome to Reef Defense!",{font: "16px Arial", text: "bold()", fill: "#ffffff", align: "left"})
         tutorial_TXT.fixedToCamera = true;
         tutorial_TXT.visible = true
@@ -246,8 +246,7 @@ var tutorialState1 = {
 }
 
 function changeTXT(){
-    tutorial_TXT.text = tutorialTextList[counter]
-    counter+= 1
-
+    tutorial_TXT.text = tutorialTextList[counter];
+    counter +=1
 }
 
