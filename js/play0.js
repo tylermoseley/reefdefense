@@ -40,11 +40,13 @@ playState0 = {
         game.load.spritesheet('Clam', 'Assets/spritesheets/clam.png', 64, 64);
         game.load.image('TXTbox', 'Assets/spritesheets/Textbox blue.png');
         game.load.spritesheet('Eel', 'Assets/spritesheets/eel.png', 90, 32);
-        game.load.spritesheet('Jellyfish', 'Assets/spritesheets/jellyfish.png', 32, 32)
+        game.load.spritesheet('Jellyfish', 'Assets/spritesheets/jellyfish.png', 32, 32);
+        game.load.audio("music", "Assets/audio/kv-ocean.mp3");
     },
 
     create: function () {
-
+        BG_music = game.add.audio("music");
+        BG_music.play("", 0, .2, true);
         // game.add.plugin(Phaser.Plugin.Debug);
 
         game.add.text(80, 150, 'loading game ...', {font: '30px Courier', fill: '#fff'});
