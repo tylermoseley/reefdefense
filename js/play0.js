@@ -1,4 +1,4 @@
-var bullet, gameOver=0, towertype=1, snd, coralid="c0", defending=0, gameBoard=[]
+var bullet, gameOver=0, towertype=1, snd, coralid="c0", defending=0, gameBoard=[], nextWave
 // create empty 32x32 gameBoard (maybe add dimension variable if board size change)
 for (i=0; i<=31; i++) {
     gameBoard.push([])
@@ -6,6 +6,25 @@ for (i=0; i<=31; i++) {
         gameBoard[i].push("None")
     }
 }
+
+EnemyWaves = []
+enemies = ['Crab', 'Eel', 'Jellyfish']
+startLocations = ['top', 'bottom', 'left', 'right']
+
+for (i=0; i<=30; i++) {
+    wave = {
+        enemyCount: i + 2,
+        sprite: enemies[i % 3],
+        speed: 10 + (i * 4),
+        health: 2 + (i * 2), // must remain integers (no decimals here)
+        spawnLocation: startLocations[Math.floor(Math.random() * 4)],
+        spawnDelay: 3000,
+        spawnCount: 0,
+        killCount: 0
+    }
+    EnemyWaves.push(wave)
+}
+wave=0
 
 playState0 = {
     preload: function() {
@@ -20,6 +39,8 @@ playState0 = {
         game.load.spritesheet('Bullet', 'Assets/spritesheets/bullet.png', 32, 64);
         game.load.spritesheet('Clam', 'Assets/spritesheets/clam.png', 64, 64);
         game.load.image('TXTbox', 'Assets/spritesheets/Textbox blue.png');
+        game.load.spritesheet('Eel', 'Assets/spritesheets/eel.png', 90, 32);
+        game.load.spritesheet('Jellyfish', 'Assets/spritesheets/jellyfish.png', 32, 32)
     },
 
     create: function () {
@@ -69,7 +90,6 @@ playState0 = {
             one: game.input.keyboard.addKey(Phaser.Keyboard.ONE),
             two: game.input.keyboard.addKey(Phaser.Keyboard.TWO),
             three: game.input.keyboard.addKey(Phaser.Keyboard.THREE),
-            
         }
 
         // add clam to center on load
@@ -102,37 +122,40 @@ playState0 = {
         shopbar.anchor.setTo(1, 0)
         shopbar.scale.setTo(1,1)
 
-        gold = game.add.sprite(750, 0, "gold");
+        gold = game.add.sprite(755, 2, "gold");
         gold.fixedToCamera = true;
         gold.anchor.setTo(1,0)
-        gold.scale.setTo(.03,.03)
+        gold.scale.setTo(.035,.035)
 
         //money 
         moneyTXT = game.add.text(790, 5, balance, {font: "18px Arial", fill: "#000000", align: "left" });
         moneyTXT.fixedToCamera = true;
         moneyTXT.anchor.setTo(1,0)
 
-        tower1_button = game.add.sprite(725, 30, 'tower1');
+        tower1_button = game.add.sprite(728, 38, 'tower1');
         tower1_button.fixedToCamera = true;
-        //tower1_button.anchor.setTo(1, 0);
+        tower1_button.anchor.setTo(0, 0);
+        tower1_button.scale.setTo(0.8,0.8);
 
         tower1_cost = game.add.text(795, 40, "Press 1\n10G", {font: "10px Arial", text: "bold()", fill: "#000000", align: "right"})
         tower1_cost.fixedToCamera = true;
         tower1_cost.anchor.setTo(1,0)
 
-        tower2_button = game.add.sprite(725, 80, 'tower2');
+        tower2_button = game.add.sprite(723, 80, 'tower2');
         tower2_button.fixedToCamera = true;
-        //tower2_button.anchor.setTo(1, 0);
+        tower2_button.anchor.setTo(0, 0);
+        tower2_button.scale.setTo(.9, .9)
 
         tower2_cost = game.add.text(795, 80, "Press 2\n20G", {font: "10px Arial", text: "bold()", fill: "#000000", align: "right"})
         tower2_cost.fixedToCamera = true;
         tower2_cost.anchor.setTo(1,0)
 
-        tower3_button = game.add.sprite(725, 120, 'tower3');
+        tower3_button = game.add.sprite(728, 123, 'tower3');
         tower3_button.fixedToCamera = true;
-        //tower2_button.anchor.setTo(1, 0);
+        tower3_button.anchor.setTo(0, 0);
+        tower3_button.scale.setTo(0.8,0.8);
 
-        tower3_cost = game.add.text(795, 120, "Press 3\n20G", {font: "10px Arial", text: "bold()", fill: "#000000", align: "right"})
+        tower3_cost = game.add.text(795, 125, "Press 3\n30G", {font: "10px Arial", text: "bold()", fill: "#000000", align: "right"})
         tower3_cost.fixedToCamera = true;
         tower3_cost.anchor.setTo(1,0)
 
@@ -148,17 +171,7 @@ playState0 = {
         bullets.setAll('outOfBoundsKill', true);
         bullets.setAll('anchor.y', 0.25);
 
-        // for creating the waves
-        // crabs = game.add.group();
-        // crabs.enableBody = true;
-        // crabs.physicsBodyType = Phaser.Physics.ARCADE;
-        // crabs.createMultiple(500, 'crab');
-        // crabs.setAll('anchorx', 0.5);
-        // crabs.setAll('anchory', 0.5);
-        // crabs.setAll('scalex', -0.2)
-        // crabs.setAll('scaley', 0.2)
-
-
+        nextPlacement = game.time.now
     },
 
     update: function() {
@@ -194,7 +207,7 @@ playState0 = {
                 if (typeof gameBoard[i][j] === 'object') {
                     if (gameBoard[i][j].id.slice(0, 1) === "c") {
                         if (defending) {
-                            gameBoard[i][j].seekEnemies(crab, bullets)
+                            gameBoard[i][j].seekEnemies(enemies, bullets)
                         } else {
                             gameBoard[i][j].resting();
                         }
@@ -205,9 +218,19 @@ playState0 = {
 
         // initial hard coding for enemy wave
         if(defending & gameOver == 0) {
-            crabMove(crab, 0.25)
-            game.physics.arcade.overlap(bullet, crab, crabHit)
-            game.physics.arcade.overlap(crab, clam, clamHit)
+            if (EnemyWaves[wave].killCount >= EnemyWaves[wave].enemyCount) {
+                defending = 0
+                wave++
+                nextWave = game.time.now + 2000 // sadet delay until next wave
+            } else {
+                WavePlacements(wave)
+                game.physics.arcade.overlap(bullets, enemies, enemyHit)
+                game.physics.arcade.overlap(enemies, clam, clamHit)
+            }
+        } else if (nextWave < game.time.now & nextWave !== 0) {
+            nextWave = 0
+            defending = 1
+            WaveStart(wave)
         }
     }
 }
@@ -223,12 +246,27 @@ async function Clam(ClamBubbles){
 var balance = 100;
 var prices = [10 , 20, 30]
 
-// this will change once enemy groups implemented.
-async function crabHit () {
-    bullet.kill();
-    crab.tint = 0x000000;
+// Enemy Hit
+async function enemyHit (bullet, enemy) {
+    bullet.kill()
+    if (enemy.health == 1) {
+        EnemyWaves[wave].killCount++
+        if (enemy.key == 'Eel' || enemy.key == 'Jellyfish') {
+            zap = game.add.audio('Zap', 0.3)
+            zap.play()
+        }
+        else {
+            crunch = game.add.audio('Crunch', 0.5)
+            crunch.play()
+        }
+        balance+=5
+        layerRise()
+    }
+    enemy.damage(1)
+
+    enemy.tint = 0x000000
     await sleep(0.2);
-    crab.tint = 0xFFFFFF;
+    enemy.tint = 0xFFFFFF;
 }
 
 // game over event
@@ -237,8 +275,8 @@ function clamHit () {
     GOText = game.add.text(game.camera.x, game.camera.y, 'Game Over', {font: '55px Courier', fill: '#fff'});
     GOText.fixedToCamera = true;
     gameOver = 1
-    var gameOver = game.add.audio("GameOver")
-    gameOver.play();
+    var gameOverAudio = game.add.audio("GameOver")
+    gameOverAudio.play();
 }
 
 // coral class for coral objects
@@ -269,7 +307,7 @@ class Coral {
         }
         this.nextFire = 0
         this.fireRate = 400
-        // this.bullet = bullets.getFirstDead();
+        this.closestEnemy = null
         this.moneyBag = game.add.audio("MoneyBag")
     }
     // locating coral method
@@ -305,31 +343,102 @@ class Coral {
         this.sprite.animations.play("resting"+this.id, 3, true)
     }
     // seek out enemy in range and fire if so
-    seekEnemies (crab, bullets) {
-        this.crabDistance = Phaser.Math.distance(
-            this.sprite.centerX,
-            this.sprite.centerY,
-            crab.centerX,
-            crab.centerY)
-        if (this.crabDistance < this.range) {
-            this.sprite.animations.play("attacking"+this.id, 12, true);
-            this.fire(crab, bullets);
+    seekEnemies (enemies, bullets) {
+        this.closestEnemy = enemies.getClosestTo(this.sprite)
+        if (this.closestEnemy !== null) {
+            this.enemyDistance = Phaser.Math.distance(
+                this.sprite.centerX,
+                this.sprite.centerY,
+                this.closestEnemy.centerX,
+                this.closestEnemy.centerY)
+        }
+        if (this.enemyDistance < this.range & this.closestEnemy !== null) {
+            this.sprite.animations.play("attacking" + this.id, 12, true);
+            this.fire(this.closestEnemy, bullets);
         } else {
-            this.sprite.animations.play("resting"+this.id, 3, true);
+            this.sprite.animations.play("resting" + this.id, 3, true);
         }
     }
     // fire bullets at crab at rate determined at construction of coral
-    fire (crab, bullets) {
+    fire (enemy, bullets) {
         if (game.time.now > this.nextFire) {
             this.nextFire = game.time.now + this.fireRate;
             bullet = bullets.getFirstDead();
             bullet.reset(this.sprite.centerX, this.sprite.centerY);
-            game.physics.arcade.moveToObject(bullet, crab, 200);
-            bullet.rotation = game.physics.arcade.angleToXY(bullet, crab.centerX, crab.centerY)
+            game.physics.arcade.moveToObject(bullet, enemy, 200);
+            bullet.rotation = game.physics.arcade.angleToXY(bullet, enemy.centerX, enemy.centerY)
             this.popSound.play("", 0, .2);
         }
     }
 }
+
+// creates enemies group depending on wave details
+function WaveStart(wave) {
+    // Create Enemies Group For each wave
+    enemies = null
+    enemies = game.add.group() // sets new enemy wave
+    enemies.enableBody = true
+    enemies.physicsBodyType = Phaser.Physics.ARCADE
+    enemies.createMultiple(EnemyWaves[wave].enemyCount, EnemyWaves[wave].sprite)
+}
+
+// called from upadate function to place enemies on delay if not total configured wave count not met
+function WavePlacements(wave) {
+    if ( (game.time.now > nextPlacement) & (EnemyWaves[wave].spawnCount < EnemyWaves[wave].enemyCount) ) {
+        nextPlacement = game.time.now + EnemyWaves[wave].spawnDelay // set spawn delay by wave
+        enemy = enemies.getFirstDead()
+        switch(EnemyWaves[wave].sprite){
+            case 'Crab':
+                enemy.scale.setTo(0.2, 0.2);
+                enemy.animations.add('walk', [0,1,2,3,4,5]);
+                enemy.animations.play('walk', 18, true);
+                break;
+            case 'Eel':
+                enemy.animations.add('swim', [0,1,2,3,4,5,6,7,8,9,10,11])
+                enemy.animations.play('swim', 12, true);
+                break;
+            case 'Jellyfish':
+                enemy.scale.setTo(1.3, 1.3);
+                enemy.animations.add('swim', [0,1,2,3,4,5,6,7])
+                enemy.animations.play('swim', 8, true);
+                break;
+        }
+        enemy.anchor.setTo(0.5, 0.5);
+        
+        switch (EnemyWaves[wave].spawnLocation) {
+            case 'left':
+                var spawnX = 32
+                var spawnY = 512
+                break
+            case 'top':
+                if (EnemyWaves[wave].sprite == 'Eel'){
+                    enemy.angle += 90
+                }
+                var spawnX = 512
+                var spawnY = 32
+                break
+            case 'right':
+                if (EnemyWaves[wave].sprite == 'Eel'){
+                    enemy.scale.setTo(-1,1);
+                }
+                var spawnX = 992
+                var spawnY = 512
+                break
+            case 'bottom':
+                if (EnemyWaves[wave].sprite == 'Eel'){
+                    enemy.angle -= 90
+                }
+                var spawnX = 512
+                var spawnY = 992
+                break
+        }
+        enemy.reset(spawnX + (Math.random()*48) - 24, spawnY + (Math.random()*24) - 16)  // set starting location with some variation.
+        enemy.health = EnemyWaves[wave].health // set initial health by wave
+        game.physics.arcade.moveToObject(enemy, clam, EnemyWaves[wave].speed) // set movement to clam
+        EnemyWaves[wave].spawnCount++
+    }
+}
+
 
 // main handler for mouse clicks
 function clickHandler() {
@@ -356,8 +465,12 @@ function clickHandler() {
     // game.debug.text(coralid, 12, 36)
     // game.debug.text("Tile: world: {"+tile.worldX+","+tile.worldY+"} index: ("+tile.x+","+tile.y+")", 12, 16);
 
-    moneyTXT.text = balance;
+    layerRise()
 
+}
+
+function layerRise() {
+    moneyTXT.text = balance;
     // keep controls on top after building corals
     startButton.bringToTop();
     shopbar.bringToTop();
@@ -408,29 +521,19 @@ function sleep(seconds) {
 async function startLevel() {
     startButton.destroy();
 //code to add countdown counter for enemy waves
-    countdown = game.add.text(game.camera.x+100, game.camera.y+200, 'Starting in ... 3', {font: '55px Courier', fill: '#fff'});
-    await sleep(1);
-    countdown.text = "Starting in ... 2"
-    await sleep(1);
-    countdown.text = "Starting in ... 1"
-    await sleep(1);
-    countdown.text = "Defend!"
-    await sleep(1);
-    countdown.destroy();
+//     countdown = game.add.text(game.camera.x+100, game.camera.y+200, 'Starting in ... 3', {font: '55px Courier', fill: '#fff'});
+//     await sleep(1);
+//     countdown.text = "Starting in ... 2"
+//     await sleep(1);
+//     countdown.text = "Starting in ... 1"
+//     await sleep(1);
+//     countdown.text = "Defend!"
+//     await sleep(1);
+//     countdown.destroy();
 
     speed = 1
     defending = 1
 
-    crab = game.add.sprite(16, 512, 'Crab')
-    game.physics.enable(crab)
-    crab.anchor.setTo(0.5, 0.5);
-    crab.scale.setTo(0.2, 0.2);
-
-    crab.animations.add('walk', [0,1,2,3,4,5]);
-    crab.animations.play('walk', 18, true);
+    WaveStart(wave)
     
-}
-
-function crabMove(crab, speed) {
-    crab.x += speed
 }
