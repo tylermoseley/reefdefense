@@ -167,11 +167,26 @@ var tutorialState = {
         /// instead of text[list], use tutorial_TXT[counter].text
         /// 
 
+        tutorialTextList = [
+            "Reef Defense is a tower defense game where the main objective is\n to build towers to protect the clam from the oncoming waves\n of enemies trying to steal the pearl",
+            "Move the camera with w, a, s, d",
+            "On the top right shows you the shop as well as your current gold",
+            "Right next to each turrent is the amount of gold it costs",
+            "To place turrents, press the corresponding number of the tower \nyou want to place",
+            "Then use left mouse click to place it on the tile you want",
+            "When you're ready to start the wave, click on the 'start' button",
+            "Every wave will be more difficult than the last so plan well, \nand good luck!",
+            "Press escape to return to the main menu"
+        ]; 
+
         tutorial_TXT = game.add.text(game.width / 2 - 180, 10, "Welcome to Reef Defense!",{font: "16px Arial", text: "bold()", fill: "#ffffff", align: "left"})
         tutorial_TXT.fixedToCamera = true;
         tutorial_TXT.visible = true
 
+        counter = 0
+
         /// Tutorial Text
+        /*
         tutorialTXT0 = game.add.text(game.width / 2 - 180, 10, "Welcome to Reef Defense!",{font: "16px Arial", text: "bold()", fill: "#ffffff", align: "left"})
         tutorialTXT0.fixedToCamera = true;
         tutorialTXT0.visible = false
@@ -207,12 +222,8 @@ var tutorialState = {
         tutorialTXT8 = game.add.text(game.width / 2 - 180, 10, "Every wave will be more difficult than the last so plan well, \nand good luck!",{font: "16px Arial", text: "bold()", fill: "#ffffff", align: "left"})
         tutorialTXT8.fixedToCamera = true;
         tutorialTXT8.visible = false
-        tutorialTextList = [
-            "Reef Defense is a tower defense game where the main objective is\n to build towers to protect the clam from the oncoming waves\n of enemies trying to steal the pearl",
-            "Move the camera with w, a, s, d",
-
-        ] 
-        counter = 0
+        */
+        
 
         ///add changetxt function, start it at 0
         ///tutorialTXT.text = 
@@ -226,7 +237,8 @@ var tutorialState = {
             tutorialTXT1.fixedToCamera = true;
         };
         */
-        tutorialKeys.spacebar.onDown.add(changeTXT())
+        tutorialKeys.spacebar.onDown.add(changeTXT);
+        console.log(tutorialKeys.spacebar.onDown)
 
         /*
         if (tutorialKeys.spacebar.onDown){
@@ -361,9 +373,7 @@ function clickHandler() {
     tower3_cost.bringToTop();
     textbox.bringToTop();
     skipTXT.bringToTop();
-    tutorialTXT0.bringToTop();
-    tutorialTXT1.bringToTop();
-    tutorialTXT2.bringToTop();
+
 }
 
 function removeTXT(text){
@@ -375,6 +385,7 @@ function setVisibleFunc(text){
     counter+= 1;
 
 }
+/*
 function visibleTXT(TXTnumber, counter){
     TXTnumber.visible = false;
     
@@ -382,8 +393,12 @@ function visibleTXT(TXTnumber, counter){
     Txt_next = "tutorialTXT"+(counter+1);
     Txt_next.visible = true;
 
-
-
+    }
+*/
+function changeTXT(){
+        tutorial_TXT.text = tutorialTextList[counter]
+        counter+= 1
+    
     }
 
 /*
@@ -426,11 +441,7 @@ function hideBox(){
 
 */
 
-function changeTXT(){
-    tutorial_TXT.text = textList[counter]
-    counter++
 
-}
 /*
 function deleteTXT(){
     
