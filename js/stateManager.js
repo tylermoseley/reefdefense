@@ -21,5 +21,7 @@ game.state.add('boot', bootState);
 game.state.add('load', loadState);
 game.state.add('menu', menuState);
 game.state.add('play0', playState0);
+game.state.add('tutorial', tutorialState);
+game.state.add('tutorial1', tutorialState1);
 
 game.state.start('boot');

@@ -10,11 +10,14 @@ var menuState = {
         // game.add.plugin(Phaser.Plugin.Inspector);
         // game.add.plugin(PhaserSuperStorage.StoragePlugin);
         // game.add.plugin(PhaserInput.Plugin);
-        BG_music = game.add.audio("music");
-        BG_music.play("", 0, .2, true);
+        //BG_music = game.add.audio("music");
+        //BG_music.play("", 0, .2, true);
 
         game.add.image(0, 0, 'home-background');
-        game.add.button(250, 338, 'PlayButton', startGame, this, 2, 1, 0);
+        game.add.button(250, 150, 'PlayButton', startGame, this, 2, 1, 0);
+        tutorial_button = game.add.button(250, 300, 'tutorialButton', tutorialStage, this, 2, 1, 0);
+        tutorial_button.scale.setTo(10,4)
+
     
         // bubble = game.add.sprite(200, 200, "bubble");
         // bubble.scale.setTo(1.5, 1.5)
@@ -30,4 +33,10 @@ function startGame () {
     snd.play();
     game.state.start('play0');
     
+}
+
+function tutorialStage () {
+    var snd = game.add.audio("button");
+    snd.play();
+    game.state.start('tutorial1');
 }
