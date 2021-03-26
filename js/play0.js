@@ -1,4 +1,4 @@
-var bullet, gameOver=0, towertype=1, snd, coralid="c0", defending=0, gameBoard=[], nextWave
+var bullet, gameOver=0, towertype=1, snd, coralid="c0", defending=0, gameBoard=[], nextWave, WaveCount = 0, finalWaveCount = 30
 // create empty 32x32 gameBoard (maybe add dimension variable if board size change)
 for (i=0; i<=31; i++) {
     gameBoard.push([])
@@ -173,6 +173,9 @@ playState0 = {
         bullets.setAll('outOfBoundsKill', true);
         bullets.setAll('anchor.y', 0.25);
 
+        WaveCounter = game.add.text(20, 20, "Wave: "+WaveCount+ "/"+finalWaveCount, {font: "30px Arial", text: "bold()", fill: "#ffffff", align: "center"});
+        WaveCounter.fixedToCamera = true;
+
         nextPlacement = game.time.now
     },
 
@@ -279,6 +282,12 @@ function clamHit () {
     gameOver = 1
     var gameOverAudio = game.add.audio("GameOver")
     gameOverAudio.play();
+    if (gameOver == 1){
+        BG_music.pause();
+    }
+    else{
+        BG_music.resume();
+    }
 }
 
 // coral class for coral objects
@@ -377,17 +386,21 @@ class Coral {
 // creates enemies group depending on wave details
 function WaveStart(wave) {
     // Create Enemies Group For each wave
+    WaveCount+=1;
+    WaveCounter.setText("Wave: "+WaveCount+ "/"+finalWaveCount)
     enemies = null
     enemies = game.add.group() // sets new enemy wave
     enemies.enableBody = true
     enemies.physicsBodyType = Phaser.Physics.ARCADE
     enemies.createMultiple(EnemyWaves[wave].enemyCount, EnemyWaves[wave].sprite)
+
 }
 
 // called from upadate function to place enemies on delay if not total configured wave count not met
 function WavePlacements(wave) {
     if ( (game.time.now > nextPlacement) & (EnemyWaves[wave].spawnCount < EnemyWaves[wave].enemyCount) ) {
         layerRise();
+        
         nextPlacement = game.time.now + EnemyWaves[wave].spawnDelay // set spawn delay by wave
         enemy = enemies.getFirstDead()
         switch(EnemyWaves[wave].sprite){
@@ -485,6 +498,7 @@ function layerRise() {
     tower2_cost.bringToTop();
     tower3_button.bringToTop();
     tower3_cost.bringToTop();
+    WaveCounter.bringToTop();
 }
 
 //same problem as before if i put the shop in a different function
@@ -539,4 +553,8 @@ async function startLevel() {
 
     WaveStart(wave)
     
+}
+//when gameover, allows the game to restart
+function restart(){
+    game.state.start("play0")
 }
