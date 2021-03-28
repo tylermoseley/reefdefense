@@ -12,15 +12,15 @@ var loadState = {
 
         //images, spritesheets, bitmaps...
         game.load.image('home-background', 'Assets/img/backgrounds/UnderWater.png');
-        game.load.atlasJSONHash('PlayButton', 'Assets/img/PlayButton/PlayButton.png', 'Assets/img/PlayButton/PlayButton.json')
-        game.load.image('start', 'Assets/img/start.png')
+        game.load.spritesheet('PlayButton', 'Assets/img/PlayButton/NewPlayButton.png', 160, 80)
+        game.load.spritesheet('start', 'Assets/img/PlayButton/StartButton.png', 64, 32)
         game.load.image('shop_bar', 'Assets/img/backgrounds/Grey Bar.png')
         game.load.spritesheet('tower1', 'Assets/spritesheets/Red Anemone.png', 32, 40)
         game.load.spritesheet('tower2', 'Assets/spritesheets/Sea Star.png', 40, 40)
         game.load.spritesheet('tower3', 'Assets/spritesheets/Grass Coral.png', 32, 40)
         //game.load.image('gold', 'Assets/spritesheets/gold placeholder.png')
         
-        game.load.image('tutorialButton', 'Assets/img/PlayButton/Tutorial button.png')
+        game.load.spritesheet('tutorialButton', 'Assets/img/PlayButton/NewTutButton.png', 160, 80)
         game.load.image('gold', 'Assets/spritesheets/gold coin.png')
 
         //sounds, efx, music...

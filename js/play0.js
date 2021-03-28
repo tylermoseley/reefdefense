@@ -75,9 +75,6 @@ playState0 = {
         // call updateMarker when mouse is moved
         game.input.addMoveCallback(updateMarker, this);
 
-        // call getTileProperties function when tile is clicked
-        game.input.onDown.add(clickHandler, this);
-
         // set cursors variable to keyboard cursor input
         cursors = game.input.keyboard.createCursorKeys();
 
@@ -113,10 +110,13 @@ playState0 = {
         
 
         //added a start level button
-        startButton = game.add.button(380, 310, 'start', startLevel, this, 2, 1, 0);
-        startButton.fixedToCamera = true;
-        startButton.anchor.setTo(0.5, 0.5);
-        startButton.scale.setTo(0.2,0.2);
+        startButton = game.add.button(32*15, 32*17, 'start', startLevel, this, 1, 0, 2);
+        // startButton.fixedToCamera = true;
+        // startButton.anchor.setTo(0.5, 0.5);
+        // startButton.scale.setTo(0.2,0.2);
+
+        // call clickHandler function when tile is clicked
+        game.input.onDown.add(clickHandler, this);
 
         //shop
         shopbar = game.add.sprite(800, 0, 'shop_bar');
@@ -312,6 +312,7 @@ class Coral {
         switch (this.type) {
             case 1:
                 this.range = 64;
+                this.fireRate = 400
                 this.spriteName = 'tower1'
                 this.cost = prices[0]
                 //added same sound for all towers for now on shoot, can swap easily later
@@ -319,19 +320,20 @@ class Coral {
                 break;
             case 2:
                 this.range = 128;
+                this.fireRate = 800
                 this.spriteName = 'tower2'
                 this.cost = prices[1]
                 this.popSound = game.add.audio("PopSound")
                 break;
             case 3:
                 this.range = 256;
+                this.fireRate = 1200
                 this.spriteName = 'tower3'
                 this.cost = prices[2]
                 this.popSound = game.add.audio("PopSound")
                 break;
         }
         this.nextFire = 0
-        this.fireRate = 400
         this.closestEnemy = null
         this.moneyBag = game.add.audio("MoneyBag")
     }
@@ -486,15 +488,16 @@ function clickHandler() {
 
     // create new coral object in corals list under pointer
     // add type for property for diff corals later
-    
+
     tempCoral = new Coral(
         id = coralid,
         type = towertype
     );
 
-
     // locate coral with curent id to game board (increment coralid with prefix if success)
     if ( tempCoral.locate(watertile, gameBoard) ) {coralid = coralid.slice(0,1) + (Number(coralid.slice(1)) + 1)};
+
+
 
     // game.debug.text(coralid, 12, 36)
     // game.debug.text("Tile: world: {"+tile.worldX+","+tile.worldY+"} index: ("+tile.x+","+tile.y+")", 12, 16);
@@ -543,8 +546,15 @@ function shop_bar(){
 */
 // display rectangle on mouse location
 function updateMarker() {
-    marker.x = layer.getTileX(game.input.activePointer.worldX) * 32;
-    marker.y = layer.getTileY(game.input.activePointer.worldY) * 32;
+    markerx = layer.getTileX(game.input.activePointer.worldX) * 32;
+    markery = layer.getTileY(game.input.activePointer.worldY) * 32;
+    if ((markerx == 32*15 & markery == 32*17) | (markerx == 32*16 & markery == 32*17)) {
+        ;
+    } else {
+        marker.x = markerx
+        marker.y = markery
+    }
+
 }
 
 // sleep function
