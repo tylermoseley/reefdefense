@@ -8,14 +8,14 @@ for (i=0; i<=31; i++) {
 }
 
 EnemyWaves = []
-enemies = ['Crab', 'Eel', 'Jellyfish']
+enemytypes = ['Crab', 'Eel', 'Jellyfish']
 startLocations = ['top', 'bottom', 'left', 'right']
 
-for (i=0; i<=30; i++) {
+for (i=0; i<=10; i++) {
     wave = {
         enemyCount: i + 2,
-        sprite: enemies[i % 3],
-        speed: 10 + (i * 4),
+        sprite: enemytypes[i % 3],
+        speed: 20 + (i * 4),
         health: 2 + (i * 2), // must remain integers (no decimals here)
         spawnLocation: startLocations[Math.floor(Math.random() * 4)],
         spawnDelay: 3000,
@@ -172,6 +172,7 @@ playState0 = {
         bullets.setAll('checkWorldBounds', true);
         bullets.setAll('outOfBoundsKill', true);
         bullets.setAll('anchor.y', 0.25);
+        enemies = game.add.group()
 
         WaveCounter = game.add.text(20, 20, "Wave: "+WaveCount+ "/"+finalWaveCount, {font: "30px Arial", text: "bold()", fill: "#ffffff", align: "center"});
         WaveCounter.fixedToCamera = true;
@@ -226,16 +227,28 @@ playState0 = {
             if (EnemyWaves[wave].killCount >= EnemyWaves[wave].enemyCount) {
                 defending = 0
                 wave++
-                nextWave = game.time.now + 2000 // sadet delay until next wave
+                nextWave = game.time.now + 2000 // set delay until next wave
             } else {
                 WavePlacements(wave)
                 game.physics.arcade.overlap(bullets, enemies, enemyHit)
                 game.physics.arcade.overlap(enemies, clam, clamHit)
+                for (i=0, len=bullets.children.length; i < len; i++) {
+                    if (Phaser.Math.distance(bullets.children[i].x, bullets.children[i].y, bullets.children[i].sourcex, bullets.children[i].sourcey) > bullets.children[i].sourcerange) {
+                        bullets.children[i].kill()
+                    }
+                }
             }
         } else if (nextWave < game.time.now & nextWave !== 0) {
             nextWave = 0
             defending = 1
             WaveStart(wave)
+        } else {
+            for (i=0, len=bullets.children.length; i<len; i++) {
+                bullets.children[i].kill()
+            }
+            for (i=0, len=enemies.children.length; i<len; i++) {
+                enemies.children[i].body.reset(enemies.children[i].x, enemies.children[i].y)
+            }
         }
     }
 }
@@ -269,6 +282,7 @@ async function enemyHit (bullet, enemy) {
     }
     enemy.damage(1)
 
+    enemy.alpha = .1 + .9 * (enemy.health / EnemyWaves[wave].health)
     enemy.tint = 0x000000
     await sleep(0.2);
     enemy.tint = 0xFFFFFF;
@@ -377,6 +391,9 @@ class Coral {
             bullet = bullets.getFirstDead();
             bullet.reset(this.sprite.centerX, this.sprite.centerY);
             game.physics.arcade.moveToObject(bullet, enemy, 200);
+            bullet.sourcex = this.sprite.centerX;
+            bullet.sourcey = this.sprite.centerY;
+            bullet.sourcerange = this.range;
             bullet.rotation = game.physics.arcade.angleToXY(bullet, enemy.centerX, enemy.centerY)
             this.popSound.play("", 0, .2);
         }
@@ -403,6 +420,7 @@ function WavePlacements(wave) {
         
         nextPlacement = game.time.now + EnemyWaves[wave].spawnDelay // set spawn delay by wave
         enemy = enemies.getFirstDead()
+        enemy.alpha = 1
         switch(EnemyWaves[wave].sprite){
             case 'Crab':
                 enemy.scale.setTo(0.2, 0.2);
