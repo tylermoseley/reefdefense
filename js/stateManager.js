@@ -23,5 +23,7 @@ game.state.add('menu', menuState);
 game.state.add('play0', playState0);
 game.state.add('tutorial', tutorialState);
 game.state.add('tutorial1', tutorialState1);
+game.state.add("loss", lossState);
+game.state.add("win", winState);
 
 game.state.start('boot');
