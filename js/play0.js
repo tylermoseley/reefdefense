@@ -306,6 +306,7 @@ function clamHit () {
     if (gameOver == 1){
         BG_music.pause();
         game.state.start("loss")
+        WaveCount = 0
     }
     else{
         BG_music.resume();
@@ -315,6 +316,7 @@ function clamHit () {
 //Win event
 function win(){
         game.state.start("win");
+        WaveCount = 0
 }
 // coral class for coral objects
 class Coral {
