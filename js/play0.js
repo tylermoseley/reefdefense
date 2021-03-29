@@ -1,4 +1,4 @@
-var bullet, gameOver=0, towertype=1, snd, coralid="c0", defending=0, gameBoard=[], nextWave, WaveCount = 0, finalWaveCount = 30
+var bullet, gameOver=0, towertype=1, snd, coralid="c0", defending=0, gameBoard=[], nextWave, WaveCount = 0, finalWaveCount = 1
 // create empty 32x32 gameBoard (maybe add dimension variable if board size change)
 for (i=0; i<=31; i++) {
     gameBoard.push([])
@@ -176,6 +176,8 @@ playState0 = {
         WaveCounter = game.add.text(20, 20, "Wave: "+WaveCount+ "/"+finalWaveCount, {font: "30px Arial", text: "bold()", fill: "#ffffff", align: "center"});
         WaveCounter.fixedToCamera = true;
 
+        
+
         nextPlacement = game.time.now
     },
 
@@ -220,13 +222,18 @@ playState0 = {
                 }
             }
         }
-
+        
         // initial hard coding for enemy wave
         if(defending & gameOver == 0) {
             if (EnemyWaves[wave].killCount >= EnemyWaves[wave].enemyCount) {
+                if(WaveCount > finalWaveCount){
+                    win()
+                }
+                else{
                 defending = 0
                 wave++
                 nextWave = game.time.now + 2000 // sadet delay until next wave
+                }
             } else {
                 WavePlacements(wave)
                 game.physics.arcade.overlap(bullets, enemies, enemyHit)
@@ -237,6 +244,8 @@ playState0 = {
             defending = 1
             WaveStart(wave)
         }
+
+        
     }
 }
 
@@ -284,12 +293,17 @@ function clamHit () {
     gameOverAudio.play();
     if (gameOver == 1){
         BG_music.pause();
+        game.state.start("loss")
     }
     else{
         BG_music.resume();
     }
 }
 
+//Win event
+function win(){
+        game.state.start("win");
+}
 // coral class for coral objects
 class Coral {
     constructor (id, type) {
