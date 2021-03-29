@@ -1,4 +1,4 @@
-var w = 800, h = 750;
+var w = 800, h = 600;
 
 /*
 For Fullscreen put this code:
@@ -8,8 +8,8 @@ var w = window.innerWidth * window.devicePixelRatio,
 */
 
 var config = {
-    width: 800,
-    height: 600,
+    width: w,
+    height: h,
     renderer: Phaser.Auto,
     parent: 'gameContainer',
     mouseWheel: true

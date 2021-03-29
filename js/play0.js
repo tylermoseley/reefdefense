@@ -39,8 +39,8 @@ playState0 = {
         game.load.spritesheet('Bullet', 'Assets/spritesheets/bullet.png', 32, 64);
         game.load.spritesheet('Clam', 'Assets/spritesheets/clam.png', 64, 64);
         game.load.image('TXTbox', 'Assets/spritesheets/Textbox blue.png');
-        game.load.spritesheet('Eel', 'Assets/spritesheets/eel.png', 90, 32);
-        game.load.spritesheet('Jellyfish', 'Assets/spritesheets/jellyfish.png', 32, 32);
+        game.load.spritesheet('Eel', 'Assets/spritesheets/Eel.png', 90, 32);
+        game.load.spritesheet('Jellyfish', 'Assets/spritesheets/Jellyfish.png', 32, 32);
         game.load.audio("music", "Assets/audio/kv-ocean.mp3");
     },
 
