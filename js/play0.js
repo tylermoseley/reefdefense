@@ -222,18 +222,17 @@ playState0 = {
                 }
             }
         }
+        if(WaveCount > finalWaveCount){
+            game.state.start('win')
+        }
         
         // initial hard coding for enemy wave
         if(defending & gameOver == 0) {
             if (EnemyWaves[wave].killCount >= EnemyWaves[wave].enemyCount) {
-                if(WaveCount > finalWaveCount){
-                    win()
-                }
-                else{
                 defending = 0
                 wave++
                 nextWave = game.time.now + 2000 // sadet delay until next wave
-                }
+                
             } else {
                 WavePlacements(wave)
                 game.physics.arcade.overlap(bullets, enemies, enemyHit)
