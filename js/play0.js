@@ -138,6 +138,7 @@ playState0 = {
         tower1_button.fixedToCamera = true;
         tower1_button.anchor.setTo(0, 0);
         tower1_button.scale.setTo(0.8,0.8);
+        tower1_button.animations.add('idle1', [0,1,2,3]);
 
         tower1_cost = game.add.text(795, 40, "Press 1\n10G", {font: "10px Arial", text: "bold()", fill: "#000000", align: "right"})
         tower1_cost.fixedToCamera = true;
@@ -147,6 +148,7 @@ playState0 = {
         tower2_button.fixedToCamera = true;
         tower2_button.anchor.setTo(0, 0);
         tower2_button.scale.setTo(.9, .9)
+        tower2_button.animations.add('idle2', [0,1,2,3]);
 
         tower2_cost = game.add.text(795, 80, "Press 2\n20G", {font: "10px Arial", text: "bold()", fill: "#000000", align: "right"})
         tower2_cost.fixedToCamera = true;
@@ -156,6 +158,7 @@ playState0 = {
         tower3_button.fixedToCamera = true;
         tower3_button.anchor.setTo(0, 0);
         tower3_button.scale.setTo(0.8,0.8);
+        tower3_button.animations.add('idle3', [0,1,2,3]);
 
         tower3_cost = game.add.text(795, 125, "Press 3\n30G", {font: "10px Arial", text: "bold()", fill: "#000000", align: "right"})
         tower3_cost.fixedToCamera = true;
@@ -186,12 +189,24 @@ playState0 = {
         // set tower type based on number keys
         if (towerKeys.one.isDown){
             towertype = 1
+            tower1_button.animations.play('idle1', 5, true)
+        }
+        else{
+            tower1_button.animations.stop()
         }
         if (towerKeys.two.isDown){
             towertype = 2
+            tower2_button.animations.play('idle2', 5, true);
+        }
+        else{
+            tower2_button.animations.stop()
         }
         if (towerKeys.three.isDown){
             towertype = 3
+            tower3_button.animations.play('idle3', 5, true);
+        }
+        else{
+            tower3_button.animations.stop()
         }
 
         // move camera with cursors with "speed" set
