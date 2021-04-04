@@ -42,6 +42,9 @@ playState0 = {
         game.load.spritesheet('Eel', 'Assets/spritesheets/Eel.png', 90, 32);
         game.load.spritesheet('Jellyfish', 'Assets/spritesheets/Jellyfish.png', 32, 32);
         game.load.audio("music", "Assets/audio/kv-ocean.mp3");
+        game.load.image('towertower1', 'Assets/sprites/Pink Coral Tower.png');
+        game.load.spritesheet('towertower2', 'Assets/spritesheets/Sea Star.png', 40, 40)
+        
     },
 
     create: function () {
@@ -68,9 +71,18 @@ playState0 = {
         game.camera.y = ((32**2-game.height)/2);
 
         //  hover box
-        marker = game.add.graphics();
-        marker.lineStyle(2, "0xFFFFFF", 1);
-        marker.drawRect(0, 0, 32, 32);
+        
+        marker = game.add.image(0,0, 'towertower2',1)
+        marker.alpha = 1
+        //marker.lineStyle(2, "0xFFFFFF", 1);
+        //marker.drawCircle(0, 0, 32 );
+        game.physics.enable(marker);
+
+        marker2 = game.add.graphics()
+
+        //marker = game.add.graphics();
+        //marker.lineStyle(2, "0xFFFFFF", 1)
+        //marker.drawRect(0, 0, 32, 32);
 
         // call updateMarker when mouse is moved
         game.input.addMoveCallback(updateMarker, this);
@@ -189,6 +201,8 @@ playState0 = {
         // set tower type based on number keys
         if (towerKeys.one.isDown){
             towertype = 1
+            updateMarker(towertype)
+            
             tower1_button.animations.play('idle1', 5, true)
         }
         else{
@@ -196,6 +210,7 @@ playState0 = {
         }
         if (towerKeys.two.isDown){
             towertype = 2
+            updateMarker(towertype)
             tower2_button.animations.play('idle2', 5, true);
         }
         else{
@@ -203,6 +218,7 @@ playState0 = {
         }
         if (towerKeys.three.isDown){
             towertype = 3
+            updateMarker(towertype)
             tower3_button.animations.play('idle3', 5, true);
         }
         else{
@@ -582,6 +598,15 @@ function updateMarker() {
     } else {
         marker.x = markerx
         marker.y = markery
+        marker.frame = towertype
+        //add a spritesheet that has all three imgs one from each tower
+        //when doing new image (loading new img)
+        //marker.frame = towertype
+        //when loading marker, specify which frame 
+        //radius add another marker, do a fill instead of line and make radius equal to tower range property from tower selected.
+        //this is in the coral class, create a new coral(clickhandler for this format), dont place the coral (dont use locate), use that coral.range  
+        //coral1 = newcoral, id2type = 2
+        //radius = coral.range
     }
 
 }
