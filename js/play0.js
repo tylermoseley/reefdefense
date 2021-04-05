@@ -8,16 +8,30 @@ for (i=0; i<=31; i++) {
 }
 
 EnemyWaves = []
-enemytypes = ['Crab', 'Eel', 'Jellyfish']
+enemytypes = ['Crab', 'Eel', 'Jellyfish', 'Shark']
 startLocations = ['top', 'bottom', 'left', 'right']
 
 for (i=0; i<=10; i++) {
+    // every randomize every wave except waves divisible by 10
+    if (i>0 & (i+1)%10 == 0) {
+        enemyCount = 1
+        spriteIndex = 3
+        speed = 10
+        health = 100
+        spawnLocation = startLocations[2]
+    } else {
+        enemyCount = i + 2,
+        spriteIndex = Math.floor(Math.random() * 3)
+        speed = 20 + (i * 4)
+        health = 2 + (i * 2), // must remain integers (no decimals here)
+        spawnLocation = startLocations[Math.floor(Math.random() * 4)]
+    }
     wave = {
-        enemyCount: i + 2,
-        sprite: enemytypes[i % 3],
-        speed: 20 + (i * 4),
-        health: 2 + (i * 2), // must remain integers (no decimals here)
-        spawnLocation: startLocations[Math.floor(Math.random() * 4)],
+        enemyCount: enemyCount,
+        sprite: enemytypes[spriteIndex],
+        speed: speed,
+        health: health,
+        spawnLocation: spawnLocation,
         spawnDelay: 3000,
         spawnCount: 0,
         killCount: 0
@@ -41,6 +55,7 @@ playState0 = {
         game.load.image('TXTbox', 'Assets/spritesheets/Textbox blue.png');
         game.load.spritesheet('Eel', 'Assets/spritesheets/Eel.png', 90, 32);
         game.load.spritesheet('Jellyfish', 'Assets/spritesheets/Jellyfish.png', 32, 32);
+        game.load.spritesheet('Shark', 'Assets/spritesheets/SharkBoss.png', 223, 63);
         game.load.audio("music", "Assets/audio/kv-ocean.mp3");
     },
 
@@ -467,6 +482,10 @@ function WavePlacements(wave) {
                 enemy.animations.add('swim', [0,1,2,3,4,5,6,7])
                 enemy.animations.play('swim', 8, true);
                 break;
+            case 'Shark':
+                enemy.animations.add('swim', [2,3,4,0,1,5,6,7])
+                enemy.animations.play('swim', 8, true);
+                break;
         }
         enemy.anchor.setTo(0.5, 0.5);
         
@@ -476,21 +495,21 @@ function WavePlacements(wave) {
                 var spawnY = 512
                 break
             case 'top':
-                if (EnemyWaves[wave].sprite == 'Eel'){
+                if (['Eel', 'Shark'].includes(EnemyWaves[wave].sprite)){
                     enemy.angle = 90
                 }
                 var spawnX = 512
                 var spawnY = 32
                 break
             case 'right':
-                if (EnemyWaves[wave].sprite == 'Eel'){
+                if (['Eel', 'Shark'].includes(EnemyWaves[wave].sprite)){
                     enemy.scale.setTo(-1,1);
                 }
                 var spawnX = 992
                 var spawnY = 512
                 break
             case 'bottom':
-                if (EnemyWaves[wave].sprite == 'Eel'){
+                if (['Eel', 'Shark'].includes(EnemyWaves[wave].sprite)){
                     enemy.angle = 270
                 }
                 var spawnX = 512
@@ -575,8 +594,8 @@ function shop_bar(){
 */
 // display rectangle on mouse location
 function updateMarker() {
-    markerx = layer.getTileX(game.input.activePointer.worldX) * 32;
-    markery = layer.getTileY(game.input.activePointer.worldY) * 32;
+    markerx = WaterEdgesMid.getTileX(game.input.activePointer.worldX) * 32;
+    markery = WaterEdgesMid.getTileY(game.input.activePointer.worldY) * 32;
     if ((markerx == 32*15 & markery == 32*17) | (markerx == 32*16 & markery == 32*17)) {
         ;
     } else {
