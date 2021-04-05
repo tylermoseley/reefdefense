@@ -1,4 +1,4 @@
-var bullet, gameOver=0, towertype=1, snd, coralid="c0", defending=0, gameBoard=[], nextWave, WaveCount = 0, finalWaveCount = 10
+var bullet, gameOver=0, towertype=1, snd, coralid="c0", defending=0, gameBoard=[], nextWave, WaveCount = 0, finalWaveCount = 10, radius = 64
 // create empty 32x32 gameBoard (maybe add dimension variable if board size change)
 for (i=0; i<=31; i++) {
     gameBoard.push([])
@@ -42,8 +42,8 @@ playState0 = {
         game.load.spritesheet('Eel', 'Assets/spritesheets/Eel.png', 90, 32);
         game.load.spritesheet('Jellyfish', 'Assets/spritesheets/Jellyfish.png', 32, 32);
         game.load.audio("music", "Assets/audio/kv-ocean.mp3");
-        game.load.image('towertower1', 'Assets/sprites/Pink Coral Tower.png');
-        game.load.spritesheet('towertower2', 'Assets/spritesheets/Sea Star.png', 40, 40)
+        game.load.spritesheet('towertower', 'Assets/img/Tower List.png', 32, 40);
+        
         
     },
 
@@ -70,16 +70,21 @@ playState0 = {
         game.camera.x = ((32**2-game.width)/2);
         game.camera.y = ((32**2-game.height)/2);
 
-        //  hover box
         
-        marker = game.add.image(0,0, 'towertower2',1)
-        marker.alpha = 1
-        //marker.lineStyle(2, "0xFFFFFF", 1);
-        //marker.drawCircle(0, 0, 32 );
+        //range indicator (not yet finished)
+        marker2 = game.add.graphics()
+        //2nd value is alpha (opacity)
+        marker2.beginFill("0xFFFFFF", 0);
+        marker2.drawCircle(16, 20, radius*2);
+        marker2.endFill();
+        
+        //  hover sprite
+        marker = game.add.image(0,0, 'towertower', 0)
+        marker.alpha = 0.5
+    
         game.physics.enable(marker);
 
-        marker2 = game.add.graphics()
-
+        // hover box
         //marker = game.add.graphics();
         //marker.lineStyle(2, "0xFFFFFF", 1)
         //marker.drawRect(0, 0, 32, 32);
@@ -198,10 +203,13 @@ playState0 = {
     },
 
     update: function() {
+        towerRange = 64;
         // set tower type based on number keys
         if (towerKeys.one.isDown){
             towertype = 1
-            updateMarker(towertype)
+            towerRange = 64
+            updateMarker(towertype, towerRange)
+            
             
             tower1_button.animations.play('idle1', 5, true)
         }
@@ -210,7 +218,8 @@ playState0 = {
         }
         if (towerKeys.two.isDown){
             towertype = 2
-            updateMarker(towertype)
+            towerRange = 128
+            updateMarker(towertype, towerRange)
             tower2_button.animations.play('idle2', 5, true);
         }
         else{
@@ -218,7 +227,8 @@ playState0 = {
         }
         if (towerKeys.three.isDown){
             towertype = 3
-            updateMarker(towertype)
+            towerRange = 256
+            updateMarker(towertype, towerRange)
             tower3_button.animations.play('idle3', 5, true);
         }
         else{
@@ -538,7 +548,12 @@ function clickHandler() {
         id = coralid,
         type = towertype
     );
-
+    
+    coral1 = new Coral(
+        id = coralid,
+        type = towertype,
+        radius = Coral.range
+    );
     // locate coral with curent id to game board (increment coralid with prefix if success)
     if ( tempCoral.locate(watertile, gameBoard) ) {coralid = coralid.slice(0,1) + (Number(coralid.slice(1)) + 1)};
 
@@ -591,6 +606,7 @@ function shop_bar(){
 */
 // display rectangle on mouse location
 function updateMarker() {
+
     markerx = layer.getTileX(game.input.activePointer.worldX) * 32;
     markery = layer.getTileY(game.input.activePointer.worldY) * 32;
     if ((markerx == 32*15 & markery == 32*17) | (markerx == 32*16 & markery == 32*17)) {
@@ -598,7 +614,10 @@ function updateMarker() {
     } else {
         marker.x = markerx
         marker.y = markery
-        marker.frame = towertype
+        marker2.x = markerx
+        marker2.y = markery
+        marker.frame = towertype -1
+        radius = towerRange
         //add a spritesheet that has all three imgs one from each tower
         //when doing new image (loading new img)
         //marker.frame = towertype
