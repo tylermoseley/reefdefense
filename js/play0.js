@@ -1,4 +1,4 @@
-var bullet, gameOver=0, towertype=1, snd, coralid="c0", defending=0, gameBoard=[], nextWave, WaveCount = 0, finalWaveCount = 10
+var bullet, gameOver=0, towertype=1, snd, coralid="c0", defending=0, gameBoard=[], nextWave, WaveCount = 0, finalWaveCount = 10, radius = 64
 // create empty 32x32 gameBoard (maybe add dimension variable if board size change)
 for (i=0; i<=31; i++) {
     gameBoard.push([])
@@ -57,6 +57,9 @@ playState0 = {
         game.load.spritesheet('Jellyfish', 'Assets/spritesheets/Jellyfish.png', 32, 32);
         game.load.spritesheet('Shark', 'Assets/spritesheets/SharkBoss.png', 223, 63);
         game.load.audio("music", "Assets/audio/kv-ocean.mp3");
+        game.load.spritesheet('towertower', 'Assets/img/Tower List.png', 32, 40);
+        
+        
     },
 
     create: function () {
@@ -82,10 +85,24 @@ playState0 = {
         game.camera.x = ((32**2-game.width)/2);
         game.camera.y = ((32**2-game.height)/2);
 
-        //  hover box
-        marker = game.add.graphics();
-        marker.lineStyle(2, "0xFFFFFF", 1);
-        marker.drawRect(0, 0, 32, 32);
+        
+        //range indicator (not yet finished)
+        marker2 = game.add.graphics()
+        //2nd value is alpha (opacity)
+        marker2.beginFill("0xFFFFFF", 0);
+        marker2.drawCircle(16, 20, radius*2);
+        marker2.endFill();
+        
+        //  hover sprite
+        marker = game.add.image(0,0, 'towertower', 0)
+        marker.alpha = 0.5
+    
+        game.physics.enable(marker);
+
+        // hover box
+        //marker = game.add.graphics();
+        //marker.lineStyle(2, "0xFFFFFF", 1)
+        //marker.drawRect(0, 0, 32, 32);
 
         // call updateMarker when mouse is moved
         game.input.addMoveCallback(updateMarker, this);
@@ -201,9 +218,14 @@ playState0 = {
     },
 
     update: function() {
+        towerRange = 64;
         // set tower type based on number keys
         if (towerKeys.one.isDown){
             towertype = 1
+            towerRange = 64
+            updateMarker(towertype, towerRange)
+            
+            
             tower1_button.animations.play('idle1', 5, true)
         }
         else{
@@ -211,6 +233,8 @@ playState0 = {
         }
         if (towerKeys.two.isDown){
             towertype = 2
+            towerRange = 128
+            updateMarker(towertype, towerRange)
             tower2_button.animations.play('idle2', 5, true);
         }
         else{
@@ -218,6 +242,8 @@ playState0 = {
         }
         if (towerKeys.three.isDown){
             towertype = 3
+            towerRange = 256
+            updateMarker(towertype, towerRange)
             tower3_button.animations.play('idle3', 5, true);
         }
         else{
@@ -355,8 +381,8 @@ class Coral {
         this.type = type
         switch (this.type) {
             case 1:
-                this.range = 64;
-                this.fireRate = 400
+                this.range = 72; //was 64
+                this.fireRate = 300 // was 400
                 this.spriteName = 'tower1'
                 this.cost = prices[0]
                 //added same sound for all towers for now on shoot, can swap easily later
@@ -364,14 +390,14 @@ class Coral {
                 break;
             case 2:
                 this.range = 128;
-                this.fireRate = 800
+                this.fireRate = 500 //was 800
                 this.spriteName = 'tower2'
                 this.cost = prices[1]
                 this.popSound = game.add.audio("PopSound")
                 break;
             case 3:
                 this.range = 256;
-                this.fireRate = 1200
+                this.fireRate = 800 //was 1200
                 this.spriteName = 'tower3'
                 this.cost = prices[2]
                 this.popSound = game.add.audio("PopSound")
@@ -541,7 +567,12 @@ function clickHandler() {
         id = coralid,
         type = towertype
     );
-
+    
+    coral1 = new Coral(
+        id = coralid,
+        type = towertype,
+        radius = Coral.range
+    );
     // locate coral with curent id to game board (increment coralid with prefix if success)
     if ( tempCoral.locate(watertile, gameBoard) ) {coralid = coralid.slice(0,1) + (Number(coralid.slice(1)) + 1)};
 
@@ -601,6 +632,18 @@ function updateMarker() {
     } else {
         marker.x = markerx
         marker.y = markery
+        marker2.x = markerx
+        marker2.y = markery
+        marker.frame = towertype -1
+        //radius = towerRange
+        //add a spritesheet that has all three imgs one from each tower
+        //when doing new image (loading new img)
+        //marker.frame = towertype
+        //when loading marker, specify which frame 
+        //radius add another marker, do a fill instead of line and make radius equal to tower range property from tower selected.
+        //this is in the coral class, create a new coral(clickhandler for this format), dont place the coral (dont use locate), use that coral.range  
+        //coral1 = newcoral, id2type = 2
+        //radius = coral.range
     }
 
 }
