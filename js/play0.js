@@ -381,8 +381,8 @@ class Coral {
         this.type = type
         switch (this.type) {
             case 1:
-                this.range = 64;
-                this.fireRate = 400
+                this.range = 72; //was 64
+                this.fireRate = 300 // was 400
                 this.spriteName = 'tower1'
                 this.cost = prices[0]
                 //added same sound for all towers for now on shoot, can swap easily later
@@ -390,14 +390,14 @@ class Coral {
                 break;
             case 2:
                 this.range = 128;
-                this.fireRate = 800
+                this.fireRate = 500 //was 800
                 this.spriteName = 'tower2'
                 this.cost = prices[1]
                 this.popSound = game.add.audio("PopSound")
                 break;
             case 3:
                 this.range = 256;
-                this.fireRate = 1200
+                this.fireRate = 800 //was 1200
                 this.spriteName = 'tower3'
                 this.cost = prices[2]
                 this.popSound = game.add.audio("PopSound")
