@@ -18,7 +18,23 @@ var loadState = {
         game.load.spritesheet('tower1', 'Assets/spritesheets/Red Anemone.png', 32, 40)
         game.load.spritesheet('tower2', 'Assets/spritesheets/Sea Star.png', 40, 40)
         game.load.spritesheet('tower3', 'Assets/spritesheets/Grass Coral.png', 32, 40)
-        //game.load.image('gold', 'Assets/spritesheets/gold placeholder.png')
+        game.load.image('Water', 'Assets/Tilesets/water_tileset.png');
+        game.load.image('sand', 'Assets/Tilesets/sand.png');
+        game.load.image('caveleft', 'Assets/Tilesets/caveleft.png');
+        game.load.image('caveright', 'Assets/Tilesets/caveright.png');
+        game.load.image('cavetop', 'Assets/Tilesets/cavetop.png');
+        game.load.image('cavebottom', 'Assets/Tilesets/cavebottom.png');
+        game.load.spritesheet('Crab', 'Assets/spritesheets/crabSheet.png', 320, 320);
+        game.load.spritesheet('Bullet', 'Assets/spritesheets/bullet.png', 32, 64);
+        game.load.image('Laser', 'Assets/Sprites/laser.png');
+        game.load.spritesheet('Clam', 'Assets/spritesheets/clam.png', 64, 64);
+        game.load.image('TXTbox', 'Assets/spritesheets/Textbox blue.png');
+        game.load.spritesheet('Eel', 'Assets/spritesheets/Eel.png', 90, 32);
+        game.load.spritesheet('Jellyfish', 'Assets/spritesheets/Jellyfish.png', 32, 32);
+        game.load.spritesheet('Shark', 'Assets/spritesheets/SharkBoss.png', 223, 63);
+        game.load.audio("music", "Assets/audio/kv-ocean.mp3");
+        game.load.audio("laser", "Assets/audio/LaserShot.wav");
+        game.load.spritesheet('towertower', 'Assets/img/Tower List.png', 32, 40);
         
         game.load.spritesheet('tutorialButton', 'Assets/img/PlayButton/NewTutButton.png', 160, 80)
         game.load.image('gold', 'Assets/spritesheets/gold coin.png')

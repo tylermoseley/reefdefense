@@ -1,65 +1,54 @@
-var bullet, gameOver=0, towertype=1, snd, coralid="c0", defending=0, gameBoard=[], nextWave, WaveCount = 0, finalWaveCount = 10, radius = 64
-// create empty 32x32 gameBoard (maybe add dimension variable if board size change)
-for (i=0; i<=31; i++) {
-    gameBoard.push([])
-    for (j=0; j<=31; j++){
-        gameBoard[i].push("None")
-    }
-}
-
-EnemyWaves = []
-enemytypes = ['Crab', 'Eel', 'Jellyfish', 'Shark']
-startLocations = ['top', 'bottom', 'left', 'right']
-
-for (i=0; i<=10; i++) {
-    // every randomize every wave except waves divisible by 10
-    if (i>0 & (i+1)%10 == 0) {
-        enemyCount = 1
-        spriteIndex = 3
-        speed = 10
-        health = 100
-        spawnLocation = startLocations[2]
-    } else {
-        enemyCount = i + 2,
-        spriteIndex = Math.floor(Math.random() * 3)
-        speed = 20 + (i * 4)
-        health = 2 + (i * 2), // must remain integers (no decimals here)
-        spawnLocation = startLocations[Math.floor(Math.random() * 4)]
-    }
-    wave = {
-        enemyCount: enemyCount,
-        sprite: enemytypes[spriteIndex],
-        speed: speed,
-        health: health,
-        spawnLocation: spawnLocation,
-        spawnDelay: 3000,
-        spawnCount: 0,
-        killCount: 0
-    }
-    EnemyWaves.push(wave)
-}
-wave=0
-
 playState0 = {
     preload: function() {
+        gameOver=0, towertype=1, coralid="c0", defending=0, gameBoard=[], WaveCount = 0
+        finalWaveCount = 10, radius = 64, nextLaser = 0, laserDelay = 5000, balance = 100
+        nextWave = 0, bullet = null
+        // create empty 32x32 gameBoard (maybe add dimension variable if board size change)
+        for (i=0; i<=31; i++) {
+            gameBoard.push([])
+            for (j=0; j<=31; j++){
+                gameBoard[i].push("None")
+            }
+        }
+        EnemyWaves = []
+        enemytypes = ['Crab', 'Eel', 'Jellyfish', 'Shark']
+        startLocations = ['top', 'bottom', 'left', 'right']
+
+        for (i=0; i<=10; i++) {
+            // every randomize every wave except waves divisible by 10
+            if (i==0) { // i>0 & (i+1)%10 == 0) {
+                enemyCount = 1
+                spriteIndex = 3
+                speed = 100
+                health = 100
+                spawnLocation = startLocations[2]
+                width = 224
+                height = 64
+            } else {
+                enemyCount = i + 2,
+                    spriteIndex = Math.floor(Math.random() * 3)
+                speed = 20 + (i * 4)
+                health = 2 + (i * 2), // must remain integers (no decimals here)
+                    spawnLocation = startLocations[Math.floor(Math.random() * 4)]
+                width = 32
+                height = 32
+            }
+            wave = {
+                enemyCount: enemyCount,
+                sprite: enemytypes[spriteIndex],
+                speed: speed,
+                health: health,
+                spawnLocation: spawnLocation,
+                spawnDelay: 3000,
+                spawnCount: 0,
+                killCount: 0,
+                width: width,
+                height: height
+            }
+            EnemyWaves.push(wave)
+        }
+        wave=0
         game.load.tilemap('Map0', 'Assets/Map/Map0.json', null, Phaser.Tilemap.TILED_JSON);
-        game.load.image('Water', 'Assets/Tilesets/water_tileset.png');
-        game.load.image('sand', 'Assets/Tilesets/sand.png');
-        game.load.image('caveleft', 'Assets/Tilesets/caveleft.png');
-        game.load.image('caveright', 'Assets/Tilesets/caveright.png');
-        game.load.image('cavetop', 'Assets/Tilesets/cavetop.png');
-        game.load.image('cavebottom', 'Assets/Tilesets/cavebottom.png');
-        game.load.spritesheet('Crab', 'Assets/spritesheets/crabSheet.png', 320, 320);
-        game.load.spritesheet('Bullet', 'Assets/spritesheets/bullet.png', 32, 64);
-        game.load.spritesheet('Clam', 'Assets/spritesheets/clam.png', 64, 64);
-        game.load.image('TXTbox', 'Assets/spritesheets/Textbox blue.png');
-        game.load.spritesheet('Eel', 'Assets/spritesheets/Eel.png', 90, 32);
-        game.load.spritesheet('Jellyfish', 'Assets/spritesheets/Jellyfish.png', 32, 32);
-        game.load.spritesheet('Shark', 'Assets/spritesheets/SharkBoss.png', 223, 63);
-        game.load.audio("music", "Assets/audio/kv-ocean.mp3");
-        game.load.spritesheet('towertower', 'Assets/img/Tower List.png', 32, 40);
-        
-        
     },
 
     create: function () {
@@ -128,7 +117,8 @@ playState0 = {
         clam.animations.add('Resting', [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]);
         
 
-        var ClamBubbles = game.add.audio("ClamBubbles");
+        ClamBubbles = game.add.audio("ClamBubbles");
+        LaserSound = game.add.audio("laser")
 
         clam.scale.setTo(1.1, 1.1)
         game.physics.enable(clam);
@@ -207,6 +197,14 @@ playState0 = {
         bullets.setAll('checkWorldBounds', true);
         bullets.setAll('outOfBoundsKill', true);
         bullets.setAll('anchor.y', 0.25);
+        // create lasers group
+        lasers = game.add.group();
+        lasers.enableBody = true;
+        lasers.physicsBodyType = Phaser.Physics.ARCADE;
+        lasers.createMultiple(100, 'Laser');
+        lasers.setAll('checkWorldBounds', true);
+        lasers.setAll('outOfBoundsKill', true);
+        lasers.setAll('anchor.y', 0.25);
         enemies = game.add.group()
 
         WaveCounter = game.add.text(20, 20, "Wave: "+WaveCount+ "/"+finalWaveCount, {font: "30px Arial", text: "bold()", fill: "#ffffff", align: "center"});
@@ -250,7 +248,6 @@ playState0 = {
             tower3_button.animations.stop()
         }
 
-        // move camera with cursors with "speed" set
         // (setting to factors of 32 makes it hard to see movement)
         scrollSpd = 8
         if (cursors.left.isDown || wasd.a.isDown) {
@@ -293,9 +290,25 @@ playState0 = {
                 WavePlacements(wave)
                 game.physics.arcade.overlap(bullets, enemies, enemyHit)
                 game.physics.arcade.overlap(enemies, clam, clamHit)
+                // kill bullets outside of coral radius
                 for (i=0, len=bullets.children.length; i < len; i++) {
                     if (Phaser.Math.distance(bullets.children[i].x, bullets.children[i].y, bullets.children[i].sourcex, bullets.children[i].sourcey) > bullets.children[i].sourcerange) {
                         bullets.children[i].kill()
+                    }
+                }
+                if (EnemyWaves[wave].sprite == 'Shark') {
+                    fireLaser()
+                    for (i = 0; i <= 31; i += 1) {
+                        for (j = 0; j <= 31; j += 1) {
+                            if (typeof gameBoard[i][j] === 'object') {
+                                if (gameBoard[i][j].id.slice(0, 1) === "c") {
+                                    if (defending) {
+                                        hitCoral = gameBoard[i][j].sprite
+                                        game.physics.arcade.overlap(lasers, hitCoral, coralHit)
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -311,9 +324,8 @@ playState0 = {
                 enemies.children[i].body.reset(enemies.children[i].x, enemies.children[i].y)
             }
         }
-
-        
     }
+
 }
 
 async function Clam(ClamBubbles){
@@ -326,6 +338,25 @@ async function Clam(ClamBubbles){
 
 var balance = 100;
 var prices = [10 , 20, 30]
+
+async function coralHit (hitCoral, laser) {
+    // closest coral not changing after death
+    // handle no coral on screen when shark wave starts
+    console.log("hit")
+    laser.kill()
+    hitCoral.damage(1)
+    // if ( hitCoral.health == 0 ) {
+    //     for (i = 0; i <= 31; i += 1) {
+    //         for (j = 0; j <= 31; j += 1) {
+    //             if ( hitCoral = gameBoard[i][j] ) {
+    //                 gameBoard[i][j] = "None"
+    //             }
+    //         }
+    //     }
+    // }
+    hitCoral.alpha = .1 + .9 * ( hitCoral.health / (3/hitCoral.type) )
+    console.log(hitCoral)
+}
 
 // Enemy Hit
 async function enemyHit (bullet, enemy) {
@@ -361,12 +392,51 @@ function clamHit () {
     gameOverAudio.play();
     if (gameOver == 1){
         BG_music.pause();
+        console.log(game.state)
+
         game.state.start("loss")
         WaveCount = 0
     }
     else{
         BG_music.resume();
     }
+}
+
+function fireLaser () {
+    closestCoral = 9999
+    fireAt = {}
+    if (game.time.now > nextLaser & enemies.length > 0) {
+        for (i = 0; i <= 31; i += 1) {
+            for (j = 0; j <= 31; j += 1) {
+                loopCoral = gameBoard[i][j]
+                if (typeof loopCoral === 'object') {
+                    if (loopCoral.id.slice(0, 1) === "c") {
+                        if (loopCoral.closestEnemy !== null) {
+                            if (loopCoral.enemyDistance <= closestCoral) {
+                                closestCoral = loopCoral.enemyDistance
+                                fireAt['i'] = i
+                                fireAt['j'] = j
+                            }
+                        } else {
+                            fireAt['i'] = i
+                            fireAt['j'] = j
+                        }
+                    }
+                }
+            }
+        }
+        fireAtCoral = gameBoard[fireAt['i']][fireAt['j']]
+        nextLaser = game.time.now + laserDelay;
+        laser = lasers.getFirstDead();
+        laser.reset(enemies.children[0].world.x+84, enemies.children[0].world.y-32);
+        game.physics.arcade.moveToObject(laser, fireAtCoral.sprite, 500);
+        laser.sourcex = enemies.children[0].world.x+84;
+        laser.sourcey = enemies.children[0].world.y-32;
+        laser.rotation = game.physics.arcade.angleToXY(laser, gameBoard[fireAt['i']][fireAt['j']].worldX, gameBoard[fireAt['i']][fireAt['j']].worldY)
+        LaserSound.play()
+    }
+
+
 }
 
 //Win event
@@ -385,6 +455,7 @@ class Coral {
                 this.fireRate = 300 // was 400
                 this.spriteName = 'tower1'
                 this.cost = prices[0]
+                this.health = 3 / this.type
                 //added same sound for all towers for now on shoot, can swap easily later
                 this.popSound = game.add.audio("PopSound")
                 break;
@@ -393,6 +464,7 @@ class Coral {
                 this.fireRate = 500 //was 800
                 this.spriteName = 'tower2'
                 this.cost = prices[1]
+                this.health = 3 / this.type
                 this.popSound = game.add.audio("PopSound")
                 break;
             case 3:
@@ -400,6 +472,7 @@ class Coral {
                 this.fireRate = 800 //was 1200
                 this.spriteName = 'tower3'
                 this.cost = prices[2]
+                this.health = 3 / this.type
                 this.popSound = game.add.audio("PopSound")
                 break;
         }
@@ -418,6 +491,8 @@ class Coral {
         } else if (gameBoard[tile.x][tile.y] === "None" && balance >= this.cost) {
             balance -= this.cost
             this.sprite = game.add.sprite(tile.worldX, tile.worldY, this.spriteName)
+            this.sprite.type = this.type
+            this.sprite.health = this.health
             game.physics.enable(this.sprite);
             this.sprite.animations.add("resting"+this.id, [0,1,2,3])
             this.sprite.animations.add("attacking"+this.id, [3,4,5,6])
@@ -493,6 +568,7 @@ function WavePlacements(wave) {
         nextPlacement = game.time.now + EnemyWaves[wave].spawnDelay // set spawn delay by wave
         enemy = enemies.getFirstDead()
         enemy.alpha = 1
+        enemy.body.setSize(EnemyWaves[wave].width, EnemyWaves[wave].height)
         switch(EnemyWaves[wave].sprite){
             case 'Crab':
                 enemy.scale.setTo(0.2, 0.2);
@@ -601,28 +677,6 @@ function layerRise() {
     WaveCounter.bringToTop();
 }
 
-//same problem as before if i put the shop in a different function
-/*
-function shop_bar(){
-    if (previousCoralID !== coralid){
-        shopbar = game.add.sprite(800, 0, 'shop_bar');
-        shopbar.fixedToCamera = true;
-        shopbar.anchor.setTo(1, 0);
-        shopbar.scale.setTo(1,1)
-
-        moneyTXT = game.add.text(775, 20, "money", {font: "12px Arial", fill: "#000000", align: "left" });
-        moneyTXT.fixedToCamera = true;
-        moneyTXT.anchor.setTo(1,0)
-
-        tower1_button = game.add.button(800, 40, 'tower1', startLevel, this, 2, 1, 0);
-        tower1_button.fixedToCamera = true;
-        tower1_button.anchor.setTo(1, 0);
-        tower1_button.scale.setTo(.08,.08)
-
-        previousCoralID = coralid
-    }
-}
-*/
 // display rectangle on mouse location
 function updateMarker() {
     markerx = WaterEdgesMid.getTileX(game.input.activePointer.worldX) * 32;
@@ -672,8 +726,4 @@ async function startLevel() {
 
     WaveStart(wave)
     
-}
-//when gameover, allows the game to restart
-function restart(){
-    game.state.start("play0")
 }
