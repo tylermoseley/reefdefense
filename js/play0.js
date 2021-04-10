@@ -1,48 +1,3 @@
-// create empty 32x32 gameBoard (maybe add dimension variable if board size change)
-for (i=0; i<=31; i++) {
-    gameBoard.push([])
-    for (j=0; j<=31; j++){
-        gameBoard[i].push("None")
-    }
-}
-EnemyWaves = []
-enemytypes = ['Crab', 'Eel', 'Jellyfish', 'Shark']
-startLocations = ['top', 'bottom', 'left', 'right']
-
-for (i=0; i<=10; i++) {
-    // every randomize every wave except waves divisible by 10
-    if (i>0 & (i+1)%10 == 0) {
-        enemyCount = 1
-        spriteIndex = 3
-        speed = 10
-        health = 100
-        spawnLocation = startLocations[2]
-        width = 224
-        height = 64
-    } else {
-        enemyCount = i + 2,
-            spriteIndex = Math.floor(Math.random() * 3)
-        speed = 20 + (i * 4)
-        health = 2 + (i * 2), // must remain integers (no decimals here)
-            spawnLocation = startLocations[Math.floor(Math.random() * 4)]
-        width = 32
-        height = 32
-    }
-    wave = {
-        enemyCount: enemyCount,
-        sprite: enemytypes[spriteIndex],
-        speed: speed,
-        health: health,
-        spawnLocation: spawnLocation,
-        spawnDelay: 3000,
-        spawnCount: 0,
-        killCount: 0,
-        width: width,
-        height: height
-    }
-    EnemyWaves.push(wave)
-}
-wave=0
 playState0 = {
     preload: function() {
         gameOver=0, towertype=1, coralid="c0", defending=0, gameBoard=[], WaveCount = 0
@@ -737,22 +692,24 @@ function sellCoral() {
     waterpointerY = WaterEdgesMid.getTileY(game.input.activePointer.worldY);
     watertile = map.getTile(pointerX, pointerY, WaterEdgesMid);
 
-    if (typeof(gameBoard[watertile.x][watertile.y]) === 'object') {
-        console.log('click')
+    if (watertile !== null) {
+        if (typeof(gameBoard[watertile.x][watertile.y]) === 'object') {
+            console.log('click')
 
-        if (sellMarker !== "None") {
-            sellMarker.clear()
+            if (sellMarker !== "None") {
+                sellMarker.clear()
+            }
+
+            sellMarker = game.add.graphics();
+            // selMarker.beginFill(0xff0000);
+            sellMarker.lineStyle(2, "0xFFFFFF", 1)
+            sellMarker.drawRect(watertile.worldX, watertile.worldY - 10, 32, 40);
+
+            lastClickedTile = watertile
+
+
+            // selMarker.endFill(0xff0000);
         }
-
-        sellMarker = game.add.graphics();
-        // selMarker.beginFill(0xff0000);
-        sellMarker.lineStyle(2, "0xFFFFFF", 1)
-        sellMarker.drawRect(watertile.worldX, watertile.worldY - 10, 32, 40);
-
-        lastClickedTile = watertile
-        
-
-        // selMarker.endFill(0xff0000);
     }
 }
 
