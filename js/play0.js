@@ -586,7 +586,6 @@ function WavePlacements(wave) {
         nextPlacement = game.time.now + EnemyWaves[wave].spawnDelay // set spawn delay by wave
         enemy = enemies.getFirstDead()
         enemy.alpha = 1
-        enemy.body.setSize(EnemyWaves[wave].width, EnemyWaves[wave].height)
         switch(EnemyWaves[wave].sprite){
             case 'Crab':
                 enemy.scale.setTo(0.2, 0.2);
@@ -603,6 +602,7 @@ function WavePlacements(wave) {
                 enemy.animations.play('swim', 8, true);
                 break;
             case 'Shark':
+                enemy.body.setSize(EnemyWaves[wave].width, EnemyWaves[wave].height)
                 enemy.animations.add('swim', [2,3,4,0,1,5,6,7])
                 enemy.animations.play('swim', 8, true);
                 break;
@@ -693,7 +693,7 @@ function sellCoral() {
 
     if (watertile !== null) {
         if (typeof(gameBoard[watertile.x][watertile.y]) === 'object') {
-
+ddww
             if (sellMarker !== "None") {
                 sellMarker.clear()
             }
