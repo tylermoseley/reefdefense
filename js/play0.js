@@ -258,7 +258,6 @@ playState0 = {
         //sell actions
 
         if (sell.sell.isDown && gameBoard[lastClickedTile.x][lastClickedTile.y] !== "None") {
-            console.log('kind working')
             toBeSoldCoral = gameBoard[lastClickedTile.x][lastClickedTile.y]
             toBeSoldCoral.sprite.damage(10);
             moneyBack = (toBeSoldCoral.cost)/2;
@@ -694,7 +693,6 @@ function sellCoral() {
 
     if (watertile !== null) {
         if (typeof(gameBoard[watertile.x][watertile.y]) === 'object') {
-            console.log('click')
 
             if (sellMarker !== "None") {
                 sellMarker.clear()
