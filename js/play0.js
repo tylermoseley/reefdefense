@@ -1,8 +1,56 @@
+gameOver=0, towertype=1, coralid="c0", defending=0, gameBoard=[], WaveCount = 0
+finalWaveCount = 10, radius = 64, nextLaser = 0, laserDelay = 5000, balance = 100
+nextWave = 0, bullet = null, laserFire = 0
+// create empty 32x32 gameBoard (maybe add dimension variable if board size change)
+for (i=0; i<=31; i++) {
+    gameBoard.push([])
+    for (j=0; j<=31; j++){
+        gameBoard[i].push("None")
+    }
+}
+EnemyWaves = []
+enemytypes = ['Crab', 'Eel', 'Jellyfish', 'Shark']
+startLocations = ['top', 'bottom', 'left', 'right']
+
+for (i=0; i<=10; i++) {
+    // every randomize every wave except waves divisible by 10
+    if (i>0 & (i+1)%10 == 0) {
+        enemyCount = 1
+        spriteIndex = 3
+        speed = 10
+        health = 100
+        spawnLocation = startLocations[2]
+        width = 224
+        height = 64
+    } else {
+        enemyCount = i + 2,
+            spriteIndex = Math.floor(Math.random() * 3)
+        speed = 20 + (i * 4)
+        health = 2 + (i * 2), // must remain integers (no decimals here)
+            spawnLocation = startLocations[Math.floor(Math.random() * 4)]
+        width = 32
+        height = 32
+    }
+    wave = {
+        enemyCount: enemyCount,
+        sprite: enemytypes[spriteIndex],
+        speed: speed,
+        health: health,
+        spawnLocation: spawnLocation,
+        spawnDelay: 3000,
+        spawnCount: 0,
+        killCount: 0,
+        width: width,
+        height: height
+    }
+    EnemyWaves.push(wave)
+}
+wave=0
 playState0 = {
     preload: function() {
         gameOver=0, towertype=1, coralid="c0", defending=0, gameBoard=[], WaveCount = 0
         finalWaveCount = 10, radius = 64, nextLaser = 0, laserDelay = 5000, balance = 100
-        nextWave = 0, bullet = null
+        nextWave = 0, bullet = null, laserFire = 0
         // create empty 32x32 gameBoard (maybe add dimension variable if board size change)
         for (i=0; i<=31; i++) {
             gameBoard.push([])
@@ -16,10 +64,10 @@ playState0 = {
 
         for (i=0; i<=10; i++) {
             // every randomize every wave except waves divisible by 10
-            if (i==0) { // i>0 & (i+1)%10 == 0) {
+            if (i>0 & (i+1)%10 == 0) {
                 enemyCount = 1
                 spriteIndex = 3
-                speed = 100
+                speed = 10
                 health = 100
                 spawnLocation = startLocations[2]
                 width = 224
@@ -340,22 +388,12 @@ var balance = 100;
 var prices = [10 , 20, 30]
 
 async function coralHit (hitCoral, laser) {
-    // closest coral not changing after death
-    // handle no coral on screen when shark wave starts
-    console.log("hit")
     laser.kill()
     hitCoral.damage(1)
-    // if ( hitCoral.health == 0 ) {
-    //     for (i = 0; i <= 31; i += 1) {
-    //         for (j = 0; j <= 31; j += 1) {
-    //             if ( hitCoral = gameBoard[i][j] ) {
-    //                 gameBoard[i][j] = "None"
-    //             }
-    //         }
-    //     }
-    // }
+    if ( hitCoral.health <= 0 ) {
+        gameBoard[hitCoral.position.x/32][hitCoral.position.y/32] = "None"
+    }
     hitCoral.alpha = .1 + .9 * ( hitCoral.health / (3/hitCoral.type) )
-    console.log(hitCoral)
 }
 
 // Enemy Hit
@@ -392,8 +430,6 @@ function clamHit () {
     gameOverAudio.play();
     if (gameOver == 1){
         BG_music.pause();
-        console.log(game.state)
-
         game.state.start("loss")
         WaveCount = 0
     }
@@ -406,11 +442,13 @@ function fireLaser () {
     closestCoral = 9999
     fireAt = {}
     if (game.time.now > nextLaser & enemies.length > 0) {
+        laserFire = 0
         for (i = 0; i <= 31; i += 1) {
             for (j = 0; j <= 31; j += 1) {
                 loopCoral = gameBoard[i][j]
                 if (typeof loopCoral === 'object') {
                     if (loopCoral.id.slice(0, 1) === "c") {
+                        laserFire += 1
                         if (loopCoral.closestEnemy !== null) {
                             if (loopCoral.enemyDistance <= closestCoral) {
                                 closestCoral = loopCoral.enemyDistance
@@ -425,15 +463,17 @@ function fireLaser () {
                 }
             }
         }
-        fireAtCoral = gameBoard[fireAt['i']][fireAt['j']]
-        nextLaser = game.time.now + laserDelay;
-        laser = lasers.getFirstDead();
-        laser.reset(enemies.children[0].world.x+84, enemies.children[0].world.y-32);
-        game.physics.arcade.moveToObject(laser, fireAtCoral.sprite, 500);
-        laser.sourcex = enemies.children[0].world.x+84;
-        laser.sourcey = enemies.children[0].world.y-32;
-        laser.rotation = game.physics.arcade.angleToXY(laser, gameBoard[fireAt['i']][fireAt['j']].worldX, gameBoard[fireAt['i']][fireAt['j']].worldY)
-        LaserSound.play()
+        if (laserFire > 0) {
+            fireAtCoral = gameBoard[fireAt['i']][fireAt['j']]
+            nextLaser = game.time.now + laserDelay;
+            laser = lasers.getFirstDead();
+            laser.reset(enemies.children[0].world.x+84, enemies.children[0].world.y-32);
+            game.physics.arcade.moveToObject(laser, fireAtCoral.sprite, 500);
+            laser.sourcex = enemies.children[0].world.x+84;
+            laser.sourcey = enemies.children[0].world.y-32;
+            laser.rotation = game.physics.arcade.angleToXY(laser, gameBoard[fireAt['i']][fireAt['j']].worldX, gameBoard[fireAt['i']][fireAt['j']].worldY)
+            LaserSound.play()
+        }
     }
 
 

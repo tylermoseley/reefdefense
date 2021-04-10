@@ -31,7 +31,6 @@ var menuState = {
 function startGame () {
     var snd = game.add.audio("button");
     snd.play();
-    game.state.destroy("play0")
     game.state.start('play0');
     
 }
