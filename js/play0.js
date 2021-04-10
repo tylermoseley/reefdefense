@@ -1,6 +1,3 @@
-gameOver=0, towertype=1, coralid="c0", defending=0, gameBoard=[], WaveCount = 0
-finalWaveCount = 10, radius = 64, nextLaser = 0, laserDelay = 5000, balance = 100
-nextWave = 0, bullet = null, laserFire = 0
 // create empty 32x32 gameBoard (maybe add dimension variable if board size change)
 for (i=0; i<=31; i++) {
     gameBoard.push([])
@@ -50,7 +47,7 @@ playState0 = {
     preload: function() {
         gameOver=0, towertype=1, coralid="c0", defending=0, gameBoard=[], WaveCount = 0
         finalWaveCount = 10, radius = 64, nextLaser = 0, laserDelay = 5000, balance = 100
-        nextWave = 0, bullet = null, laserFire = 0
+        nextWave = 0, bullet = null, laserFire = 0, sellMarker = "None", lastClickedTile = 'None'
         // create empty 32x32 gameBoard (maybe add dimension variable if board size change)
         for (i=0; i<=31; i++) {
             gameBoard.push([])
@@ -136,6 +133,7 @@ playState0 = {
     
         game.physics.enable(marker);
 
+        //
         // hover box
         //marker = game.add.graphics();
         //marker.lineStyle(2, "0xFFFFFF", 1)
@@ -158,6 +156,9 @@ playState0 = {
             one: game.input.keyboard.addKey(Phaser.Keyboard.ONE),
             two: game.input.keyboard.addKey(Phaser.Keyboard.TWO),
             three: game.input.keyboard.addKey(Phaser.Keyboard.THREE),
+        };
+        sell = {
+            sell: game.input.keyboard.addKey(Phaser.Keyboard.DELETE)
         }
 
         // add clam to center on load
@@ -187,6 +188,8 @@ playState0 = {
 
         // call clickHandler function when tile is clicked
         game.input.onDown.add(clickHandler, this);
+
+        game.input.onDown.add(sellCoral, this);
 
         //shop
         shopbar = game.add.sprite(800, 0, 'shop_bar');
@@ -295,6 +298,25 @@ playState0 = {
         else{
             tower3_button.animations.stop()
         }
+
+
+        //sell actions
+
+        if (sell.sell.isDown && gameBoard[lastClickedTile.x][lastClickedTile.y] !== "None") {
+            console.log('kind working')
+            toBeSoldCoral = gameBoard[lastClickedTile.x][lastClickedTile.y]
+            toBeSoldCoral.sprite.damage(10);
+            moneyBack = (toBeSoldCoral.cost)/2;
+            balance += moneyBack;
+            gameBoard[lastClickedTile.x][lastClickedTile.y] = "None"
+            sellMarker.clear()
+            sellMarker = "None"
+
+            layerRise();
+            
+        }
+
+        // move camera with cursors with "speed" set
 
         // (setting to factors of 32 makes it hard to see movement)
         scrollSpd = 8
@@ -530,9 +552,11 @@ class Coral {
         // if there is nothing on gameBoard, place coral object
         } else if (gameBoard[tile.x][tile.y] === "None" && balance >= this.cost) {
             balance -= this.cost
-            this.sprite = game.add.sprite(tile.worldX, tile.worldY, this.spriteName)
+
+            this.sprite = game.add.sprite(tile.worldX, tile.worldY - 10, this.spriteName)
             this.sprite.type = this.type
             this.sprite.health = this.health
+
             game.physics.enable(this.sprite);
             this.sprite.animations.add("resting"+this.id, [0,1,2,3])
             this.sprite.animations.add("attacking"+this.id, [3,4,5,6])
@@ -689,16 +713,47 @@ function clickHandler() {
         type = towertype,
         radius = Coral.range
     );
+
     // locate coral with curent id to game board (increment coralid with prefix if success)
     if ( tempCoral.locate(watertile, gameBoard) ) {coralid = coralid.slice(0,1) + (Number(coralid.slice(1)) + 1)};
-
-
+    
+    //game.debug.text(watertile.worldY, watertile.worldX)
+    //game.debug.text(gameBoard[watertile.worldX][watertile.worldY].id)
 
     // game.debug.text(coralid, 12, 36)
     // game.debug.text("Tile: world: {"+tile.worldX+","+tile.worldY+"} index: ("+tile.x+","+tile.y+")", 12, 16);
 
     layerRise()
 
+}
+
+function sellCoral() {
+
+    pointerX = SandBottom.getTileX(game.input.activePointer.worldX);
+    pointerY = SandBottom.getTileY(game.input.activePointer.worldY);
+    tile = map.getTile(pointerX, pointerY, SandBottom);
+
+    waterpointerX = WaterEdgesMid.getTileX(game.input.activePointer.worldX);
+    waterpointerY = WaterEdgesMid.getTileY(game.input.activePointer.worldY);
+    watertile = map.getTile(pointerX, pointerY, WaterEdgesMid);
+
+    if (typeof(gameBoard[watertile.x][watertile.y]) === 'object') {
+        console.log('click')
+
+        if (sellMarker !== "None") {
+            sellMarker.clear()
+        }
+
+        sellMarker = game.add.graphics();
+        // selMarker.beginFill(0xff0000);
+        sellMarker.lineStyle(2, "0xFFFFFF", 1)
+        sellMarker.drawRect(watertile.worldX, watertile.worldY - 10, 32, 40);
+
+        lastClickedTile = watertile
+        
+
+        // selMarker.endFill(0xff0000);
+    }
 }
 
 function layerRise() {
@@ -725,7 +780,7 @@ function updateMarker() {
         ;
     } else {
         marker.x = markerx
-        marker.y = markery
+        marker.y = markery - 10
         marker2.x = markerx
         marker2.y = markery
         marker.frame = towertype -1
