@@ -143,6 +143,7 @@ playState0 = {
 
         // call updateMarker when mouse is moved
         game.input.addMoveCallback(updateMarker, this);
+        
 
         // set cursors variable to keyboard cursor input
         cursors = game.input.keyboard.createCursorKeys();
@@ -159,6 +160,10 @@ playState0 = {
             two: game.input.keyboard.addKey(Phaser.Keyboard.TWO),
             three: game.input.keyboard.addKey(Phaser.Keyboard.THREE),
         }
+        pauseKeys = {
+            esc: game.input.keyboard.addKey(Phaser.Keyboard.ESC),
+            shift: game.input.keyboard.addKey(Phaser.Keyboard.SHIFT)
+        }
 
         // add clam to center on load
         clam = game.add.sprite(512 - 32, 512-45, "Clam");
@@ -173,6 +178,10 @@ playState0 = {
 
         Clam(ClamBubbles);
 
+        
+
+        //unpauses game
+        game.input.onDown.add(unpausing, self);
 
         // mouseWheel to capture scrolling for alternate movement
         // up/down only in phaser <3.2*
@@ -309,7 +318,16 @@ playState0 = {
             game.camera.y += scrollSpd;
         }
 
+        //pause
+        if (pauseKeys.esc.isDown){
+            pausing()
+        }
         
+        if (pauseKeys.shift.isDown){
+            if (game.paused = true){
+                unpausing()
+            }
+        }
         // resting state for all corals on gameBoard
         for (i = 0; i <= 31; i += 1) {
             for (j = 0; j <= 31; j += 1) {
@@ -747,6 +765,21 @@ function sleep(seconds) {
     return new Promise(resolve => setTimeout(resolve, seconds*1000));
 }
 
+function pausing(){
+    game.camera.x = ((32**2-game.width)/2);
+    game.camera.y = ((32**2-game.height)/2);
+    game.paused = true
+    
+}
+
+function unpausing(){
+    game.camera.x = ((32**2-game.width)/2);
+    game.camera.y = ((32**2-game.height)/2);
+    if (game.paused == true){
+        game.paused = false
+    }
+}
+
 // level start function
 async function startLevel() {
     startButton.destroy();
@@ -766,4 +799,5 @@ async function startLevel() {
 
     WaveStart(wave)
     
+ 
 }
