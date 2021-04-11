@@ -35,7 +35,7 @@ var loadState = {
         game.load.audio("music", "Assets/audio/kv-ocean.mp3");
         game.load.audio("laser", "Assets/audio/LaserShot.wav");
         game.load.spritesheet('towertower', 'Assets/img/Tower List.png', 32, 40);
-        
+        game.load.image('pausemenu', 'Assets/img/backgrounds/Pause Box.png');
         game.load.spritesheet('tutorialButton', 'Assets/img/PlayButton/NewTutButton.png', 160, 80)
         game.load.image('gold', 'Assets/spritesheets/gold coin.png')
 

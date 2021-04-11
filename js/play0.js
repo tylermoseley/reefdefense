@@ -165,6 +165,10 @@ playState0 = {
             shift: game.input.keyboard.addKey(Phaser.Keyboard.SHIFT)
         }
 
+        tutorialKeys = {
+            spacebar: game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR),
+        }
+
         // add clam to center on load
         clam = game.add.sprite(512 - 32, 512-45, "Clam");
         clam.animations.add('Resting', [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]);
@@ -181,7 +185,7 @@ playState0 = {
         
 
         //unpauses game
-        game.input.onDown.add(unpausing, self);
+        
 
         // mouseWheel to capture scrolling for alternate movement
         // up/down only in phaser <3.2*
@@ -254,6 +258,26 @@ playState0 = {
         bullets.setAll('checkWorldBounds', true);
         bullets.setAll('outOfBoundsKill', true);
         bullets.setAll('anchor.y', 0.25);
+
+
+        pauseKeybindTXT = game.add.text(20,50, 'Press "esc" for help', {font: "30px Arial", text: "bold()", fill: "#ffffff", align: "right"})
+        pauseKeybindTXT.fixedToCamera = true
+
+
+        
+
+
+        /*
+        menu = game.add.sprite(210,400, 'pausemenu')
+        menu.scale.setTo(3,2)
+        menu.bringToTop()
+
+        unpauseTXT = game.add.text(32*15, 32*17, "Resume", {font: "20px Arial", text: "bold()", fill: "#000000", align: "right"} );
+        unpauseTXT.bringToTop()
+        game.input.onDown.add(unpausing, self);
+        */
+
+
         // create lasers group
         lasers = game.add.group();
         lasers.enableBody = true;
@@ -322,12 +346,13 @@ playState0 = {
         if (pauseKeys.esc.isDown){
             pausing()
         }
-        
+        /*
         if (pauseKeys.shift.isDown){
             if (game.paused = true){
                 unpausing()
             }
         }
+        */
         // resting state for all corals on gameBoard
         for (i = 0; i <= 31; i += 1) {
             for (j = 0; j <= 31; j += 1) {
@@ -733,6 +758,7 @@ function layerRise() {
     tower3_button.bringToTop();
     tower3_cost.bringToTop();
     WaveCounter.bringToTop();
+
 }
 
 // display rectangle on mouse location
@@ -768,15 +794,48 @@ function sleep(seconds) {
 function pausing(){
     game.camera.x = ((32**2-game.width)/2);
     game.camera.y = ((32**2-game.height)/2);
+    menu = game.add.sprite(210,400, 'pausemenu')
+    menu.scale.setTo(3,2)
+    menu.bringToTop()
+    tutorialTextList = [
+        " ",
+        "Reef Defense is a tower defense game where the main \nobjective is to build towers to protect the clam from the \noncoming waves of enemies trying to steal the pearl",
+        "Move the camera with w, a, s, d",
+        "On the top right shows you the shop as well as your \ncurrent gold",
+        "Right next to each turret is the amount of gold it costs",
+        "To place turrets, press the corresponding number of the tower \nyou want to place",
+        "Then use left mouse click to place it on the tile you want",
+        "When you're ready to start the wave, click on the 'start' button",
+        "Every wave will be more difficult than the last so plan well, \nand good luck!",
+        'Press the anywhere on the pause screen to continue playing' ,
+        " "
+    ]; 
+
+
+    tutorial_TXT = game.add.text(32*4, 32*7, "Welcome to Reef Defense!",{font: "20px Arial", text: "bold()", fill: "#ffffff", align: "left"})
+    tutorial_TXT.fixedToCamera = true;
+    tutorial_TXT.visible = true
+
+    counter = 1
+
+    tutorialKeys.spacebar.onDown.add(changeTXT);
+
+    unpauseTXT = game.add.text(32*15, 32*17, "Resume", {font: "20px Arial", text: "bold()", fill: "#000000", align: "right"} );
+    unpauseTXT.bringToTop()
+    game.input.onDown.add(unpausing, self);
+
     game.paused = true
     
 }
 
 function unpausing(){
-    game.camera.x = ((32**2-game.width)/2);
-    game.camera.y = ((32**2-game.height)/2);
     if (game.paused == true){
         game.paused = false
+
+        menu.destroy()
+        unpauseTXT.destroy()
+        tutorial_TXT.text = tutorialTextList[0];
+        
     }
 }
 
@@ -799,5 +858,9 @@ async function startLevel() {
 
     WaveStart(wave)
     
- 
+
+}
+function changeTXT(){
+    tutorial_TXT.text = tutorialTextList[counter];
+    counter +=1
 }
