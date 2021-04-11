@@ -820,7 +820,10 @@ function pausing(){
 
     tutorialKeys.spacebar.onDown.add(changeTXT);
 
-    unpauseTXT = game.add.text(32*15, 32*17, "Resume", {font: "20px Arial", text: "bold()", fill: "#000000", align: "right"} );
+    nextTXT = game.add.text(352, 550, "Press Spacebar to continue tutorial",{font: "20px Arial", text: "bold()", fill: "#ffffff", align: "left"})
+    nextTXT.bringToTop()
+
+    unpauseTXT = game.add.text(352, 570, "Resume game by clicking anywhere", {font: "20px Arial", text: "bold()", fill: "#000000", align: "right"} );
     unpauseTXT.bringToTop()
     game.input.onDown.add(unpausing, self);
 
@@ -835,6 +838,7 @@ function unpausing(){
         menu.destroy()
         unpauseTXT.destroy()
         tutorial_TXT.text = tutorialTextList[0];
+        nextTXT.destroy()
         
     }
 }
