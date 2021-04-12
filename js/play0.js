@@ -1,7 +1,7 @@
 playState0 = {
     preload: function() {
         gameOver=0, towertype=1, coralid="c0", defending=0, gameBoard=[], WaveCount = 0
-        finalWaveCount = 10, radius = 64, nextLaser = 0, laserDelay = 5000, balance = 100
+        finalWaveCount = 10, nextLaser = 0, laserDelay = 5000, balance = 100
         nextWave = 0, bullet = null, laserFire = 0, sellMarker = "None", lastClickedTile = 'None'
         // create empty 32x32 gameBoard (maybe add dimension variable if board size change)
         for (i=0; i<=31; i++) {
@@ -48,6 +48,10 @@ playState0 = {
             EnemyWaves.push(wave)
         }
         wave=0
+        dummytower = new Coral(
+            id = 99,
+            type = 1,
+        );
         game.load.tilemap('Map0', 'Assets/Map/Map0.json', null, Phaser.Tilemap.TILED_JSON);
     },
 
@@ -78,8 +82,8 @@ playState0 = {
         //range indicator (not yet finished)
         marker2 = game.add.graphics()
         //2nd value is alpha (opacity)
-        marker2.beginFill("0xFFFFFF", 0);
-        marker2.drawCircle(16, 20, radius*2);
+        marker2.beginFill("0xFFFFFF", 0.2);
+        marker2.drawCircle(16, 20, dummytower.range);
         marker2.endFill();
         
         //  hover sprite
@@ -255,14 +259,14 @@ playState0 = {
     },
 
     update: function() {
-        towerRange = 64;
         // set tower type based on number keys
         if (towerKeys.one.isDown){
             towertype = 1
-            towerRange = 64
-            updateMarker(towertype, towerRange)
-            
-            
+            dummytower = new Coral(
+                id = 99,
+                type = towertype,
+            );
+            updateMarker()
             tower1_button.animations.play('idle1', 5, true)
         }
         else{
@@ -270,8 +274,11 @@ playState0 = {
         }
         if (towerKeys.two.isDown){
             towertype = 2
-            towerRange = 128
-            updateMarker(towertype, towerRange)
+            dummytower = new Coral(
+                id = 99,
+                type = towertype,
+            );
+            updateMarker()
             tower2_button.animations.play('idle2', 5, true);
         }
         else{
@@ -279,8 +286,11 @@ playState0 = {
         }
         if (towerKeys.three.isDown){
             towertype = 3
-            towerRange = 256
-            updateMarker(towertype, towerRange)
+            dummytower = new Coral(
+                id = 99,
+                type = towertype,
+            );
+            updateMarker()
             tower3_button.animations.play('idle3', 5, true);
         }
         else{
@@ -708,7 +718,6 @@ function clickHandler() {
     coral1 = new Coral(
         id = coralid,
         type = towertype,
-        radius = Coral.range
     );
 
     // locate coral with curent id to game board (increment coralid with prefix if success)
@@ -736,7 +745,6 @@ function sellCoral() {
 
     if (watertile !== null) {
         if (typeof(gameBoard[watertile.x][watertile.y]) === 'object') {
-ddww
             if (sellMarker !== "None") {
                 sellMarker.clear()
             }
@@ -780,14 +788,19 @@ function updateMarker() {
     } else {
         marker.x = markerx
         marker.y = markery - 10
-        marker2.x = markerx
-        marker2.y = markery
         marker.frame = towertype -1
+
+        marker2.clear()
+        marker2.beginFill("0xFFFFFF", 0.2);
+        marker2.drawCircle(markerx+16, markery+16, dummytower.range);
+        marker2.endFill();
+
         //radius = towerRange
         //add a spritesheet that has all three imgs one from each tower
         //when doing new image (loading new img)
         //marker.frame = towertype
         //when loading marker, specify which frame 
+        //when loading marker, specify which frame
         //radius add another marker, do a fill instead of line and make radius equal to tower range property from tower selected.
         //this is in the coral class, create a new coral(clickhandler for this format), dont place the coral (dont use locate), use that coral.range  
         //coral1 = newcoral, id2type = 2
