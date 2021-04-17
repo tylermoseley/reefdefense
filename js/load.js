@@ -19,6 +19,7 @@ var loadState = {
         game.load.spritesheet('tower1', 'Assets/spritesheets/Red Anemone.png', 32, 40)
         game.load.spritesheet('tower2', 'Assets/spritesheets/Sea Star.png', 40, 40)
         game.load.spritesheet('tower3', 'Assets/spritesheets/Grass Coral.png', 32, 40)
+        game.load.spritesheet('tower4', 'Assets/spritesheets/Money Coral.png', 32, 32)
         game.load.image('Water', 'Assets/Tilesets/water_tileset.png');
         game.load.image('sand', 'Assets/Tilesets/sand.png');
         game.load.image('caveleft', 'Assets/Tilesets/caveleft.png');

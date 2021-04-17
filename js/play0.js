@@ -3,6 +3,7 @@ playState0 = {
         gameOver=0, towertype=1, coralid="c0", defending=0, gameBoard=[], WaveCount = 0
         finalWaveCount = 10, nextLaser = 0, laserDelay = 5000, balance = 100
         nextWave = 0, bullet = null, laserFire = 0, sellMarker = "None", lastClickedTile = 'None'
+        moneyCoral = 0
         // create empty 32x32 gameBoard (maybe add dimension variable if board size change)
         for (i=0; i<=31; i++) {
             gameBoard.push([])
@@ -16,7 +17,6 @@ playState0 = {
 
         for (i=0; i<=10; i++) {
             // every randomize every wave except waves divisible by 10
-            //comment
             if (i>0 & (i+1)%10 == 0) {
                 enemyCount = 1
                 spriteIndex = 3
@@ -29,6 +29,7 @@ playState0 = {
             } 
 
             //multi-directional from wave 7
+            /*
             else if(i >= 7) {
                 enemyCount = i + 2,
                     spriteIndex = Math.floor(Math.random() * 3)
@@ -46,6 +47,7 @@ playState0 = {
                 width = 32
                 height = 32
             }
+            */
             else {
                 enemyCount = i + 2,
                     spriteIndex = Math.floor(Math.random() * 3)
@@ -139,6 +141,7 @@ playState0 = {
             one: game.input.keyboard.addKey(Phaser.Keyboard.ONE),
             two: game.input.keyboard.addKey(Phaser.Keyboard.TWO),
             three: game.input.keyboard.addKey(Phaser.Keyboard.THREE),
+            four: game.input.keyboard.addKey(Phaser.Keyboard.FOUR)
         };
         sell = {
             sell: game.input.keyboard.addKey(Phaser.Keyboard.DELETE)
@@ -232,6 +235,18 @@ playState0 = {
         tower3_cost.fixedToCamera = true;
         tower3_cost.anchor.setTo(1,0)
 
+        tower4_button = game.add.sprite(728, 160, 'tower4');
+        tower4_button.fixedToCamera = true;
+        tower4_button.anchor.setTo(0, 0);
+        tower4_button.scale.setTo(1,1);
+        tower4_button.animations.add('idle4', [0,1,2,3]);
+
+        tower4_cost = game.add.text(795, 165, "Press 4\n40G", {font: "10px Arial", text: "bold()", fill: "#000000", align: "right"})
+        tower4_cost.fixedToCamera = true;
+        tower4_cost.anchor.setTo(1,0)
+
+        //Add tower 4 Menu
+
         textbox = game.add.sprite(game.width/2 - 200, 10, "TXTbox");
         textbox.destroy()
         skipTXT = game.add.text(game.width/2  , 70, "",{font: "10px Arial", text: "bold()", fill: "#ffffff", align: "right"} )
@@ -319,6 +334,22 @@ playState0 = {
         else{
             tower3_button.animations.stop()
         }
+
+        if (towerKeys.four.isDown){
+            towertype = 4
+            dummytower = new Coral(
+                id = 99,
+                type = towertype,
+            );
+            updateMarker()
+            //tower3_button.animations.play('idle3', 5, true);
+        }
+        else{
+            //tower3_button.animations.stop()
+        }
+
+
+        //add tower 4 functionality
 
 
         //sell actions
@@ -437,7 +468,7 @@ async function Clam(ClamBubbles){
 }
 
 var balance = 100;
-var prices = [10 , 20, 30]
+var prices = [10 , 20, 30, 40]
 
 async function coralHit (hitCoral, laser) {
     laser.kill()
@@ -567,6 +598,14 @@ class Coral {
                 this.health = 3 / this.type
                 this.popSound = game.add.audio("PopSound")
                 break;
+            case 4:
+                this.range = 0;
+                this.fireRate = 0;
+                this.spriteName = 'tower4'
+                this.cost = prices[3]
+                this.health = 3 / this.type
+                this.popSound = game.add.audio("PopSound")
+                break;
         }
         this.nextFire = 0
         this.closestEnemy = null
@@ -583,15 +622,28 @@ class Coral {
         } else if (gameBoard[tile.x][tile.y] === "None" && balance >= this.cost) {
             balance -= this.cost
 
+            if (this.type == 4){
+                moneyCoral += 1
+            } 
+
             this.sprite = game.add.sprite(tile.worldX, tile.worldY - 10, this.spriteName)
             this.sprite.type = this.type
             this.sprite.health = this.health
 
-            game.physics.enable(this.sprite);
-            this.sprite.animations.add("resting"+this.id, [0,1,2,3])
-            this.sprite.animations.add("attacking"+this.id, [3,4,5,6])
-            this.sprite.animations.play("resting"+this.id, 3, true)
-            this.moneyBag.play();
+            if (this.type == 4) {
+                game.physics.enable(this.sprite);
+                this.sprite.animations.add("resting"+this.id, [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20])
+                this.moneyBag.play();
+            }
+
+            else {
+                game.physics.enable(this.sprite);
+                this.sprite.animations.add("resting"+this.id, [0,1,2,3])
+                this.sprite.animations.add("attacking"+this.id, [3,4,5,6])
+                this.sprite.animations.play("resting"+this.id, 3, true)
+                this.moneyBag.play();
+            }
+            
             
             gameBoard[tile.x][tile.y] = this
             this.x = tile.x
@@ -644,6 +696,11 @@ class Coral {
 // creates enemies group depending on wave details
 function WaveStart(wave) {
     // Create Enemies Group For each wave
+
+    //adds balance for moneyCorals
+    if (WaveCount > 0) {
+        balance += 20 * moneyCoral
+    }
     WaveCount+=1;
     WaveCounter.setText("Wave: "+WaveCount+ "/"+finalWaveCount)
     enemies = null
@@ -685,12 +742,13 @@ function WavePlacements(wave) {
         }
         enemy.anchor.setTo(0.5, 0.5);
 
+        /*
         if (EnemyWaves[wave].multiDirectional) {
-
+            //logic for multidirectional
         }
+        */
 
         switch (EnemyWaves[wave].spawnLocation) {
-            //comment 
             case 'left':
                 var spawnX = 32
                 var spawnY = 512
@@ -803,6 +861,8 @@ function layerRise() {
     tower2_cost.bringToTop();
     tower3_button.bringToTop();
     tower3_cost.bringToTop();
+    tower4_button.bringToTop();
+    tower4_cost.bringToTop();
     WaveCounter.bringToTop();
 }
 
@@ -815,7 +875,7 @@ function updateMarker() {
     } else {
         marker.x = markerx
         marker.y = markery - 10
-        marker.frame = towertype -1
+        marker.frame = towertype - 1
 
         marker2.clear()
         marker2.beginFill("0xFFFFFF", 0.2);
