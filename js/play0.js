@@ -16,6 +16,7 @@ playState0 = {
 
         for (i=0; i<=10; i++) {
             // every randomize every wave except waves divisible by 10
+            //comment
             if (i>0 & (i+1)%10 == 0) {
                 enemyCount = 1
                 spriteIndex = 3
@@ -24,14 +25,36 @@ playState0 = {
                 spawnLocation = startLocations[2]
                 width = 224
                 height = 64
-            } else {
+                multiDirectional = false
+            } 
+
+            //multi-directional from wave 7
+            else if(i >= 7) {
                 enemyCount = i + 2,
                     spriteIndex = Math.floor(Math.random() * 3)
-                speed = 20 + (i * 4)
+                speed = 30 + (i * 4)
+                health = 2 + (i * 2), // must remain integers (no decimals here)
+                spawnLocation = startLocations[Math.floor(Math.random() * 4)]
+
+                //logic for multidirection waves
+                multiDirectional = true
+                spawnLocation2 = startLocations[Math.floor(Math.random() * 4)]
+                while (spawnLocation == spawnLocation2) {
+                    spawnLocation2 = startLocations[Math.floor(Math.random() * 4)]
+                }
+
+                width = 32
+                height = 32
+            }
+            else {
+                enemyCount = i + 2,
+                    spriteIndex = Math.floor(Math.random() * 3)
+                speed = 30 + (i * 4)
                 health = 2 + (i * 2), // must remain integers (no decimals here)
                     spawnLocation = startLocations[Math.floor(Math.random() * 4)]
                 width = 32
                 height = 32
+                multiDirectional = false
             }
             wave = {
                 enemyCount: enemyCount,
@@ -661,8 +684,13 @@ function WavePlacements(wave) {
                 break;
         }
         enemy.anchor.setTo(0.5, 0.5);
-        
+
+        if (EnemyWaves[wave].multiDirectional) {
+
+        }
+
         switch (EnemyWaves[wave].spawnLocation) {
+            //comment 
             case 'left':
                 var spawnX = 32
                 var spawnY = 512
