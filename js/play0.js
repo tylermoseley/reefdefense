@@ -776,7 +776,6 @@ function layerRise() {
     tower3_button.bringToTop();
     tower3_cost.bringToTop();
     WaveCounter.bringToTop();
-
 }
 
 // display rectangle on mouse location
@@ -806,7 +805,6 @@ function updateMarker() {
         //coral1 = newcoral, id2type = 2
         //radius = coral.range
     }
-
 }
 
 // sleep function
@@ -882,7 +880,6 @@ async function startLevel() {
 
     speed = 1
     defending = 1
-
     WaveStart(wave)
     
 

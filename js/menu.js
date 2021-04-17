@@ -14,8 +14,9 @@ var menuState = {
         //BG_music.play("", 0, .2, true);
 
         game.add.image(0, 0, 'home-background');
-        startButton = game.add.button(game.world.centerX-80, game.world.centerY-100, 'PlayButton', startGame, this, 1, 0, 2);
-        tutorial_button = game.add.button(game.world.centerX-80, game.world.centerY, 'tutorialButton', tutorialStage, this, 1, 0, 2);
+        game.add.image(game.world.centerX - 240, 0, 'logo')
+        startButton = game.add.button(game.world.centerX-80, game.world.centerY- 40, 'PlayButton', startGame, this, 1, 0, 2);
+        tutorial_button = game.add.button(game.world.centerX-80, game.world.centerY + 60, 'tutorialButton', tutorialStage, this, 1, 0, 2);
         // tutorial_button.scale.setTo(10,4)
 
     

@@ -12,6 +12,7 @@ var loadState = {
 
         //images, spritesheets, bitmaps...
         game.load.image('home-background', 'Assets/img/backgrounds/UnderWater.png');
+        game.load.image('logo', 'Assets/img/reefdefenseLOGO.png');
         game.load.spritesheet('PlayButton', 'Assets/img/PlayButton/NewPlayButton.png', 160, 80)
         game.load.spritesheet('start', 'Assets/img/PlayButton/StartButton.png', 64, 32)
         game.load.image('shop_bar', 'Assets/img/backgrounds/Grey Bar.png')
