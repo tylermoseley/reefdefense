@@ -775,7 +775,7 @@ function WavePlacements(wave) {
                 var spawnY = 992
                 break
         }
-        enemy.reset(spawnX + (Math.random()*48) - 24, spawnY + (Math.random()*24) - 16)  // set starting location with some variation.
+        enemy.reset(spawnX + (Math.random()*48) - 24, spawnY + (Math.random()*24) - 12)  // set starting location with some variation.
         enemy.health = EnemyWaves[wave].health // set initial health by wave
         game.physics.arcade.moveToObject(enemy, clam, EnemyWaves[wave].speed) // set movement to clam
         EnemyWaves[wave].spawnCount++
