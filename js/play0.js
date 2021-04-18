@@ -20,8 +20,8 @@ playState0 = {
             if (i>0 & (i+1)%10 == 0) {
                 enemyCount = 1
                 spriteIndex = 3
-                speed = 10
-                health = 100
+                speed = 15
+                health = 150
                 spawnLocation = startLocations[2]
                 width = 224
                 height = 64
@@ -51,7 +51,7 @@ playState0 = {
             else {
                 enemyCount = i + 2,
                     spriteIndex = Math.floor(Math.random() * 3)
-                speed = 30 + (i * 4)
+                speed = 30 + (i * 5)
                 health = 2 + (i * 2), // must remain integers (no decimals here)
                     spawnLocation = startLocations[Math.floor(Math.random() * 4)]
                 width = 32
@@ -64,7 +64,7 @@ playState0 = {
                 speed: speed,
                 health: health,
                 spawnLocation: spawnLocation,
-                spawnDelay: 3000,
+                spawnDelay: 4000,
                 spawnCount: 0,
                 killCount: 0,
                 width: width,

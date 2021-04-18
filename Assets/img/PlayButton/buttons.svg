@@ -12,7 +12,7 @@
    viewBox="0 0 42.333332 63.5"
    version="1.1"
    id="svg16"
-   inkscape:export-filename="/Users/tylermoseley/Documents/School/CS329E-GameDevelopment/_MainGame/reefdefense/Assets/img/PlayButton/NewTutButton.png"
+   inkscape:export-filename="/Users/tylermoseley/Documents/School/CS329E-GameDevelopment/_MainGame/reefdefense/Assets/img/PlayButton/PlayAgain.png"
    inkscape:export-xdpi="96"
    inkscape:export-ydpi="96"
    inkscape:version="1.0.2 (e86c8708, 2021-01-15)"
@@ -121,6 +121,60 @@
        width="123.83453"
        height="33.340069"
        id="rect983" />
+    <rect
+       x="41.033928"
+       y="63.749138"
+       width="123.83453"
+       height="33.340069"
+       id="rect1492" />
+    <rect
+       x="41.033928"
+       y="63.749138"
+       width="123.83453"
+       height="33.340069"
+       id="rect1492-7" />
+    <rect
+       x="41.033928"
+       y="63.749138"
+       width="123.83453"
+       height="33.340069"
+       id="rect1503" />
+    <rect
+       x="41.033928"
+       y="63.749138"
+       width="123.83453"
+       height="33.340069"
+       id="rect931-1" />
+    <rect
+       x="41.033928"
+       y="63.749138"
+       width="123.83453"
+       height="33.340069"
+       id="rect1506" />
+    <rect
+       x="41.033928"
+       y="63.749138"
+       width="123.83453"
+       height="33.340069"
+       id="rect1492-3" />
+    <rect
+       x="41.033928"
+       y="63.749138"
+       width="123.83453"
+       height="33.340069"
+       id="rect1503-3" />
+    <rect
+       x="41.033928"
+       y="63.749138"
+       width="123.83453"
+       height="33.340069"
+       id="rect931-12" />
+    <rect
+       x="41.033928"
+       y="63.749138"
+       width="123.83453"
+       height="33.340069"
+       id="rect1506-1" />
   </defs>
   <sodipodi:namedview
      id="base"
@@ -129,9 +183,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="2.1919932"
-     inkscape:cx="41.871898"
-     inkscape:cy="77.401737"
+     inkscape:zoom="1.6647751"
+     inkscape:cx="29.829181"
+     inkscape:cy="146.52978"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      inkscape:document-rotation="0"
@@ -151,7 +205,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -189,30 +243,6 @@
        ry="4.8140368"
        inkscape:export-xdpi="96"
        inkscape:export-ydpi="96" />
-    <text
-       xml:space="preserve"
-       id="text917"
-       style="font-style:normal;font-weight:normal;font-size:10.58329999999999949px;line-height:0;font-family:sans-serif;white-space:pre;shape-inside:url(#rect919);fill:#c28c4a;fill-opacity:1;stroke:none;"
-       x="30.700871"
-       y="0"
-       transform="matrix(0.55154766,0,0,0.56576511,-35.370403,-37.934616)"
-       inkscape:export-xdpi="96"
-       inkscape:export-ydpi="96"><tspan
-         x="79.738192"
-         y="84.782513"><tspan
-           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:3.4;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';text-align:center;text-anchor:middle;fill:#c28c4a;fill-opacity:1">Tutorial</tspan></tspan></text>
-    <text
-       xml:space="preserve"
-       id="text857"
-       style="font-style:normal;font-weight:normal;font-size:10.58329999999999949px;line-height:0;font-family:sans-serif;white-space:pre;shape-inside:url(#rect859);fill:#ffffff;fill-opacity:1;stroke:none;"
-       x="30.700871"
-       y="0"
-       transform="matrix(0.55154766,0,0,0.56576511,-35.684702,-38.095767)"
-       inkscape:export-xdpi="96"
-       inkscape:export-ydpi="96"><tspan
-         x="79.738192"
-         y="84.782513"><tspan
-           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:3.4;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';text-align:center;text-anchor:middle;fill:#ffffff;fill-opacity:1">Tutorial</tspan></tspan></text>
     <rect
        style="fill:#c28c4a;fill-opacity:1;fill-rule:evenodd;stroke-width:0.0763267"
        id="rect861"
@@ -285,123 +315,75 @@
        inkscape:export-ydpi="96" />
     <text
        xml:space="preserve"
-       id="text923"
-       style="font-style:normal;font-weight:normal;font-size:10.58329999999999949px;line-height:0;font-family:sans-serif;white-space:pre;shape-inside:url(#rect929);fill:#c28c4a;fill-opacity:1;stroke:none;"
+       id="text1490"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:10.58329999999999949px;line-height:0;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;white-space:pre;shape-inside:url(#rect1492);fill:#c28c4a;fill-opacity:1;stroke:none;"
        x="30.700871"
        y="0"
-       transform="matrix(0.55154766,0,0,0.56576511,-35.370403,-37.934616)"
+       transform="matrix(0.55154766,0,0,0.56576511,-18.678988,-27.984407)"
        inkscape:export-xdpi="96"
        inkscape:export-ydpi="96"><tspan
-         x="79.738192"
-         y="84.782513"><tspan
-           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:3.4;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';text-align:center;text-anchor:middle;fill:#c28c4a;fill-opacity:1">Tutorial</tspan></tspan></text>
+         x="41.033203"
+         y="66.790903"><tspan
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:10.5833px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#c28c4a;fill-opacity:1">Play Again</tspan></tspan></text>
     <text
        xml:space="preserve"
        id="text927"
-       style="font-style:normal;font-weight:normal;font-size:10.58329999999999949px;line-height:0;font-family:sans-serif;white-space:pre;shape-inside:url(#rect931);fill:#ffffff;fill-opacity:1;stroke:none;"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:10.58329999999999949px;line-height:0;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;white-space:pre;shape-inside:url(#rect931);fill:#ffffff;fill-opacity:1;stroke:none;"
        x="30.700871"
        y="0"
-       transform="matrix(0.55154766,0,0,0.56576511,-35.684702,-38.095767)"
+       transform="matrix(0.55154766,0,0,0.56576511,-18.971476,-28.198002)"
        inkscape:export-xdpi="96"
        inkscape:export-ydpi="96"><tspan
-         x="79.738192"
-         y="84.782513"><tspan
-           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:3.4;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';text-align:center;text-anchor:middle;fill:#ffffff;fill-opacity:1">Tutorial</tspan></tspan></text>
+         x="41.033203"
+         y="66.790903"><tspan
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:10.5833px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Play Again</tspan></tspan></text>
     <text
        xml:space="preserve"
-       id="text937"
-       style="font-style:normal;font-weight:normal;font-size:10.58329999999999949px;line-height:0;font-family:sans-serif;white-space:pre;shape-inside:url(#rect951);fill:#c28c4a;fill-opacity:1;stroke:none;"
+       id="text1490-5"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:10.58329999999999949px;line-height:0;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;white-space:pre;shape-inside:url(#rect1492-7);fill:#c28c4a;fill-opacity:1;stroke:none;"
        x="30.700871"
        y="0"
-       transform="matrix(0.55154766,0,0,0.56576511,-35.370403,-16.767952)"
+       transform="matrix(0.55154766,0,0,0.56576511,-18.678987,-6.8177435)"
        inkscape:export-xdpi="96"
        inkscape:export-ydpi="96"><tspan
-         x="79.738192"
-         y="84.782513"><tspan
-           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:3.4;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';text-align:center;text-anchor:middle;fill:#c28c4a;fill-opacity:1">Tutorial</tspan></tspan></text>
+         x="41.033203"
+         y="66.790903"><tspan
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:10.5833px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#c28c4a;fill-opacity:1">Play Again</tspan></tspan></text>
     <text
        xml:space="preserve"
-       id="text941"
-       style="font-style:normal;font-weight:normal;font-size:10.58329999999999949px;line-height:0;font-family:sans-serif;white-space:pre;shape-inside:url(#rect953);fill:#ffffff;fill-opacity:1;stroke:none;"
+       id="text927-1"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:10.58329999999999949px;line-height:0;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;white-space:pre;shape-inside:url(#rect931-1);fill:#ffffff;fill-opacity:1;stroke:none;"
        x="30.700871"
        y="0"
-       transform="matrix(0.55154766,0,0,0.56576511,-35.684702,-16.929103)"
+       transform="matrix(0.55154766,0,0,0.56576511,-18.971475,-7.0313385)"
        inkscape:export-xdpi="96"
        inkscape:export-ydpi="96"><tspan
-         x="79.738192"
-         y="84.782513"><tspan
-           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:3.4;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';text-align:center;text-anchor:middle;fill:#ffffff;fill-opacity:1">Tutorial</tspan></tspan></text>
+         x="41.033203"
+         y="66.790903"><tspan
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:10.5833px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Play Again</tspan></tspan></text>
     <text
        xml:space="preserve"
-       id="text945"
-       style="font-style:normal;font-weight:normal;font-size:10.58329999999999949px;line-height:0;font-family:sans-serif;white-space:pre;shape-inside:url(#rect955);fill:#c28c4a;fill-opacity:1;stroke:none;"
+       id="text1490-7"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:10.58329999999999949px;line-height:0;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;white-space:pre;shape-inside:url(#rect1492-3);fill:#c28c4a;fill-opacity:1;stroke:none;"
        x="30.700871"
        y="0"
-       transform="matrix(0.55154766,0,0,0.56576511,-35.370403,-16.767952)"
+       transform="matrix(0.55154766,0,0,0.56576511,-18.679079,17.186837)"
        inkscape:export-xdpi="96"
        inkscape:export-ydpi="96"><tspan
-         x="79.738192"
-         y="84.782513"><tspan
-           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:3.4;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';text-align:center;text-anchor:middle;fill:#c28c4a;fill-opacity:1">Tutorial</tspan></tspan></text>
+         x="41.033203"
+         y="66.790903"><tspan
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:10.5833px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#c28c4a;fill-opacity:1">Play Again</tspan></tspan></text>
     <text
        xml:space="preserve"
-       id="text949"
-       style="font-style:normal;font-weight:normal;font-size:10.58329999999999949px;line-height:0;font-family:sans-serif;white-space:pre;shape-inside:url(#rect957);fill:#ffffff;fill-opacity:1;stroke:none;"
+       id="text927-4"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:10.58329999999999949px;line-height:0;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;white-space:pre;shape-inside:url(#rect931-12);fill:#ffffff;fill-opacity:1;stroke:none;"
        x="30.700871"
        y="0"
-       transform="matrix(0.55154766,0,0,0.56576511,-35.684702,-16.929103)"
+       transform="matrix(0.55154766,0,0,0.56576511,-18.971567,16.973242)"
        inkscape:export-xdpi="96"
        inkscape:export-ydpi="96"><tspan
-         x="79.738192"
-         y="84.782513"><tspan
-           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:3.4;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';text-align:center;text-anchor:middle;fill:#ffffff;fill-opacity:1">Tutorial</tspan></tspan></text>
-    <text
-       xml:space="preserve"
-       id="text963"
-       style="font-style:normal;font-weight:normal;font-size:10.58329999999999949px;line-height:0;font-family:sans-serif;white-space:pre;shape-inside:url(#rect977);fill:#c28c4a;fill-opacity:1;stroke:none;"
-       x="30.700871"
-       y="0"
-       transform="matrix(0.55154766,0,0,0.56576511,-35.370495,7.2366295)"
-       inkscape:export-xdpi="96"
-       inkscape:export-ydpi="96"><tspan
-         x="79.738192"
-         y="84.782513"><tspan
-           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:3.4;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';text-align:center;text-anchor:middle;fill:#c28c4a;fill-opacity:1">Tutorial</tspan></tspan></text>
-    <text
-       xml:space="preserve"
-       id="text967"
-       style="font-style:normal;font-weight:normal;font-size:10.58329999999999949px;line-height:0;font-family:sans-serif;white-space:pre;shape-inside:url(#rect979);fill:#ffffff;fill-opacity:1;stroke:none;"
-       x="30.700871"
-       y="0"
-       transform="matrix(0.55154766,0,0,0.56576511,-35.684794,7.0754785)"
-       inkscape:export-xdpi="96"
-       inkscape:export-ydpi="96"><tspan
-         x="79.738192"
-         y="84.782513"><tspan
-           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:3.4;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';text-align:center;text-anchor:middle;fill:#ffffff;fill-opacity:1">Tutorial</tspan></tspan></text>
-    <text
-       xml:space="preserve"
-       id="text971"
-       style="font-style:normal;font-weight:normal;font-size:10.58329999999999949px;line-height:0;font-family:sans-serif;white-space:pre;shape-inside:url(#rect981);fill:#c28c4a;fill-opacity:1;stroke:none;"
-       x="30.700871"
-       y="0"
-       transform="matrix(0.55154766,0,0,0.56576511,-35.370495,7.2366295)"
-       inkscape:export-xdpi="96"
-       inkscape:export-ydpi="96"><tspan
-         x="79.738192"
-         y="84.782513"><tspan
-           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:3.4;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';text-align:center;text-anchor:middle;fill:#c28c4a;fill-opacity:1">Tutorial</tspan></tspan></text>
-    <text
-       xml:space="preserve"
-       id="text975"
-       style="font-style:normal;font-weight:normal;font-size:10.58329999999999949px;line-height:0;font-family:sans-serif;white-space:pre;shape-inside:url(#rect983);fill:#ffffff;fill-opacity:1;stroke:none;"
-       x="30.700871"
-       y="0"
-       transform="matrix(0.55154766,0,0,0.56576511,-35.684794,7.0754785)"
-       inkscape:export-xdpi="96"
-       inkscape:export-ydpi="96"><tspan
-         x="79.738192"
-         y="84.782513"><tspan
-           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:3.4;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';text-align:center;text-anchor:middle;fill:#ffffff;fill-opacity:1">Tutorial</tspan></tspan></text>
+         x="41.033203"
+         y="66.790903"><tspan
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:10.5833px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Play Again</tspan></tspan></text>
   </g>
 </svg>
