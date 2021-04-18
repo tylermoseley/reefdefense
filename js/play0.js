@@ -108,7 +108,7 @@ playState0 = {
         marker2 = game.add.graphics()
         //2nd value is alpha (opacity)
         marker2.beginFill("0xFFFFFF", 0.2);
-        marker2.drawCircle(16, 20, dummytower.range);
+        marker2.drawCircle(16, 20, dummytower.range*2);
         marker2.endFill();
         
         //  hover sprite
