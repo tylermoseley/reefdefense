@@ -879,7 +879,7 @@ function updateMarker() {
 
         marker2.clear()
         marker2.beginFill("0xFFFFFF", 0.2);
-        marker2.drawCircle(markerx+16, markery+16, dummytower.range);
+        marker2.drawCircle(markerx+16, markery+16, dummytower.range*2);
         marker2.endFill();
 
         //radius = towerRange
