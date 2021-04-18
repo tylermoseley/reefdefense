@@ -31,6 +31,8 @@ winState = {
         game.camera.x = ((32**2-game.width)/2);
         game.camera.y = ((32**2-game.height)/2);
 
+        startButton = game.add.button(512-80, 512-40, 'playAgainButton', startGame, this, 1, 0, 2);
+
         cursors = game.input.keyboard.createCursorKeys();
         
         leaveKey = {
@@ -50,4 +52,11 @@ winState = {
             game.state.start("menu")
         }
 }
+};
+
+function startGame () {
+    var snd = game.add.audio("button");
+    snd.play();
+    game.state.start('play0');
+
 }

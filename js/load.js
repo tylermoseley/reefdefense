@@ -39,6 +39,7 @@ var loadState = {
         game.load.spritesheet('towertower', 'Assets/img/Tower List.png', 32, 40);
         game.load.image('pausemenu', 'Assets/img/backgrounds/Pause Box.png');
         game.load.spritesheet('tutorialButton', 'Assets/img/PlayButton/NewTutButton.png', 160, 80)
+        game.load.spritesheet('playAgainButton', 'Assets/img/PlayButton/PlayAgain.png', 160, 80)
         game.load.image('gold', 'Assets/spritesheets/gold coin.png')
 
         //sounds, efx, music...
