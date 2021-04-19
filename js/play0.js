@@ -908,20 +908,26 @@ function pausing(){
     menu.bringToTop()
     tutorialTextList = [
         " ",
-        "Reef Defense is a tower defense game where the main \nobjective is to build towers to protect the clam from the \noncoming waves of enemies trying to steal the pearl",
-        "Move the camera with w, a, s, d",
-        "On the top right shows you the shop as well as your \ncurrent gold",
-        "Right next to each turret is the amount of gold it costs",
-        "To place turrets, press the corresponding number of the tower \nyou want to place",
-        "Then use left mouse click to place it on the tile you want",
+        "Move the camera with 'W' 'A' 'S' 'D'",
+        "Reef defense is a wave based tower defense where each wave\nhas a set number of enemies to destroy before the next wave \nstarts",
+        "Every wave, enemies such as crabs, eels, etc. will spawn from any \nof the four caves and all enemies are after your clam",
+        "To protect the clam, you need to place down corals, which will act\n as your towers. These corals will automatically shoot pellets\n towards incoming enemies, dealing damage",
+        "Different corals have different stats such as health, shooting speed,\nand range. Shooting speed indicates how fast a tower shoots each\npellet. Range indicates how far the coral can target enemies",
+        "To select the coral you want to place, press the corresponding\nnumber of the coral, this is defaulted to the red coral if\n no number is pressed",
+        "Hovering the selected coral over a tile will show the coral's range",
+        "Left mouse click will place the selected coral onto any water tiles.\n Keep in mind, that you need to have enough gold to place the \ncoral. Sand tiles, as well as caves tiles, cannot be built on top of.",
+        "On the top right is the shop as well as your current gold.\nRight next to each coral is the amount of gold it costs",
+        "The player will start with 100 gold coins.",
+        "To earn gold, killing an enemy will net the player 5 gold \nper enemy destroyed. The gold coral will also give you 20 gold at\nthe end of every round per gold coral.",
+        "To sell a coral, click on the coral you want to get rid of.\n A white box should appear, indicating that it is selected\nThen press the 'delete' key to sell the tower for half the \ncost of the tower",            
         "When you're ready to start the wave, click on the 'start' button",
         "Every wave will be more difficult than the last so plan well, \nand good luck!",
-        'Press the anywhere on the pause screen to continue playing' ,
-        " "
+        "Press anywhere on the screen to continue",
+        " ",
     ]; 
 
 
-    tutorial_TXT = game.add.text(32*4, 32*7, "Welcome to Reef Defense!",{font: "20px Arial", text: "bold()", fill: "#ffffff", align: "left"})
+    tutorial_TXT = game.add.text(32*3.1, 32*6, "Welcome to Reef Defense!",{font: "20px Arial", text: "bold()", fill: "#ffffff", align: "left"})
     tutorial_TXT.fixedToCamera = true;
     tutorial_TXT.visible = true
 

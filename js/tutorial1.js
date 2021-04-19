@@ -117,73 +117,34 @@ var tutorialState1 = {
         tower3_cost.fixedToCamera = true;
         tower3_cost.anchor.setTo(1,0)
 
-        textbox = game.add.sprite(game.width/2 - 200, 10, "TXTbox");
+        textbox = game.add.sprite(game.width/2 - 300, 200, "pausemenu");
         textbox.fixedToCamera = true;
-        textbox.scale.setTo(6, 1.5);
+        textbox.scale.setTo(3, 2);
 
-        skipTXT = game.add.text(game.width/2  , 70, "press spacebar to proceed, press esc to exit to main menu",{font: "10px Arial", text: "bold()", fill: "#ffffff", align: "right"} )
+        skipTXT = game.add.text(game.width/2 - 230 , 380, "press spacebar to proceed, press esc to exit to main menu",{font: "16px Arial", text: "bold()", fill: "#000000", align: "right"} )
         skipTXT.fixedToCamera = true;
 
-        //shop
-        shopbar = game.add.sprite(800, 0, 'shop_bar');
-        shopbar.fixedToCamera = true;
-        shopbar.anchor.setTo(1, 0)
-        shopbar.scale.setTo(1,1)
-
-        gold = game.add.sprite(750, 0, "gold");
-        gold.fixedToCamera = true;
-        gold.anchor.setTo(1,0)
-        gold.scale.setTo(.03,.03)
-
-        //money 
-        moneyTXT = game.add.text(790, 5, balance, {font: "18px Arial", fill: "#000000", align: "left" });
-        moneyTXT.fixedToCamera = true;
-        moneyTXT.anchor.setTo(1,0)
-
-        tower1_button = game.add.sprite(725, 30, 'tower1');
-        tower1_button.fixedToCamera = true;
-        //tower1_button.anchor.setTo(1, 0);
-
-        tower1_cost = game.add.text(795, 40, "Press 1\n10G", {font: "10px Arial", text: "bold()", fill: "#000000", align: "right"})
-        tower1_cost.fixedToCamera = true;
-        tower1_cost.anchor.setTo(1,0)
-
-        tower2_button = game.add.sprite(725, 80, 'tower2');
-        tower2_button.fixedToCamera = true;
-        //tower2_button.anchor.setTo(1, 0);
-
-        tower2_cost = game.add.text(795, 80, "Press 2\n20G", {font: "10px Arial", text: "bold()", fill: "#000000", align: "right"})
-        tower2_cost.fixedToCamera = true;
-        tower2_cost.anchor.setTo(1,0)
-
-        tower3_button = game.add.sprite(725, 120, 'tower3');
-        tower3_button.fixedToCamera = true;
-        //tower2_button.anchor.setTo(1, 0);
-
-        tower3_cost = game.add.text(795, 120, "Press 3\n20G", {font: "10px Arial", text: "bold()", fill: "#000000", align: "right"})
-        tower3_cost.fixedToCamera = true;
-        tower3_cost.anchor.setTo(1,0)
-
-        textbox = game.add.sprite(game.width/2 - 200, 10, "TXTbox");
-        textbox.fixedToCamera = true;
-        textbox.scale.setTo(6, 1.5);
-
-        skipTXT = game.add.text(game.width/2  , 70, "press spacebar to proceed, press esc to exit to main menu",{font: "10px Arial", text: "bold()", fill: "#ffffff", align: "right"} )
-        skipTXT.fixedToCamera = true;
+        
 
         tutorialTextList = [
-            "Reef Defense is a tower defense game where the main objective is\n to build towers to protect the clam from the oncoming waves\n of enemies trying to steal the pearl",
-            "Move the camera with w, a, s, d",
-            "On the top right shows you the shop as well as your current gold",
-            "Right next to each turret is the amount of gold it costs",
-            "To place turrets, press the corresponding number of the tower \nyou want to place",
-            "Then use left mouse click to place it on the tile you want",
+            "Move the camera with 'W' 'A' 'S' 'D'",
+            "Reef defense is a wave based tower defense where each wave\nhas a set number of enemies to destroy before the next wave \nstarts",
+            "Every wave, enemies such as crabs, eels, etc. will spawn from any \nof the four caves and all enemies are after your clam",
+            "To protect the clam, you need to place down corals, which will act\n as your towers. These corals will automatically shoot pellets\n towards incoming enemies, dealing damage",
+            "Different corals have different stats such as health, shooting speed,\nand range. Shooting speed indicates how fast a tower shoots each\npellet. Range indicates how far the coral can target enemies",
+            "To select the coral you want to place, press the corresponding\nnumber of the coral, this is defaulted to the red coral if\n no number is pressed",
+            "Hovering the selected coral over a tile will show the coral's range",
+            "Left mouse click will place the selected coral onto any water tiles.\n Keep in mind, that you need to have enough gold to place the \ncoral. Sand tiles, as well as caves tiles, cannot be built on top of.",
+            "On the top right is the shop as well as your current gold.\nRight next to each coral is the amount of gold it costs",
+            "The player will start with 100 gold coins.",
+            "To earn gold, killing an enemy will net the player 5 gold \nper enemy destroyed. The gold coral will also give you 20 gold at\nthe end of every round per gold coral.",
+            "To sell a coral, click on the coral you want to get rid of.\n A white box should appear, indicating that it is selected\nThen press the 'delete' key to sell the tower for half the \ncost of the tower",            
             "When you're ready to start the wave, click on the 'start' button",
             "Every wave will be more difficult than the last so plan well, \nand good luck!",
             "Press escape to return to the main menu"
         ]; 
 
-        tutorial_TXT = game.add.text(game.width / 2 - 180, 10, "Welcome to Reef Defense!",{font: "16px Arial", text: "bold()", fill: "#ffffff", align: "left"})
+        tutorial_TXT = game.add.text(game.width / 2 - 297, 220, "Welcome to Reef Defense!",{font: "20px Arial", text: "bold()", fill: "#ffffff", align: "left"})
         tutorial_TXT.fixedToCamera = true;
         tutorial_TXT.visible = true
 
