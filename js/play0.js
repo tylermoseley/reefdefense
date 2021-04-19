@@ -147,7 +147,7 @@ playState0 = {
             sell: game.input.keyboard.addKey(Phaser.Keyboard.DELETE)
         }
         pauseKeys = {
-            esc: game.input.keyboard.addKey(Phaser.Keyboard.ESC),
+            p: game.input.keyboard.addKey(Phaser.Keyboard.P),
             shift: game.input.keyboard.addKey(Phaser.Keyboard.SHIFT)
         }
 
@@ -260,7 +260,7 @@ playState0 = {
         bullets.setAll('anchor.y', 0.25);
 
 
-        pauseKeybindTXT = game.add.text(20,50, 'Press "esc" for help', {font: "30px Arial", text: "bold()", fill: "#ffffff", align: "right"})
+        pauseKeybindTXT = game.add.text(20,50, 'Press "P" for help', {font: "20px Arial", text: "bold()", fill: "#ffffff", align: "right"})
         pauseKeybindTXT.fixedToCamera = true
 
 
@@ -383,7 +383,7 @@ playState0 = {
         }
 
         //pause
-        if (pauseKeys.esc.isDown){
+        if (pauseKeys.p.isDown){
             pausing()
         }
         /*
