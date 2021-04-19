@@ -901,27 +901,70 @@ function sleep(seconds) {
 }
 
 function pausing(){
+    game.paused = true
+    
     game.camera.x = ((32**2-game.width)/2);
     game.camera.y = ((32**2-game.height)/2);
-    menu = game.add.sprite(210,400, 'pausemenu')
-    menu.scale.setTo(3,2)
+    menu = game.add.sprite(210,300, 'TXTbox')
+    menu.scale.setTo(7.4,4)
     menu.bringToTop()
     tutorialTextList = [
         " ",
-        "Reef Defense is a tower defense game where the main \nobjective is to build towers to protect the clam from the \noncoming waves of enemies trying to steal the pearl",
-        "Move the camera with w, a, s, d",
-        "On the top right shows you the shop as well as your \ncurrent gold",
-        "Right next to each turret is the amount of gold it costs",
-        "To place turrets, press the corresponding number of the tower \nyou want to place",
-        "Then use left mouse click to place it on the tile you want",
+        "Move the camera with 'W' 'A' 'S' 'D'",
+        "Reef defense is a wave based tower defense where each wave\nhas a set number of enemies to destroy before the next wave \nstarts",
+        "Every wave, enemies such as crabs, eels, etc. will spawn from any \nof the four caves and all enemies are after your clam",
+        "To protect the clam, you need to place down corals, which will act\n as your towers. These corals will automatically shoot pellets\n towards incoming enemies, dealing damage",
+        "Different corals have different stats such as health, shooting speed,\nand range. Shooting speed indicates how fast a tower shoots each\npellet. Range indicates how far the coral can target enemies",
+        "To select the coral you want to place, press the corresponding\nnumber of the coral, this is defaulted to the red coral if\n no number is pressed",
+        "Hovering the selected coral over a tile will show the coral's range",
+        "Left mouse click will place the selected coral onto any water tiles.\n Keep in mind, that you need to have enough gold to place the \ncoral. Sand tiles, as well as caves tiles, cannot be built on top of.",
+        "On the top right is the shop as well as your current gold.\nRight next to each coral is the amount of gold it costs",
+        "The player will start with 100 gold coins.",
+        "To earn gold, killing an enemy will net the player 5 gold \nper enemy destroyed. The gold coral will also give you 20 gold at\nthe end of every round per gold coral.",
+        "To sell a coral, click on the coral you want to get rid of.\n A white box should appear, indicating that it is selected\nThen press the 'delete' key to sell the tower for half the \ncost of the tower",            
         "When you're ready to start the wave, click on the 'start' button",
         "Every wave will be more difficult than the last so plan well, \nand good luck!",
-        'Press the anywhere on the pause screen to continue playing' ,
-        " "
+        "Press anywhere on the screen to continue",
+        " ",
     ]; 
 
+    ControlBox = game.add.image(90, 420, 'TXTbox')
+    ControlBox.scale.setTo(7.4,4);
+    ControlBox.fixedToCamera = true;
+    ControlBox.bringToTop()
 
-    tutorial_TXT = game.add.text(32*4, 32*7, "Welcome to Reef Defense!",{font: "20px Arial", text: "bold()", fill: "#ffffff", align: "left"})
+    ControlsTXT = game.add.text(350, 430, "Keybindings",{font: "20px Arial", text: "bold()", fill: "#ffffff", align: "left"} );
+    ControlsTXT.fixedToCamera = true;
+    ControlsTXT.bringToTop();
+
+    CameraTXT = game.add.text(110, 480, "Camera Controls",{font: "16px Arial", text: "bold()", fill: "#000000", align: "left"} );
+    CameraTXT.fixedToCamera = true;
+    CameraTXT.bringToTop();
+
+    Camera = game.add.image(110, 510,'CameraKeys')
+    Camera.scale.setTo(1.2, 1.2)
+    Camera.fixedToCamera = true;
+    Camera.bringToTop()
+
+    LmbTXT = game.add.text(280, 480, "Place/Buy Coral",{font: "16px Arial", text: "bold()", fill: "#000000", align: "left"} );
+    LmbTXT.fixedToCamera = true;
+    LmbTXT.bringToTop();
+
+    LeftMouseButton = game.add.image(300, 510,'LMB')
+    LeftMouseButton.scale.setTo(1.1, 1.0)
+    LeftMouseButton.fixedToCamera = true;
+    LeftMouseButton.bringToTop()
+
+    DeleteTXT = game.add.text(450, 480, "Sell Coral \n(need to click on coral first)",{font: "16px Arial", text: "bold()", fill: "#000000", align: "left"} )
+    DeleteTXT.fixedToCamera = true;
+    DeleteTXT.bringToTop();
+
+    DeleteKey= game.add.image(500, 520,'DeleteKey')
+    DeleteKey.scale.setTo(1.1, 1.0)
+    DeleteKey.fixedToCamera = true;
+    DeleteKey.bringToTop()
+
+    tutorial_TXT = game.add.text(110, 100, "Welcome to Reef Defense!",{font: "20px Arial", text: "bold()", fill: "#ffffff", align: "left"})
     tutorial_TXT.fixedToCamera = true;
     tutorial_TXT.visible = true
 
@@ -929,14 +972,16 @@ function pausing(){
 
     tutorialKeys.spacebar.onDown.add(changeTXT);
 
-    nextTXT = game.add.text(352, 550, "Press Spacebar to continue tutorial",{font: "20px Arial", text: "bold()", fill: "#ffffff", align: "left"})
+    nextTXT = game.add.text(270, 230, "Press Spacebar to continue tutorial",{font: "20px Arial", text: "bold()", fill: "#ffffff", align: "left"})
+    nextTXT.fixedToCamera = true;
     nextTXT.bringToTop()
 
-    unpauseTXT = game.add.text(352, 570, "Resume game by clicking anywhere", {font: "20px Arial", text: "bold()", fill: "#000000", align: "right"} );
+    unpauseTXT = game.add.text(270, 250, "Resume game by clicking anywhere", {font: "20px Arial", text: "bold()", fill: "#000000", align: "right"} );
+    unpauseTXT.fixedToCamera = true;
     unpauseTXT.bringToTop()
     game.input.onDown.add(unpausing, self);
 
-    game.paused = true
+
     
 }
 
@@ -948,7 +993,14 @@ function unpausing(){
         unpauseTXT.destroy()
         tutorial_TXT.text = tutorialTextList[0];
         nextTXT.destroy()
-        
+        ControlBox.destroy()
+        ControlsTXT.destroy()
+        CameraTXT.destroy()
+        Camera.destroy()
+        LmbTXT.destroy()
+        LeftMouseButton.destroy()
+        DeleteTXT.destroy()
+        DeleteKey.destroy()
     }
 }
 
