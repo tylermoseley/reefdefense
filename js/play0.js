@@ -297,6 +297,9 @@ playState0 = {
     },
 
     update: function() {
+        
+        layerRise();
+
         // set tower type based on number keys
         if (towerKeys.one.isDown){
             towertype = 1
