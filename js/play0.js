@@ -901,10 +901,12 @@ function sleep(seconds) {
 }
 
 function pausing(){
+    game.paused = true
+    
     game.camera.x = ((32**2-game.width)/2);
     game.camera.y = ((32**2-game.height)/2);
-    menu = game.add.sprite(210,400, 'pausemenu')
-    menu.scale.setTo(3,2)
+    menu = game.add.sprite(210,300, 'TXTbox')
+    menu.scale.setTo(7.4,4)
     menu.bringToTop()
     tutorialTextList = [
         " ",
@@ -926,8 +928,43 @@ function pausing(){
         " ",
     ]; 
 
+    ControlBox = game.add.image(90, 420, 'TXTbox')
+    ControlBox.scale.setTo(7.4,4);
+    ControlBox.fixedToCamera = true;
+    ControlBox.bringToTop()
 
-    tutorial_TXT = game.add.text(32*3.1, 32*6, "Welcome to Reef Defense!",{font: "20px Arial", text: "bold()", fill: "#ffffff", align: "left"})
+    ControlsTXT = game.add.text(350, 430, "Keybindings",{font: "20px Arial", text: "bold()", fill: "#ffffff", align: "left"} );
+    ControlsTXT.fixedToCamera = true;
+    ControlsTXT.bringToTop();
+
+    CameraTXT = game.add.text(110, 480, "Camera Controls",{font: "16px Arial", text: "bold()", fill: "#000000", align: "left"} );
+    CameraTXT.fixedToCamera = true;
+    CameraTXT.bringToTop();
+
+    Camera = game.add.image(110, 510,'CameraKeys')
+    Camera.scale.setTo(1.2, 1.2)
+    Camera.fixedToCamera = true;
+    Camera.bringToTop()
+
+    LmbTXT = game.add.text(280, 480, "Place/Buy Coral",{font: "16px Arial", text: "bold()", fill: "#000000", align: "left"} );
+    LmbTXT.fixedToCamera = true;
+    LmbTXT.bringToTop();
+
+    LeftMouseButton = game.add.image(300, 510,'LMB')
+    LeftMouseButton.scale.setTo(1.1, 1.0)
+    LeftMouseButton.fixedToCamera = true;
+    LeftMouseButton.bringToTop()
+
+    DeleteTXT = game.add.text(450, 480, "Sell Coral \n(need to click on coral first)",{font: "16px Arial", text: "bold()", fill: "#000000", align: "left"} )
+    DeleteTXT.fixedToCamera = true;
+    DeleteTXT.bringToTop();
+
+    DeleteKey= game.add.image(500, 520,'DeleteKey')
+    DeleteKey.scale.setTo(1.1, 1.0)
+    DeleteKey.fixedToCamera = true;
+    DeleteKey.bringToTop()
+
+    tutorial_TXT = game.add.text(110, 100, "Welcome to Reef Defense!",{font: "20px Arial", text: "bold()", fill: "#ffffff", align: "left"})
     tutorial_TXT.fixedToCamera = true;
     tutorial_TXT.visible = true
 
@@ -935,14 +972,16 @@ function pausing(){
 
     tutorialKeys.spacebar.onDown.add(changeTXT);
 
-    nextTXT = game.add.text(352, 550, "Press Spacebar to continue tutorial",{font: "20px Arial", text: "bold()", fill: "#ffffff", align: "left"})
+    nextTXT = game.add.text(270, 230, "Press Spacebar to continue tutorial",{font: "20px Arial", text: "bold()", fill: "#ffffff", align: "left"})
+    nextTXT.fixedToCamera = true;
     nextTXT.bringToTop()
 
-    unpauseTXT = game.add.text(352, 570, "Resume game by clicking anywhere", {font: "20px Arial", text: "bold()", fill: "#000000", align: "right"} );
+    unpauseTXT = game.add.text(270, 250, "Resume game by clicking anywhere", {font: "20px Arial", text: "bold()", fill: "#000000", align: "right"} );
+    unpauseTXT.fixedToCamera = true;
     unpauseTXT.bringToTop()
     game.input.onDown.add(unpausing, self);
 
-    game.paused = true
+
     
 }
 
@@ -954,7 +993,14 @@ function unpausing(){
         unpauseTXT.destroy()
         tutorial_TXT.text = tutorialTextList[0];
         nextTXT.destroy()
-        
+        ControlBox.destroy()
+        ControlsTXT.destroy()
+        CameraTXT.destroy()
+        Camera.destroy()
+        LmbTXT.destroy()
+        LeftMouseButton.destroy()
+        DeleteTXT.destroy()
+        DeleteKey.destroy()
     }
 }
 

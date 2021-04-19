@@ -38,6 +38,9 @@ var loadState = {
         game.load.audio("laser", "Assets/audio/LaserShot.wav");
         game.load.spritesheet('towertower', 'Assets/img/Tower List.png', 32, 40);
         game.load.image('pausemenu', 'Assets/img/backgrounds/Pause Box.png');
+        game.load.image('CameraKeys', 'Assets/Sprites/WASD keys.png', 66, 96);
+        game.load.image('LMB', 'Assets/Sprites/Left Mouse.png', 61, 88);
+        game.load.image('DeleteKey', 'Assets/Sprites/Delete Key.png', 35, 73);
         game.load.spritesheet('tutorialButton', 'Assets/img/PlayButton/NewTutButton.png', 160, 80)
         game.load.spritesheet('playAgainButton', 'Assets/img/PlayButton/PlayAgain.png', 160, 80)
         game.load.image('gold', 'Assets/spritesheets/gold coin.png')

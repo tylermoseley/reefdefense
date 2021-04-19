@@ -117,14 +117,19 @@ var tutorialState1 = {
         tower3_cost.fixedToCamera = true;
         tower3_cost.anchor.setTo(1,0)
 
-        textbox = game.add.sprite(game.width/2 - 300, 200, "pausemenu");
+        tower4_button = game.add.sprite(728, 160, 'tower4');
+        tower4_button.fixedToCamera = true;
+        tower4_button.anchor.setTo(0, 0);
+        tower4_button.scale.setTo(1,1);
+        tower4_button.animations.add('idle4', [0,1,2,3]);
+
+        tower4_cost = game.add.text(795, 165, "Press 4\n40G", {font: "10px Arial", text: "bold()", fill: "#000000", align: "right"})
+        tower4_cost.fixedToCamera = true;
+        tower4_cost.anchor.setTo(1,0)
+
+        textbox = game.add.sprite(90, 00, "TXTbox");
         textbox.fixedToCamera = true;
-        textbox.scale.setTo(3, 2);
-
-        skipTXT = game.add.text(game.width/2 - 230 , 380, "press spacebar to proceed, press esc to exit to main menu",{font: "16px Arial", text: "bold()", fill: "#000000", align: "right"} )
-        skipTXT.fixedToCamera = true;
-
-        
+        textbox.scale.setTo(7.4, 3.9);
 
         tutorialTextList = [
             "Move the camera with 'W' 'A' 'S' 'D'",
@@ -144,15 +149,51 @@ var tutorialState1 = {
             "Press escape to return to the main menu"
         ]; 
 
-        tutorial_TXT = game.add.text(game.width / 2 - 297, 220, "Welcome to Reef Defense!",{font: "20px Arial", text: "bold()", fill: "#ffffff", align: "left"})
+        tutorial_TXT = game.add.text(game.width / 2 - 297, 10, "Welcome to Reef Defense!",{font: "20px Arial", text: "bold()", fill: "#ffffff", align: "left"})
         tutorial_TXT.fixedToCamera = true;
         tutorial_TXT.visible = true
 
         counter = 0
 
         tutorialKeys.spacebar.onDown.add(changeTXT);
+        skipTXT = game.add.text(250 , 170, "press spacebar to proceed, press esc to exit to main menu",{font: "16px Arial", text: "bold()", fill: "#000000", align: "left"} )
+        skipTXT.fixedToCamera = true;
 
+        ControlBox = game.add.image(90, 420, 'TXTbox')
+        ControlBox.scale.setTo(7.4,4);
+        ControlBox.fixedToCamera = true;
+        ControlBox.bringToTop()
 
+        ControlsTXT = game.add.text(350, 430, "Keybindings",{font: "20px Arial", text: "bold()", fill: "#ffffff", align: "left"} );
+        ControlsTXT.fixedToCamera = true;
+        ControlsTXT.bringToTop();
+
+        CameraTXT = game.add.text(110, 480, "Camera Controls",{font: "16px Arial", text: "bold()", fill: "#000000", align: "left"} );
+        CameraTXT.fixedToCamera = true;
+        CameraTXT.bringToTop();
+
+        Camera = game.add.image(110, 510,'CameraKeys')
+        Camera.scale.setTo(1.2, 1.2)
+        Camera.fixedToCamera = true;
+        Camera.bringToTop()
+
+        LmbTXT = game.add.text(280, 480, "Place/Buy Coral",{font: "16px Arial", text: "bold()", fill: "#000000", align: "left"} );
+        LmbTXT.fixedToCamera = true;
+        LmbTXT.bringToTop();
+
+        LeftMouseButton = game.add.image(300, 510,'LMB')
+        LeftMouseButton.scale.setTo(1.1, 1.0)
+        LeftMouseButton.fixedToCamera = true;
+        LeftMouseButton.bringToTop()
+
+        DeleteTXT = game.add.text(450, 480, "Sell Coral \n(need to click on coral first)",{font: "16px Arial", text: "bold()", fill: "#000000", align: "left"} )
+        DeleteTXT.fixedToCamera = true;
+        DeleteTXT.bringToTop();
+
+        DeleteKey= game.add.image(500, 520,'DeleteKey')
+        DeleteKey.scale.setTo(1.1, 1.0)
+        DeleteKey.fixedToCamera = true;
+        DeleteKey.bringToTop()
     },
 
     update: function() {
@@ -197,9 +238,12 @@ var tutorialState1 = {
         tower2_cost.bringToTop();
         tower3_button.bringToTop();
         tower3_cost.bringToTop();
+        tower4_button.bringToTop();
+        tower4_cost.bringToTop();
         textbox.bringToTop();
         skipTXT.bringToTop();
         tutorial_TXT.bringToTop();
+        Camera.bringToTop();
 
         
     },
