@@ -12,7 +12,7 @@
    viewBox="0 0 42.333332 63.5"
    version="1.1"
    id="svg16"
-   inkscape:export-filename="/Users/tylermoseley/Documents/School/CS329E-GameDevelopment/_MainGame/reefdefense/Assets/img/PlayButton/PlayAgain.png"
+   inkscape:export-filename="/Users/tylermoseley/Documents/School/CS329E-GameDevelopment/_MainGame/reefdefense/Assets/img/PlayButton/Resume.png"
    inkscape:export-xdpi="96"
    inkscape:export-ydpi="96"
    inkscape:version="1.0.2 (e86c8708, 2021-01-15)"
@@ -175,6 +175,66 @@
        width="123.83453"
        height="33.340069"
        id="rect1506-1" />
+    <rect
+       x="41.033928"
+       y="63.749138"
+       width="123.83453"
+       height="33.340069"
+       id="rect931-16" />
+    <rect
+       x="41.033928"
+       y="63.749138"
+       width="123.83453"
+       height="33.340069"
+       id="rect1474" />
+    <rect
+       x="41.033928"
+       y="63.749138"
+       width="123.83453"
+       height="33.340069"
+       id="rect931-16-5" />
+    <rect
+       x="41.033928"
+       y="63.749138"
+       width="123.83453"
+       height="33.340069"
+       id="rect1511" />
+    <rect
+       x="41.033928"
+       y="63.749138"
+       width="123.83453"
+       height="33.340069"
+       id="rect931-3" />
+    <rect
+       x="41.033928"
+       y="63.749138"
+       width="123.83453"
+       height="33.340069"
+       id="rect1514" />
+    <rect
+       x="41.033928"
+       y="63.749138"
+       width="123.83453"
+       height="33.340069"
+       id="rect931-16-3" />
+    <rect
+       x="41.033928"
+       y="63.749138"
+       width="123.83453"
+       height="33.340069"
+       id="rect1511-2" />
+    <rect
+       x="41.033928"
+       y="63.749138"
+       width="123.83453"
+       height="33.340069"
+       id="rect931-4" />
+    <rect
+       x="41.033928"
+       y="63.749138"
+       width="123.83453"
+       height="33.340069"
+       id="rect1514-7" />
   </defs>
   <sodipodi:namedview
      id="base"
@@ -183,9 +243,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.6647751"
-     inkscape:cx="29.829181"
-     inkscape:cy="146.52978"
+     inkscape:zoom="2.4497212"
+     inkscape:cx="58.399424"
+     inkscape:cy="110.2348"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      inkscape:document-rotation="0"
@@ -315,75 +375,72 @@
        inkscape:export-ydpi="96" />
     <text
        xml:space="preserve"
-       id="text1490"
-       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:10.58329999999999949px;line-height:0;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;white-space:pre;shape-inside:url(#rect1492);fill:#c28c4a;fill-opacity:1;stroke:none;"
+       id="text927-2"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:10.58329999999999949px;line-height:0;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;white-space:pre;shape-inside:url(#rect931-16);fill:#c28c4a;fill-opacity:1;stroke:none;"
        x="30.700871"
        y="0"
-       transform="matrix(0.55154766,0,0,0.56576511,-18.678988,-27.984407)"
+       transform="matrix(0.67949179,0,0,0.90973553,-22.583717,-49.119293)"
        inkscape:export-xdpi="96"
        inkscape:export-ydpi="96"><tspan
          x="41.033203"
          y="66.790903"><tspan
-           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:10.5833px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#c28c4a;fill-opacity:1">Play Again</tspan></tspan></text>
+           style="fill:#c28c4a;fill-opacity:1">Resume</tspan></tspan></text>
     <text
        xml:space="preserve"
        id="text927"
        style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:10.58329999999999949px;line-height:0;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;white-space:pre;shape-inside:url(#rect931);fill:#ffffff;fill-opacity:1;stroke:none;"
        x="30.700871"
        y="0"
-       transform="matrix(0.55154766,0,0,0.56576511,-18.971476,-28.198002)"
+       transform="matrix(0.67949179,0,0,0.90973553,-22.862937,-49.423851)"
        inkscape:export-xdpi="96"
        inkscape:export-ydpi="96"><tspan
          x="41.033203"
-         y="66.790903"><tspan
-           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:10.5833px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Play Again</tspan></tspan></text>
+         y="66.790903"><tspan>Resume</tspan></tspan></text>
     <text
        xml:space="preserve"
-       id="text1490-5"
-       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:10.58329999999999949px;line-height:0;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;white-space:pre;shape-inside:url(#rect1492-7);fill:#c28c4a;fill-opacity:1;stroke:none;"
+       id="text927-2-8"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:10.58329999999999949px;line-height:0;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;white-space:pre;shape-inside:url(#rect931-16-5);fill:#c28c4a;fill-opacity:1;stroke:none;"
        x="30.700871"
        y="0"
-       transform="matrix(0.55154766,0,0,0.56576511,-18.678987,-6.8177435)"
+       transform="matrix(0.67949179,0,0,0.90973553,-22.583717,-27.952629)"
        inkscape:export-xdpi="96"
        inkscape:export-ydpi="96"><tspan
          x="41.033203"
          y="66.790903"><tspan
-           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:10.5833px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#c28c4a;fill-opacity:1">Play Again</tspan></tspan></text>
+           style="fill:#c28c4a;fill-opacity:1">Resume</tspan></tspan></text>
     <text
        xml:space="preserve"
-       id="text927-1"
-       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:10.58329999999999949px;line-height:0;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;white-space:pre;shape-inside:url(#rect931-1);fill:#ffffff;fill-opacity:1;stroke:none;"
+       id="text927-27"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:10.58329999999999949px;line-height:0;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;white-space:pre;shape-inside:url(#rect931-3);fill:#ffffff;fill-opacity:1;stroke:none;"
        x="30.700871"
        y="0"
-       transform="matrix(0.55154766,0,0,0.56576511,-18.971475,-7.0313385)"
+       transform="matrix(0.67949179,0,0,0.90973553,-22.862937,-28.257187)"
        inkscape:export-xdpi="96"
        inkscape:export-ydpi="96"><tspan
          x="41.033203"
-         y="66.790903"><tspan
-           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:10.5833px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Play Again</tspan></tspan></text>
+         y="66.790903"><tspan>Resume</tspan></tspan></text>
     <text
        xml:space="preserve"
-       id="text1490-7"
-       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:10.58329999999999949px;line-height:0;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;white-space:pre;shape-inside:url(#rect1492-3);fill:#c28c4a;fill-opacity:1;stroke:none;"
+       id="text927-2-2"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:10.58329999999999949px;line-height:0;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;white-space:pre;shape-inside:url(#rect931-16-3);fill:#c28c4a;fill-opacity:1;stroke:none;"
        x="30.700871"
        y="0"
-       transform="matrix(0.55154766,0,0,0.56576511,-18.679079,17.186837)"
+       transform="matrix(0.67949179,0,0,0.90973553,-22.583808,-3.9480452)"
        inkscape:export-xdpi="96"
        inkscape:export-ydpi="96"><tspan
          x="41.033203"
          y="66.790903"><tspan
-           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:10.5833px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#c28c4a;fill-opacity:1">Play Again</tspan></tspan></text>
+           style="fill:#c28c4a;fill-opacity:1">Resume</tspan></tspan></text>
     <text
        xml:space="preserve"
-       id="text927-4"
-       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:10.58329999999999949px;line-height:0;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;white-space:pre;shape-inside:url(#rect931-12);fill:#ffffff;fill-opacity:1;stroke:none;"
+       id="text927-6"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:10.58329999999999949px;line-height:0;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;white-space:pre;shape-inside:url(#rect931-4);fill:#ffffff;fill-opacity:1;stroke:none;"
        x="30.700871"
        y="0"
-       transform="matrix(0.55154766,0,0,0.56576511,-18.971567,16.973242)"
+       transform="matrix(0.67949179,0,0,0.90973553,-22.863028,-4.2526032)"
        inkscape:export-xdpi="96"
        inkscape:export-ydpi="96"><tspan
          x="41.033203"
-         y="66.790903"><tspan
-           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:10.5833px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Play Again</tspan></tspan></text>
+         y="66.790903"><tspan>Resume</tspan></tspan></text>
   </g>
 </svg>
