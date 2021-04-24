@@ -126,6 +126,7 @@ playState0 = {
         // call updateMarker when mouse is moved
         game.input.addMoveCallback(updateMarker, this);
         
+        //game.input.addMoveCallback(p, this);
 
         // set cursors variable to keyboard cursor input
         cursors = game.input.keyboard.createCursorKeys();
@@ -191,6 +192,7 @@ playState0 = {
 
         //shop
         shopbar = game.add.sprite(800, 0, 'shop_bar');
+        shopbar.inputEnabled = true;
         shopbar.fixedToCamera = true;
         shopbar.anchor.setTo(1, 0)
         shopbar.scale.setTo(1,1)
@@ -206,6 +208,7 @@ playState0 = {
         moneyTXT.anchor.setTo(1,0)
 
         tower1_button = game.add.sprite(728, 38, 'tower1');
+        tower1_button.inputEnabled = true;
         tower1_button.fixedToCamera = true;
         tower1_button.anchor.setTo(0, 0);
         tower1_button.scale.setTo(0.8,0.8);
@@ -350,7 +353,42 @@ playState0 = {
         else{
             //tower3_button.animations.stop()
         }
+        if(tower1_button.input.pointerOver()){
+            statBox = game.add.sprite(600, 10,'TXTbox');
+            statBox.fixedToCamera;
+            statBox.scale.setTo()
+            statBox.bringToTop()
+        }
 
+        tower4_button = game.add.sprite(728, 160, 'tower4');
+        tower4_button.fixedToCamera = true;
+        tower4_button.anchor.setTo(0, 0);
+        tower4_button.scale.setTo(1,1);
+        tower4_button.animations.add('idle4', [0,1,2,3]);
+
+        
+        if(shopbar.input.pointerOver()){
+            shopbar.alpha = .5;
+            tower1_button.alpha = .5;
+            tower1_cost.alpha = .5;
+            tower2_button.alpha = .5;
+            tower2_cost.alpha = .5;
+            tower3_button.alpha = .5;
+            tower3_cost.alpha = .5;
+            tower4_button.alpha = .5;
+            tower4_cost.alpha = .5;
+        }
+        else{
+            shopbar.alpha = 1;
+            tower1_button.alpha = 1;
+            tower1_cost.alpha = 1;
+            tower2_button.alpha = 1;
+            tower2_cost.alpha = 1;
+            tower3_button.alpha = 1;
+            tower3_cost.alpha = 1;
+            tower4_button.alpha = 1;
+            tower4_cost.alpha = 1;
+        }
 
         //add tower 4 functionality
 
@@ -1031,3 +1069,8 @@ function changeTXT(){
     tutorial_TXT.text = tutorialTextList[counter];
     counter +=1
 }
+/* possible debuging for hover event
+function p(hover){
+    console.log(hover.event);
+}
+*/
