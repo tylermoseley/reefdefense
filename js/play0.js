@@ -3,7 +3,7 @@ playState0 = {
         gameOver=0, towertype=1, coralid="c0", defending=0, gameBoard=[], WaveCount = 0
         finalWaveCount = 10, nextLaser = 0, laserDelay = 5000, balance = 100
         nextWave = 0, bullet = null, laserFire = 0, sellMarker = "None", lastClickedTile = 'None'
-        moneyCoral = 0
+        moneyCoral = 0, buildMode = false
         // create empty 32x32 gameBoard (maybe add dimension variable if board size change)
         for (i=0; i<=31; i++) {
             gameBoard.push([])
@@ -135,7 +135,9 @@ playState0 = {
             p: game.input.keyboard.addKey(Phaser.Keyboard.P),
             shift: game.input.keyboard.addKey(Phaser.Keyboard.SHIFT)
         }
-
+        exitBuildMode = {
+            esc: game.input.keyboard.addKey(Phaser.Keyboard.ESC)
+        }
         tutorialKeys = {
             spacebar: game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR),
         }
@@ -153,15 +155,7 @@ playState0 = {
 
         Clam(ClamBubbles);
 
-        
-
         //unpauses game
-        
-
-        // mouseWheel to capture scrolling for alternate movement
-        // up/down only in phaser <3.2*
-        // mouseWheel = game.input.mouseWheel;
-        
 
         //added a start level button
         startButton = game.add.button(32*15, 32*17, 'start', startLevel, this, 1, 0, 2);
@@ -249,9 +243,6 @@ playState0 = {
         pauseKeybindTXT.fixedToCamera = true
 
 
-        
-
-
         /*
         menu = game.add.sprite(210,400, 'pausemenu')
         menu.scale.setTo(3,2)
@@ -276,8 +267,6 @@ playState0 = {
         WaveCounter = game.add.text(20, 20, "Wave: "+WaveCount+ "/"+finalWaveCount, {font: "30px Arial", text: "bold()", fill: "#ffffff", align: "center"});
         WaveCounter.fixedToCamera = true;
 
-        
-
         nextPlacement = game.time.now
     },
 
@@ -292,6 +281,7 @@ playState0 = {
                 id = 99,
                 type = towertype,
             );
+            buildMode = true
             updateMarker()
             tower1_button.animations.play('idle1', 5, true)
         }
@@ -304,6 +294,7 @@ playState0 = {
                 id = 99,
                 type = towertype,
             );
+            buildMode = true
             updateMarker()
             tower2_button.animations.play('idle2', 5, true);
         }
@@ -316,6 +307,7 @@ playState0 = {
                 id = 99,
                 type = towertype,
             );
+            buildMode = true
             updateMarker()
             tower3_button.animations.play('idle3', 5, true);
         }
@@ -329,6 +321,7 @@ playState0 = {
                 id = 99,
                 type = towertype,
             );
+            buildMode = true
             updateMarker()
             //tower3_button.animations.play('idle3', 5, true);
         }
@@ -381,6 +374,10 @@ playState0 = {
             }
         }
         */
+
+        if (exitBuildMode.esc.isDown) {
+            buildMode = false
+        }
         // resting state for all corals on gameBoard
         for (i = 0; i <= 31; i += 1) {
             for (j = 0; j <= 31; j += 1) {
@@ -730,11 +727,6 @@ function WavePlacements(wave) {
         }
         enemy.anchor.setTo(0.5, 0.5);
 
-        /*
-        if (EnemyWaves[wave].multiDirectional) {
-            //logic for multidirectional
-        }
-        */
         directions = EnemyWaves[wave].spawnLocation
         direction = directions[Math.floor(Math.random() * directions.length)]
 
@@ -860,9 +852,12 @@ function layerRise() {
 function updateMarker() {
     markerx = WaterEdgesMid.getTileX(game.input.activePointer.worldX) * 32;
     markery = WaterEdgesMid.getTileY(game.input.activePointer.worldY) * 32;
-    if ((markerx == 32*15 & markery == 32*17) | (markerx == 32*16 & markery == 32*17)) {
-        ;
+    // if ((markerx == 32*15 & markery == 32*17) | (markerx == 32*16 & markery == 32*17)) {
+    if (WaterEdgesMid.getTiles(game.input.activePointer.worldX, game.input.activePointer.worldY,32,32)[0].index == -1 || buildMode == false) {
+        marker2.clear()
+        marker.visible = false
     } else {
+        marker.visible = true
         marker.x = markerx
         marker.y = markery - 10
         marker.frame = towertype - 1
