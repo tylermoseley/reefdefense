@@ -18,6 +18,7 @@ playState0 = {
         for (i=0; i<=10; i++) {
             // every randomize every wave except waves divisible by 10
             if (i>0 & (i+1)%10 == 0) {
+                // Shark Properties
                 enemyCount = 1
                 spriteIndex = 3
                 speed = 15
@@ -26,34 +27,18 @@ playState0 = {
                 width = 224
                 height = 64
                 multiDirectional = false
-            } 
-
-            //multi-directional from wave 7
-            /*
-            else if(i >= 7) {
-                enemyCount = i + 2,
-                    spriteIndex = Math.floor(Math.random() * 3)
-                speed = 30 + (i * 4)
-                health = 2 + (i * 2), // must remain integers (no decimals here)
-                spawnLocation = startLocations[Math.floor(Math.random() * 4)]
-
-                //logic for multidirection waves
-                multiDirectional = true
-                spawnLocation2 = startLocations[Math.floor(Math.random() * 4)]
-                while (spawnLocation == spawnLocation2) {
-                    spawnLocation2 = startLocations[Math.floor(Math.random() * 4)]
-                }
-
-                width = 32
-                height = 32
-            }
-            */
-            else {
-                enemyCount = i + 2,
+            } else {
+                // Other wave properties
+                enemyCount = 2 + Math.floor(i * 1.5),
                     spriteIndex = Math.floor(Math.random() * 3)
                 speed = 30 + (i * 5)
                 health = 2 + (i * 2), // must remain integers (no decimals here)
-                    spawnLocation = startLocations[Math.floor(Math.random() * 4)]
+                    directions = []
+                    dirStep = parseInt(i/3)
+                    for (n=0; n<=dirStep; n++) {
+                        directions.push(startLocations[Math.floor(Math.random() * 4)])
+                    }
+                    spawnLocation = directions
                 width = 32
                 height = 32
                 multiDirectional = false
@@ -788,8 +773,10 @@ function WavePlacements(wave) {
             //logic for multidirectional
         }
         */
+        directions = EnemyWaves[wave].spawnLocation
+        direction = directions[Math.floor(Math.random() * directions.length)]
 
-        switch (EnemyWaves[wave].spawnLocation) {
+        switch (direction) {
             case 'left':
                 var spawnX = 32
                 var spawnY = 512
