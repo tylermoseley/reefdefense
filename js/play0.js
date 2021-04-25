@@ -12,7 +12,7 @@ playState0 = {
             }
         }
         EnemyWaves = []
-        enemytypes = ['Crab', 'Eel', 'Jellyfish', 'Shark']
+        enemytypes = ['Crab', 'Eel', 'Jellyfish', 'Shark', 'Crab_Boss', 'Jellyfish_Boss', 'Eel_Boss']
         startLocations = ['top', 'bottom', 'left', 'right']
 
         for (i=0; i<=10; i++) {
@@ -22,12 +22,46 @@ playState0 = {
                 enemyCount = 1
                 spriteIndex = 3
                 speed = 15
-                health = 150
+                health = 250
                 spawnLocation = startLocations[2]
                 width = 224
                 height = 64
                 multiDirectional = false
-            } else {
+            }
+            else if (i>0 & (i+1)%10 == 3) {
+                // Crab Boss Properties
+                enemyCount = 1
+                spriteIndex = 4
+                speed = 10
+                health = 200
+                spawnLocation = startLocations[0]
+                width = 100
+                height = 100
+                multiDirectional = false
+            }
+            else if (i>0 & (i+1)%10 == 6) {
+                // Jellyfish Boss Properties
+                enemyCount = 2
+                spriteIndex = 5
+                speed = 40
+                health = 150
+                spawnLocation = startLocations[1]
+                width = 72
+                height = 72
+                multiDirectional = false
+            }
+            else if (i>0 & (i+1)%10 == 9) {
+                // Eel Boss Properties
+                enemyCount = 1
+                spriteIndex = 6
+                speed = 70
+                health = 125
+                spawnLocation = startLocations[3]
+                width = 200
+                height = 64
+                multiDirectional = false
+            }
+            else {
                 // Other wave properties
                 enemyCount = 2 + Math.floor(i * 1.5),
                     spriteIndex = Math.floor(Math.random() * 3)
@@ -765,6 +799,22 @@ function WavePlacements(wave) {
                 enemy.animations.add('swim', [2,3,4,0,1,5,6,7])
                 enemy.animations.play('swim', 8, true);
                 break;
+            //minibosses
+            case 'Crab_Boss':
+                enemy.body.setSize(EnemyWaves[wave].width, EnemyWaves[wave].height)
+                enemy.animations.add('walk', [0,1,2,3,4,5]);
+                enemy.animations.play('walk', 18, true);
+                break;
+            case 'Jellyfish_Boss':
+                enemy.body.setSize(EnemyWaves[wave].width, EnemyWaves[wave].height)
+                enemy.animations.add('swim', [0,1,2,3,4,5,6,7,8,9,10,11])
+                enemy.animations.play('swim', 8, true);
+                break;
+            case 'Eel_Boss':
+                enemy.body.setSize(EnemyWaves[wave].width, EnemyWaves[wave].height)
+                enemy.animations.add('swim', [0,1,2,3,4,5,6,7,8,9,10,11]);
+                enemy.animations.play('swim', 18, true);
+                break;
         }
         enemy.anchor.setTo(0.5, 0.5);
 
@@ -782,7 +832,7 @@ function WavePlacements(wave) {
                 var spawnY = 512
                 break
             case 'top':
-                if (['Eel', 'Shark'].includes(EnemyWaves[wave].sprite)){
+                if (['Eel', 'Shark', ].includes(EnemyWaves[wave].sprite)){
                     enemy.angle = 90
                 }
                 var spawnX = 512

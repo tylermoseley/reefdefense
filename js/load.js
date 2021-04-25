@@ -45,6 +45,10 @@ var loadState = {
         game.load.spritesheet('playAgainButton', 'Assets/img/PlayButton/PlayAgain.png', 160, 80)
         game.load.image('gold', 'Assets/spritesheets/gold coin.png')
 
+        //bosses
+        game.load.spritesheet('Crab_Boss', 'Assets/spritesheets/Crab Boss.png', 32, 32);
+        game.load.spritesheet('Jellyfish_Boss', 'Assets/spritesheets/Jellyfish Boss.png', 32, 32);
+        game.load.spritesheet('Eel_Boss', 'Assets/spritesheets/Eel Boss.png', 90, 32);
         //sounds, efx, music...
         //Example: game.load.audio('rockas', 'assets/snd/rockas.wav');
         game.load.audio('ClamBubbles', 'Assets/audio/ClamBubbles.mp3')
