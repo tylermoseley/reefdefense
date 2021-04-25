@@ -601,7 +601,7 @@ class Coral {
         // add currency check here later
 
         // tile == null means there is no water on the mid layer
-        if (tile == null){
+        if (tile == null || buildMode == false){
             return 0;
         // if there is nothing on gameBoard, place coral object
         } else if (gameBoard[tile.x][tile.y] === "None" && balance >= this.cost) {
