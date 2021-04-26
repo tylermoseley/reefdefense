@@ -3,7 +3,8 @@ playState0 = {
         gameOver=0, towertype=1, coralid="c0", defending=0, gameBoard=[], WaveCount = 0
         finalWaveCount = 10, nextLaser = 0, laserDelay = 5000, balance = 100
         nextWave = 0, bullet = null, laserFire = 0, sellMarker = "None", lastClickedTile = 'None'
-        moneyCoral = 0, buildMode = false
+        moneyCoral = 0, nextMiniboss = 4, buildMode = false
+      
         // create empty 32x32 gameBoard (maybe add dimension variable if board size change)
         for (i=0; i<=31; i++) {
             gameBoard.push([])
@@ -12,8 +13,8 @@ playState0 = {
             }
         }
         EnemyWaves = []
-        enemytypes = ['Crab', 'Eel', 'Jellyfish', 'Shark']
-        startLocations = ['top', 'bottom', 'left', 'right']
+        enemytypes = ['Crab', 'Eel', 'Jellyfish', 'Shark', 'Crab_Boss', 'Jellyfish_Boss', 'Eel_Boss']
+        startLocations = ['left', 'top', 'right', 'bottom']
 
         for (i=0; i<=10; i++) {
             // every randomize every wave except waves divisible by 10
@@ -22,11 +23,24 @@ playState0 = {
                 enemyCount = 1
                 spriteIndex = 3
                 speed = 15
-                health = 150
-                spawnLocation = startLocations[2]
+                health = 250
+                spawnLocation = [startLocations[0]]
                 width = 224
                 height = 64
-                multiDirectional = false
+            } else if (i>0 & (i+1)%3 == 0) {
+                // Crab Boss Properties
+                enemyCount = 1
+                spriteIndex = nextMiniboss
+                if (nextMiniboss < 6) {
+                    nextMiniboss = nextMiniboss + 1
+                } else {
+                    nextMiniboss = 4
+                }
+                speed = 10
+                health = 200
+                spawnLocation = [startLocations[nextMiniboss-4]]
+                width = 100
+                height = 100
             } else {
                 // Other wave properties
                 enemyCount = 2 + Math.floor(i * 1.5),
@@ -41,7 +55,6 @@ playState0 = {
                     spawnLocation = directions
                 width = 32
                 height = 32
-                multiDirectional = false
             }
             wave = {
                 enemyCount: enemyCount,
@@ -111,6 +124,7 @@ playState0 = {
         // call updateMarker when mouse is moved
         game.input.addMoveCallback(updateMarker, this);
         
+        //game.input.addMoveCallback(p, this);
 
         // set cursors variable to keyboard cursor input
         cursors = game.input.keyboard.createCursorKeys();
@@ -170,6 +184,7 @@ playState0 = {
 
         //shop
         shopbar = game.add.sprite(800, 0, 'shop_bar');
+        shopbar.inputEnabled = true;
         shopbar.fixedToCamera = true;
         shopbar.anchor.setTo(1, 0)
         shopbar.scale.setTo(1,1)
@@ -185,6 +200,7 @@ playState0 = {
         moneyTXT.anchor.setTo(1,0)
 
         tower1_button = game.add.sprite(728, 38, 'tower1');
+        tower1_button.inputEnabled = true;
         tower1_button.fixedToCamera = true;
         tower1_button.anchor.setTo(0, 0);
         tower1_button.scale.setTo(0.8,0.8);
@@ -328,7 +344,42 @@ playState0 = {
         else{
             //tower3_button.animations.stop()
         }
+        if(tower1_button.input.pointerOver()){
+            statBox = game.add.sprite(600, 10,'TXTbox');
+            statBox.fixedToCamera;
+            statBox.scale.setTo()
+            statBox.bringToTop()
+        }
 
+        tower4_button = game.add.sprite(728, 160, 'tower4');
+        tower4_button.fixedToCamera = true;
+        tower4_button.anchor.setTo(0, 0);
+        tower4_button.scale.setTo(1,1);
+        tower4_button.animations.add('idle4', [0,1,2,3]);
+
+        
+        if(shopbar.input.pointerOver()){
+            shopbar.alpha = .5;
+            tower1_button.alpha = .5;
+            tower1_cost.alpha = .5;
+            tower2_button.alpha = .5;
+            tower2_cost.alpha = .5;
+            tower3_button.alpha = .5;
+            tower3_cost.alpha = .5;
+            tower4_button.alpha = .5;
+            tower4_cost.alpha = .5;
+        }
+        else{
+            shopbar.alpha = 1;
+            tower1_button.alpha = 1;
+            tower1_cost.alpha = 1;
+            tower2_button.alpha = 1;
+            tower2_cost.alpha = 1;
+            tower3_button.alpha = 1;
+            tower3_cost.alpha = 1;
+            tower4_button.alpha = 1;
+            tower4_cost.alpha = 1;
+        }
 
         //add tower 4 functionality
 
@@ -724,6 +775,22 @@ function WavePlacements(wave) {
                 enemy.animations.add('swim', [2,3,4,0,1,5,6,7])
                 enemy.animations.play('swim', 8, true);
                 break;
+            //minibosses
+            case 'Crab_Boss':
+                enemy.body.setSize(EnemyWaves[wave].width, EnemyWaves[wave].height)
+                enemy.animations.add('walk', [0,1,2,3,4,5]);
+                enemy.animations.play('walk', 18, true);
+                break;
+            case 'Jellyfish_Boss':
+                enemy.body.setSize(EnemyWaves[wave].width, EnemyWaves[wave].height)
+                enemy.animations.add('swim', [0,1,2,3,4,5,6,7,8,9,10,11])
+                enemy.animations.play('swim', 8, true);
+                break;
+            case 'Eel_Boss':
+                enemy.body.setSize(EnemyWaves[wave].width, EnemyWaves[wave].height)
+                enemy.animations.add('swim', [0,1,2,3,4,5,6,7,8,9,10,11]);
+                enemy.animations.play('swim', 18, true);
+                break;
         }
         enemy.anchor.setTo(0.5, 0.5);
 
@@ -736,7 +803,7 @@ function WavePlacements(wave) {
                 var spawnY = 512
                 break
             case 'top':
-                if (['Eel', 'Shark'].includes(EnemyWaves[wave].sprite)){
+                if (['Eel', 'Shark', ].includes(EnemyWaves[wave].sprite)){
                     enemy.angle = 90
                 }
                 var spawnX = 512
@@ -1013,3 +1080,8 @@ function changeTXT(){
     tutorial_TXT.text = tutorialTextList[counter];
     counter +=1
 }
+/* possible debuging for hover event
+function p(hover){
+    console.log(hover.event);
+}
+*/
