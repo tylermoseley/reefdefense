@@ -3,7 +3,7 @@ playState0 = {
         gameOver=0, towertype=1, coralid="c0", defending=0, gameBoard=[], WaveCount = 0
         finalWaveCount = 10, nextLaser = 0, laserDelay = 5000, balance = 100
         nextWave = 0, bullet = null, laserFire = 0, sellMarker = "None", lastClickedTile = 'None'
-        moneyCoral = 0
+        moneyCoral = 0, nextMiniboss = 4
         // create empty 32x32 gameBoard (maybe add dimension variable if board size change)
         for (i=0; i<=31; i++) {
             gameBoard.push([])
@@ -13,7 +13,7 @@ playState0 = {
         }
         EnemyWaves = []
         enemytypes = ['Crab', 'Eel', 'Jellyfish', 'Shark', 'Crab_Boss', 'Jellyfish_Boss', 'Eel_Boss']
-        startLocations = ['top', 'bottom', 'left', 'right']
+        startLocations = ['left', 'top', 'right', 'bottom']
 
         for (i=0; i<=10; i++) {
             // every randomize every wave except waves divisible by 10
@@ -23,45 +23,24 @@ playState0 = {
                 spriteIndex = 3
                 speed = 15
                 health = 250
-                spawnLocation = startLocations[2]
+                spawnLocation = [startLocations[0]]
                 width = 224
                 height = 64
-                multiDirectional = false
-            }
-            else if (i>0 & (i+1)%10 == 3) {
+            } else if (i>0 & (i+1)%3 == 0) {
                 // Crab Boss Properties
                 enemyCount = 1
-                spriteIndex = 4
+                spriteIndex = nextMiniboss
+                if (nextMiniboss < 6) {
+                    nextMiniboss = nextMiniboss + 1
+                } else {
+                    nextMiniboss = 4
+                }
                 speed = 10
                 health = 200
-                spawnLocation = startLocations[0]
+                spawnLocation = [startLocations[nextMiniboss-4]]
                 width = 100
                 height = 100
-                multiDirectional = false
-            }
-            else if (i>0 & (i+1)%10 == 6) {
-                // Jellyfish Boss Properties
-                enemyCount = 2
-                spriteIndex = 5
-                speed = 40
-                health = 150
-                spawnLocation = startLocations[1]
-                width = 72
-                height = 72
-                multiDirectional = false
-            }
-            else if (i>0 & (i+1)%10 == 9) {
-                // Eel Boss Properties
-                enemyCount = 1
-                spriteIndex = 6
-                speed = 70
-                health = 125
-                spawnLocation = startLocations[3]
-                width = 200
-                height = 64
-                multiDirectional = false
-            }
-            else {
+            } else {
                 // Other wave properties
                 enemyCount = 2 + Math.floor(i * 1.5),
                     spriteIndex = Math.floor(Math.random() * 3)
@@ -75,7 +54,6 @@ playState0 = {
                     spawnLocation = directions
                 width = 32
                 height = 32
-                multiDirectional = false
             }
             wave = {
                 enemyCount: enemyCount,
@@ -818,11 +796,6 @@ function WavePlacements(wave) {
         }
         enemy.anchor.setTo(0.5, 0.5);
 
-        /*
-        if (EnemyWaves[wave].multiDirectional) {
-            //logic for multidirectional
-        }
-        */
         directions = EnemyWaves[wave].spawnLocation
         direction = directions[Math.floor(Math.random() * directions.length)]
 
