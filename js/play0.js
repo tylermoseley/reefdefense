@@ -270,7 +270,7 @@ playState0 = {
         icon1.bringToTop()
         icon1.alpha = 0
 
-        statTXT1 = game.add.text(615, 100, "Cost: 10G\nHealth: 3\nRange: 72\nFirerate: A", {font: "16px Arial", text: "bold()", fill: "#000000", align: "left"})
+        statTXT1 = game.add.text(615, 100, "Cost: "+prices[0]+"G\nHealth: 3\nRange: 72\nFirerate: A", {font: "16px Arial", text: "bold()", fill: "#000000", align: "left"})
         statTXT1.fixedToCamera = true;
         statTXT1.bringToTop()
         statTXT1.alpha = 0
@@ -286,7 +286,7 @@ playState0 = {
         icon2.fixedToCamera = true;
         icon2.bringToTop()
         icon2.alpha = 0
-        statTXT2 = game.add.text(615, 100, "Cost: 20G\nHealth: 2\nRange: 128\nFirerate: B", {font: "16px Arial", text: "bold()", fill: "#000000", align: "left"})
+        statTXT2 = game.add.text(615, 100, "Cost: "+prices[1]+"G\nHealth: 2\nRange: 128\nFirerate: B", {font: "16px Arial", text: "bold()", fill: "#000000", align: "left"})
         statTXT2.fixedToCamera = true;
         statTXT2.bringToTop()
         statTXT2.alpha = 0
@@ -296,7 +296,7 @@ playState0 = {
         icon3.fixedToCamera = true;
         icon3.bringToTop()
         icon3.alpha = 0
-        statTXT3 = game.add.text(615, 100, "Cost: 30G\nHealth: 1\nRange: 256\nFirerate: C", {font: "16px Arial", text: "bold()", fill: "#000000", align: "left"})
+        statTXT3 = game.add.text(615, 100, "Cost: "+prices[2]+"G\nHealth: 1\nRange: 256\nFirerate: C", {font: "16px Arial", text: "bold()", fill: "#000000", align: "left"})
         statTXT3.fixedToCamera = true;
         statTXT3.bringToTop()
         statTXT3.alpha = 0
@@ -306,7 +306,7 @@ playState0 = {
         icon4.fixedToCamera = true;
         icon4.bringToTop()
         icon4.alpha = 0
-        statTXT4 = game.add.text(615, 100, "Cost: 40G\nHealth: 1\nRange: 0\nFirerate: F", {font: "16px Arial", text: "bold()", fill: "#000000", align: "left"})
+        statTXT4 = game.add.text(615, 100, "Cost: "+prices[3]+"G\nHealth: 1\nRange: 0\nFirerate: F", {font: "16px Arial", text: "bold()", fill: "#000000", align: "left"})
         statTXT4.fixedToCamera = true;
         statTXT4.bringToTop()
         statTXT4.alpha = 0
