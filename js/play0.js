@@ -1,7 +1,7 @@
 playState0 = {
     preload: function() {
         gameOver=0, towertype=1, coralid="c0", defending=0, gameBoard=[], WaveCount = 0
-        finalWaveCount = 10, nextLaser = 0, laserDelay = 5000, balance = 100
+        finalWaveCount = 15, nextLaser = 0, laserDelay = 5000, balance = 100
         nextWave = 0, bullet = null, laserFire = 0, sellMarker = "None", lastClickedTile = 'None'
         moneyCoral = 0, nextMiniboss = 4, buildMode = false
       
@@ -16,7 +16,7 @@ playState0 = {
         enemytypes = ['Crab', 'Eel', 'Jellyfish', 'Shark', 'Crab_Boss', 'Eel_Boss', 'Jellyfish_Boss']
         startLocations = ['left', 'top', 'right', 'bottom']
 
-        for (i=0; i<15; i++) {
+        for (i=0; i<finalWaveCount; i++) {
             // every randomize every wave except waves divisible by 10
             if (i>0 & (i+1)%15 == 0) {
                 // Shark Properties
@@ -36,7 +36,7 @@ playState0 = {
                 } else {
                     nextMiniboss = 4
                 }
-                speed = 50
+                speed = 10
                 health = 200
                 spawnLocation = [startLocations[nextMiniboss-4]]
                 width = 64
@@ -443,7 +443,7 @@ playState0 = {
                 }
             }
         }
-        if(WaveCount > finalWaveCount){
+        if(WaveCount >= finalWaveCount){
             game.state.start('win')
         }
         
@@ -507,7 +507,7 @@ var balance = 100;
 var prices = [10 , 20, 30, 40]
 
 async function coralHit (hitCoral, laser) {
-    laser.kill()
+    laser.destroy()
     hitCoral.damage(1)
     if ( hitCoral.health <= 0 ) {
         gameBoard[hitCoral.position.x/32][hitCoral.position.y/32] = "None"
