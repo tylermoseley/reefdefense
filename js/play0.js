@@ -1205,6 +1205,10 @@ function unpausing(){
         LeftMouseButton.destroy()
         DeleteTXT.destroy()
         DeleteKey.destroy()
+        DeleteTXT2.destroy()
+        DeleteTXT3.destroy()
+        EscapeMode.destroy()
+        EscapeMode2.destroy()
     }
 }
 
