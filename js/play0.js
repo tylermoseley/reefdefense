@@ -3,7 +3,8 @@ playState0 = {
         gameOver=0, towertype=1, coralid="c0", defending=0, gameBoard=[], WaveCount = 0
         finalWaveCount = 15, nextLaser = 0, laserDelay = 5000, balance = 100
         nextWave = 0, bullet = null, laserFire = 0, sellMarker = "None", lastClickedTile = 'None'
-        moneyCoral = 0, nextMiniboss = 4, buildMode = false
+        moneyCoral = 0, nextMiniboss = 4, buildMode = false, balance = 100, prices = [15 , 30, 45, 60]
+        nextDirection = 0
       
         // create empty 32x32 gameBoard (maybe add dimension variable if board size change)
         for (i=0; i<=31; i++) {
@@ -16,19 +17,19 @@ playState0 = {
         enemytypes = ['Crab', 'Eel', 'Jellyfish', 'Shark', 'Crab_Boss', 'Eel_Boss', 'Jellyfish_Boss']
         startLocations = ['left', 'top', 'right', 'bottom']
 
-        for (i=0; i<finalWaveCount; i++) {
+        for (i=0; i<=finalWaveCount; i++) {
             // every randomize every wave except waves divisible by 10
             if (i>0 & (i+1)%15 == 0) {
                 // Shark Properties
                 enemyCount = 1
                 spriteIndex = 3
                 speed = 15
-                health = 250
+                health = 300
                 spawnLocation = [startLocations[0]]
                 width = 224
                 height = 64
             } else if (i>0 & (i+1)%4 == 0) {
-                // Crab Boss Properties
+                // Mini Boss Properties
                 enemyCount = 1
                 spriteIndex = nextMiniboss
                 if (nextMiniboss < 6) {
@@ -37,17 +38,19 @@ playState0 = {
                     nextMiniboss = 4
                 }
                 speed = 10
-                health = 200
+                health = 150
                 spawnLocation = [startLocations[nextMiniboss-4]]
                 width = 64
                 height = 64
             } else {
                 // Other wave properties
                 enemyCount = 2 + Math.floor(i * 1.5),
-                    spriteIndex = Math.floor(Math.random() * 3)
+                spriteIndex = Math.floor(Math.random() * 3)
+                //     spriteIndex = 1
                 speed = 30 + (i * 5)
                 health = 2 + (i * 2), // must remain integers (no decimals here)
                     directions = []
+                    // directions = ['top', 'right', 'bottom', 'left']
                     dirStep = parseInt(i/3)
                     for (n=0; n<=dirStep; n++) {
                         directions.push(startLocations[Math.floor(Math.random() * 4)])
@@ -62,7 +65,7 @@ playState0 = {
                 speed: speed,
                 health: health,
                 spawnLocation: spawnLocation,
-                spawnDelay: 4000,
+                spawnDelay: 2000,
                 spawnCount: 0,
                 killCount: 0,
                 width: width,
@@ -120,6 +123,7 @@ playState0 = {
         //marker = game.add.graphics();
         //marker.lineStyle(2, "0xFFFFFF", 1)
         //marker.drawRect(0, 0, 32, 32);
+        //marker.drawRect(0, 0, 32, 32);
 
         // call updateMarker when mouse is moved
         game.input.addMoveCallback(updateMarker, this);
@@ -157,7 +161,7 @@ playState0 = {
         }
 
         // add clam to center on load
-        clam = game.add.sprite(512 - 32, 512-45, "Clam");
+        clam = game.add.sprite(512, 512-10, "Clam");
         clam.animations.add('Resting', [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]);
         
 
@@ -165,7 +169,8 @@ playState0 = {
         LaserSound = game.add.audio("laser")
 
         clam.scale.setTo(1.1, 1.1)
-        game.physics.enable(clam);
+        clam.anchor.setTo(0.5, 0.5)
+        game.physics.enable(clam)
 
         Clam(ClamBubbles);
 
@@ -206,7 +211,7 @@ playState0 = {
         tower1_button.scale.setTo(0.8,0.8);
         tower1_button.animations.add('idle1', [0,1,2,3]);
 
-        tower1_cost = game.add.text(795, 40, "Press 1\n10G", {font: "10px Arial", text: "bold()", fill: "#000000", align: "right"})
+        tower1_cost = game.add.text(795, 40, "Press 1\n"+prices[0]+"G", {font: "10px Arial", text: "bold()", fill: "#000000", align: "right"})
         tower1_cost.fixedToCamera = true;
         tower1_cost.anchor.setTo(1,0)
 
@@ -216,7 +221,7 @@ playState0 = {
         tower2_button.scale.setTo(.9, .9)
         tower2_button.animations.add('idle2', [0,1,2,3]);
 
-        tower2_cost = game.add.text(795, 80, "Press 2\n20G", {font: "10px Arial", text: "bold()", fill: "#000000", align: "right"})
+        tower2_cost = game.add.text(795, 80, "Press 2\n"+prices[1]+"G", {font: "10px Arial", text: "bold()", fill: "#000000", align: "right"})
         tower2_cost.fixedToCamera = true;
         tower2_cost.anchor.setTo(1,0)
 
@@ -226,7 +231,7 @@ playState0 = {
         tower3_button.scale.setTo(0.8,0.8);
         tower3_button.animations.add('idle3', [0,1,2,3]);
 
-        tower3_cost = game.add.text(795, 125, "Press 3\n30G", {font: "10px Arial", text: "bold()", fill: "#000000", align: "right"})
+        tower3_cost = game.add.text(795, 125, "Press 3\n"+prices[2]+"G", {font: "10px Arial", text: "bold()", fill: "#000000", align: "right"})
         tower3_cost.fixedToCamera = true;
         tower3_cost.anchor.setTo(1,0)
 
@@ -236,7 +241,7 @@ playState0 = {
         tower4_button.scale.setTo(1,1);
         tower4_button.animations.add('idle4', [0,1,2,3]);
 
-        tower4_cost = game.add.text(795, 165, "Press 4\n40G", {font: "10px Arial", text: "bold()", fill: "#000000", align: "right"})
+        tower4_cost = game.add.text(795, 165, "Press 4\n"+prices[3]+"G", {font: "10px Arial", text: "bold()", fill: "#000000", align: "right"})
         tower4_cost.fixedToCamera = true;
         tower4_cost.anchor.setTo(1,0)
 
@@ -249,7 +254,7 @@ playState0 = {
         bullets = game.add.group();
         bullets.enableBody = true;
         bullets.physicsBodyType = Phaser.Physics.ARCADE;
-        bullets.createMultiple(500, 'Bullet');
+        bullets.createMultiple(200, 'Bullet');
         bullets.setAll('checkWorldBounds', true);
         bullets.setAll('outOfBoundsKill', true);
         bullets.setAll('anchor.y', 0.25);
@@ -452,7 +457,7 @@ playState0 = {
             if (EnemyWaves[wave].killCount >= EnemyWaves[wave].enemyCount) {
                 defending = 0
                 wave++
-                nextWave = game.time.now + 2000 // set delay until next wave
+                nextWave = game.time.now + 4000 // set delay until next wave
             } else {
                 WavePlacements(wave)
                 game.physics.arcade.overlap(bullets, enemies, enemyHit)
@@ -502,9 +507,6 @@ async function Clam(ClamBubbles){
         await sleep(8)
     }    
 }
-
-var balance = 100;
-var prices = [10 , 20, 30, 40]
 
 async function coralHit (hitCoral, laser) {
     laser.destroy()
@@ -611,7 +613,7 @@ class Coral {
         switch (this.type) {
             case 1:
                 this.range = 72; //was 64
-                this.fireRate = 300 // was 400
+                this.fireRate = 400 // was 400
                 this.spriteName = 'tower1'
                 this.cost = prices[0]
                 this.health = 3 / this.type
@@ -620,7 +622,7 @@ class Coral {
                 break;
             case 2:
                 this.range = 128;
-                this.fireRate = 500 //was 800
+                this.fireRate = 600 //was 800
                 this.spriteName = 'tower2'
                 this.cost = prices[1]
                 this.health = 3 / this.type
@@ -751,9 +753,10 @@ function WaveStart(wave) {
 function WavePlacements(wave) {
     if ( (game.time.now > nextPlacement) & (EnemyWaves[wave].spawnCount < EnemyWaves[wave].enemyCount) ) {
         layerRise();
-        
         nextPlacement = game.time.now + EnemyWaves[wave].spawnDelay // set spawn delay by wave
         enemy = enemies.getFirstDead()
+        enemy.angle = 0
+        enemy.scale.x = Math.abs(enemy.scale.x);
         enemy.alpha = 1
         switch(EnemyWaves[wave].sprite){
             case 'Crab':
@@ -798,7 +801,11 @@ function WavePlacements(wave) {
         enemy.anchor.setTo(0.5, 0.5);
 
         directions = EnemyWaves[wave].spawnLocation
-        direction = directions[Math.floor(Math.random() * directions.length)]
+        if (nextDirection > directions.length-1) {
+            nextDirection = 0
+        }
+        direction = directions[nextDirection]
+        nextDirection = ((nextDirection+1) % (directions.length))
 
         switch (direction) {
             case 'left':
@@ -821,7 +828,7 @@ function WavePlacements(wave) {
                 break
             case 'bottom':
                 if (['Eel', 'Shark', 'Eel_Boss'].includes(EnemyWaves[wave].sprite)){
-                    enemy.angle = 270
+                    enemy.angle = -90
                 }
                 var spawnX = 512
                 var spawnY = 992
