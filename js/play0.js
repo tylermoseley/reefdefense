@@ -1099,8 +1099,12 @@ function pausing(){
         "Different corals have different stats such as health, shooting speed,\nand range. Shooting speed indicates how fast a tower shoots each\npellet. Range indicates how far the coral can target enemies",
         "To select the coral you want to place, press the corresponding\nnumber of the coral, this is defaulted to the red coral if\n no number is pressed",
         "Hovering the selected coral over a tile will show the coral's range",
-        "Left mouse click will place the selected coral onto any water tiles.\n Keep in mind, that you need to have enough gold to place the \ncoral. Sand tiles, as well as caves tiles, cannot be built on top of.",
+        "You can toggle between build and select mode with the 'esc' key. At \nthe start of the game, it will default to the build mode.",
+        "While in build mode, the players can buy and place corals.",
+        "Select mode allows for players to click freely without having to \nworry about accidently placing down corals.",
+        "While in build mode, Left mouse click will place the selected \ncoral onto any water tiles. Keep in mind, that you need to have \nenough gold to place the coral. Sand tiles, as well as caves tiles, \ncannot be built on top of.",
         "On the top right is the shop as well as your current gold.\nRight next to each coral is the amount of gold it costs",
+        "Hovering over each icon will show you the coral's stats",
         "The player will start with 100 gold coins.",
         "To earn gold, killing an enemy will net the player 5 gold \nper enemy destroyed. The gold coral will also give you 20 gold at\nthe end of every round per gold coral.",
         "To sell a coral, click on the coral you want to get rid of.\n A white box should appear, indicating that it is selected\nThen press the 'delete' key to sell the tower for half the \ncost of the tower",            
@@ -1119,7 +1123,7 @@ function pausing(){
     ControlsTXT.fixedToCamera = true;
     ControlsTXT.bringToTop();
 
-    CameraTXT = game.add.text(110, 480, "Camera Controls",{font: "16px Arial", text: "bold()", fill: "#000000", align: "left"} );
+    CameraTXT = game.add.text(110, 465, "Camera Controls",{font: "16px Arial", text: "bold()", fill: "#000000", align: "left"} );
     CameraTXT.fixedToCamera = true;
     CameraTXT.bringToTop();
 
@@ -1128,23 +1132,41 @@ function pausing(){
     Camera.fixedToCamera = true;
     Camera.bringToTop()
 
-    LmbTXT = game.add.text(280, 480, "Place/Buy Coral",{font: "16px Arial", text: "bold()", fill: "#000000", align: "left"} );
+    LmbTXT = game.add.text(255, 465, "Place/Buy Coral",{font: "16px Arial", text: "bold()", fill: "#000000", align: "left"} );
     LmbTXT.fixedToCamera = true;
     LmbTXT.bringToTop();
 
-    LeftMouseButton = game.add.image(300, 510,'LMB')
+    LeftMouseButton = game.add.image(275, 510,'LMB')
     LeftMouseButton.scale.setTo(1.1, 1.0)
     LeftMouseButton.fixedToCamera = true;
     LeftMouseButton.bringToTop()
+    
 
-    DeleteTXT = game.add.text(450, 480, "Sell Coral \n(need to click on coral first)",{font: "16px Arial", text: "bold()", fill: "#000000", align: "left"} )
+    DeleteTXT = game.add.text(400, 465, "Sell Coral",{font: "16px Arial", text: "bold()", fill: "#000000", align: "left"} )
     DeleteTXT.fixedToCamera = true;
     DeleteTXT.bringToTop();
 
-    DeleteKey= game.add.image(500, 520,'DeleteKey')
+    DeleteTXT2 = game.add.text(400, 480, "(need to click on",{font: "16px Arial", text: "bold()", fill: "#000000", align: "left"} )
+    DeleteTXT2.fixedToCamera = true;
+    DeleteTXT2.bringToTop();
+
+    DeleteTXT3 = game.add.text(400, 495, "coral first)",{font: "16px Arial", text: "bold()", fill: "#000000", align: "left"} )
+    DeleteTXT3.fixedToCamera = true;
+    DeleteTXT3.bringToTop();
+
+    DeleteKey= game.add.image(420, 520,'DeleteKey')
     DeleteKey.scale.setTo(1.1, 1.0)
     DeleteKey.fixedToCamera = true;
     DeleteKey.bringToTop()
+
+    EscapeMode = game.add.text(540, 465, "Press 'esc' to toggle ",{font: "16px Arial", text: "bold()", fill: "#000000", align: "left"})
+    EscapeMode.fixedToCamera = true;
+    EscapeMode.bringToTop()
+
+    EscapeMode2 = game.add.text(540, 480, "build/select mode",{font: "16px Arial", text: "bold()", fill: "#000000", align: "left"})
+    EscapeMode2.fixedToCamera = true;
+    EscapeMode2.bringToTop()
+    
 
     tutorial_TXT = game.add.text(110, 100, "Welcome to Reef Defense!",{font: "20px Arial", text: "bold()", fill: "#ffffff", align: "left"})
     tutorial_TXT.fixedToCamera = true;
@@ -1158,7 +1180,7 @@ function pausing(){
     nextTXT.fixedToCamera = true;
     nextTXT.bringToTop()
 
-    unpauseTXT = game.add.text(270, 250, "Resume game by clicking anywhere", {font: "20px Arial", text: "bold()", fill: "#000000", align: "right"} );
+    unpauseTXT = game.add.text(265, 250, "Resume game by clicking anywhere", {font: "20px Arial", text: "bold()", fill: "#000000", align: "right"} );
     unpauseTXT.fixedToCamera = true;
     unpauseTXT.bringToTop()
     game.input.onDown.add(unpausing, self);
