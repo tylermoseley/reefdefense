@@ -1,4 +1,5 @@
 var counter = 0;
+var balance = 100;
 
 var tutorialState1 = {
     preload: function() {
