@@ -38,7 +38,19 @@ playState0 = {
                     nextMiniboss = 4
                 }
                 speed = 10
-                health = 100
+
+                if (nextMiniboss == 4) {
+                    health = 100
+                }
+
+                else if (nextMiniboss == 5) {
+                    health = 150
+                }
+
+                else {
+                    health = 200
+                }
+                
                 spawnLocation = [startLocations[nextMiniboss-4]]
                 width = 64
                 height = 64
