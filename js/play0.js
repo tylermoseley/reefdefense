@@ -204,6 +204,7 @@ playState0 = {
         moneyTXT.fixedToCamera = true;
         moneyTXT.anchor.setTo(1,0)
 
+        //coral1 shop
         tower1_button = game.add.sprite(728, 38, 'tower1');
         tower1_button.inputEnabled = true;
         tower1_button.fixedToCamera = true;
@@ -215,7 +216,9 @@ playState0 = {
         tower1_cost.fixedToCamera = true;
         tower1_cost.anchor.setTo(1,0)
 
+        //coral2 shop
         tower2_button = game.add.sprite(723, 80, 'tower2');
+        tower2_button.inputEnabled = true;
         tower2_button.fixedToCamera = true;
         tower2_button.anchor.setTo(0, 0);
         tower2_button.scale.setTo(.9, .9)
@@ -225,7 +228,9 @@ playState0 = {
         tower2_cost.fixedToCamera = true;
         tower2_cost.anchor.setTo(1,0)
 
+        //coral3 shop
         tower3_button = game.add.sprite(728, 123, 'tower3');
+        tower3_button.inputEnabled = true;
         tower3_button.fixedToCamera = true;
         tower3_button.anchor.setTo(0, 0);
         tower3_button.scale.setTo(0.8,0.8);
@@ -235,7 +240,9 @@ playState0 = {
         tower3_cost.fixedToCamera = true;
         tower3_cost.anchor.setTo(1,0)
 
+        //coral4 shop
         tower4_button = game.add.sprite(728, 160, 'tower4');
+        tower4_button.inputEnabled = true;
         tower4_button.fixedToCamera = true;
         tower4_button.anchor.setTo(0, 0);
         tower4_button.scale.setTo(1,1);
@@ -245,7 +252,69 @@ playState0 = {
         tower4_cost.fixedToCamera = true;
         tower4_cost.anchor.setTo(1,0)
 
-        //Add tower 4 Menu
+        //Statbar 
+        statbar = game.add.sprite(610, 0, 'shop_bar')
+        statbar.scale.setTo(1.5,1)
+        statbar.fixedToCamera = true;
+        statbar.bringToTop()
+        statbar.alpha = 0
+
+        statTXT = game.add.text(640, 10, "Stats", {font: "20px Arial", text: "bold()", fill: "#000000", align: "center"})
+        statTXT.fixedToCamera = true;
+        statTXT.bringToTop()
+        statTXT.alpha = 0
+
+        //Stats for tower1
+        icon1 = game.add.sprite(650, 40, 'tower1')
+        icon1.fixedToCamera = true;
+        icon1.bringToTop()
+        icon1.alpha = 0
+
+        statTXT1 = game.add.text(615, 100, "Cost: 10G\nHealth: 3\nRange: 72\nFirerate: A", {font: "16px Arial", text: "bold()", fill: "#000000", align: "left"})
+        statTXT1.fixedToCamera = true;
+        statTXT1.bringToTop()
+        statTXT1.alpha = 0
+
+        /*
+        CoralDescription1 = game.add.text(615, 200, "A coral made of pure \ngold. Produces more \ngold after the end of\neach round.", {font: "10px Arial", text: "bold()", fill: "#000000", align: "left"})
+        CoralDescription1.fixedToCamera = true;
+        CoralDescription1.alpha = 0
+        */
+        
+        //Stats for tower2
+        icon2 = game.add.sprite(650, 40, 'tower2')
+        icon2.fixedToCamera = true;
+        icon2.bringToTop()
+        icon2.alpha = 0
+        statTXT2 = game.add.text(615, 100, "Cost: 20G\nHealth: 2\nRange: 128\nFirerate: B", {font: "16px Arial", text: "bold()", fill: "#000000", align: "left"})
+        statTXT2.fixedToCamera = true;
+        statTXT2.bringToTop()
+        statTXT2.alpha = 0
+
+        //Stats for tower3
+        icon3 = game.add.sprite(650, 40, 'tower3')
+        icon3.fixedToCamera = true;
+        icon3.bringToTop()
+        icon3.alpha = 0
+        statTXT3 = game.add.text(615, 100, "Cost: 30G\nHealth: 1\nRange: 256\nFirerate: C", {font: "16px Arial", text: "bold()", fill: "#000000", align: "left"})
+        statTXT3.fixedToCamera = true;
+        statTXT3.bringToTop()
+        statTXT3.alpha = 0
+
+        //Stats for tower4
+        icon4 = game.add.sprite(650, 40, 'tower4')
+        icon4.fixedToCamera = true;
+        icon4.bringToTop()
+        icon4.alpha = 0
+        statTXT4 = game.add.text(615, 100, "Cost: 40G\nHealth: 1\nRange: 0\nFirerate: F", {font: "16px Arial", text: "bold()", fill: "#000000", align: "left"})
+        statTXT4.fixedToCamera = true;
+        statTXT4.bringToTop()
+        statTXT4.alpha = 0
+        CoralDescription4 = game.add.text(615, 200, "A coral made of pure \ngold. Produces more \ngold after the end of\neach round.", {font: "10px Arial", text: "bold()", fill: "#000000", align: "left"})
+        CoralDescription4.fixedToCamera = true;
+        CoralDescription4.bringToTop()
+        CoralDescription4.alpha = 0
+        
 
         textbox = game.add.sprite(game.width/2 - 200, 10, "TXTbox");
         textbox.destroy()
@@ -349,20 +418,8 @@ playState0 = {
         else{
             //tower3_button.animations.stop()
         }
-        if(tower1_button.input.pointerOver()){
-            statBox = game.add.sprite(600, 10,'TXTbox');
-            statBox.fixedToCamera;
-            statBox.scale.setTo()
-            statBox.bringToTop()
-        }
 
-        tower4_button = game.add.sprite(728, 160, 'tower4');
-        tower4_button.fixedToCamera = true;
-        tower4_button.anchor.setTo(0, 0);
-        tower4_button.scale.setTo(1,1);
-        tower4_button.animations.add('idle4', [0,1,2,3]);
-
-        
+        /* hovering over shopbar changes transparency
         if(shopbar.input.pointerOver()){
             shopbar.alpha = .5;
             tower1_button.alpha = .5;
@@ -385,7 +442,77 @@ playState0 = {
             tower4_button.alpha = 1;
             tower4_cost.alpha = 1;
         }
+        */
 
+        //Tower hover
+        if(tower1_button.input.pointerOver()){
+            statbar.alpha = 1;
+            statTXT.alpha = 1;
+            icon1.alpha = 1;
+            statTXT1.alpha = 1;
+            icon2.alpha = 0;
+            statTXT2.alpha = 0;
+            icon3.alpha = 0;
+            statTXT3.alpha = 0;
+            icon4.alpha = 0;
+            statTXT4.alpha = 0;
+            CoralDescription4.alpha = 0;
+            //CoralDescription1.alpha = 1
+        }
+        else if(tower2_button.input.pointerOver()){
+            statbar.alpha = 1;
+            statTXT.alpha = 1;
+            icon1.alpha = 0;
+            statTXT1.alpha = 0;
+            icon2.alpha = 1;
+            statTXT2.alpha = 1;
+            icon3.alpha = 0;
+            statTXT3.alpha = 0;
+            icon4.alpha = 0;
+            statTXT4.alpha = 0;
+            CoralDescription4.alpha = 0;
+            //CoralDescription1.alpha = 0;
+        }
+        else if(tower3_button.input.pointerOver()){
+            statbar.alpha = 1;
+            statTXT.alpha = 1;
+            icon3.alpha = 1;
+            statTXT3.alpha = 1;
+            icon2.alpha = 0;
+            statTXT2.alpha = 0;
+            icon1.alpha = 0;
+            statTXT1.alpha = 0;
+            icon4.alpha = 0;
+            statTXT4.alpha = 0;
+            CoralDescription4.alpha = 0;
+
+        }
+        else if(tower4_button.input.pointerOver()){
+            statbar.alpha = 1;
+            statTXT.alpha = 1;
+            icon4.alpha = 1;
+            statTXT4.alpha = 1;
+            CoralDescription4.alpha = 1;
+            icon3.alpha = 0;
+            statTXT3.alpha = 0;
+            icon2.alpha = 0;
+            statTXT2.alpha = 0;
+            icon1.alpha = 0;
+            statTXT1.alpha = 0;
+        }
+        else{
+            statbar.alpha = 0;
+            statTXT.alpha = 0;
+            icon4.alpha = 0;
+            statTXT4.alpha = 0;
+            CoralDescription4.alpha = 0;
+            icon3.alpha = 0;
+            statTXT3.alpha = 0;
+            icon2.alpha = 0;
+            statTXT2.alpha = 0;
+            icon1.alpha = 0;
+            statTXT1.alpha = 0;
+        }
         //add tower 4 functionality
 
 
