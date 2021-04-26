@@ -16,9 +16,9 @@ playState0 = {
         enemytypes = ['Crab', 'Eel', 'Jellyfish', 'Shark', 'Crab_Boss', 'Jellyfish_Boss', 'Eel_Boss']
         startLocations = ['left', 'top', 'right', 'bottom']
 
-        for (i=0; i<=10; i++) {
+        for (i=0; i<15; i++) {
             // every randomize every wave except waves divisible by 10
-            if (i>0 & (i+1)%10 == 0) {
+            if (i>0 & (i+1)%15 == 0) {
                 // Shark Properties
                 enemyCount = 1
                 spriteIndex = 3
@@ -27,7 +27,7 @@ playState0 = {
                 spawnLocation = [startLocations[0]]
                 width = 224
                 height = 64
-            } else if (i>0 & (i+1)%3 == 0) {
+            } else if (i>0 & (i+1)%4 == 0) {
                 // Crab Boss Properties
                 enemyCount = 1
                 spriteIndex = nextMiniboss
