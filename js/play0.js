@@ -778,16 +778,19 @@ function WavePlacements(wave) {
             //minibosses
             case 'Crab_Boss':
                 enemy.body.setSize(EnemyWaves[wave].width, EnemyWaves[wave].height)
+                enemy.scale.setTo(3, 3);
                 enemy.animations.add('walk', [0,1,2,3,4,5]);
                 enemy.animations.play('walk', 18, true);
                 break;
             case 'Jellyfish_Boss':
                 enemy.body.setSize(EnemyWaves[wave].width, EnemyWaves[wave].height)
+                enemy.scale.setTo(2, 2);
                 enemy.animations.add('swim', [0,1,2,3,4,5,6,7,8,9,10,11])
                 enemy.animations.play('swim', 8, true);
                 break;
             case 'Eel_Boss':
                 enemy.body.setSize(EnemyWaves[wave].width, EnemyWaves[wave].height)
+                enemy.scale.setTo(2, 2);
                 enemy.animations.add('swim', [0,1,2,3,4,5,6,7,8,9,10,11]);
                 enemy.animations.play('swim', 18, true);
                 break;
