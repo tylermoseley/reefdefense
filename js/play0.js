@@ -587,7 +587,7 @@ playState0 = {
                 }
             }
         }
-        if(WaveCount >= finalWaveCount){
+        if(WaveCount > finalWaveCount){
             game.state.start('win')
         }
         
@@ -669,7 +669,18 @@ async function enemyHit (bullet, enemy) {
             crunch = game.add.audio('Crunch', 0.5)
             crunch.play()
         }
-        balance+=5
+
+        if (enemy.key == 'Crab_Boss' || enemy.key == 'Jellyfish_Boss' || enemy.key == 'Eel_Boss') {
+            console.log(enemy.key)
+            balance += 30
+        }
+
+        else {
+
+            balance+=5
+        }
+        
+        
         layerRise()
     }
     enemy.damage(1)
@@ -760,16 +771,16 @@ class Coral {
                 this.popSound = game.add.audio("PopSound")
                 break;
             case 2:
-                this.range = 128;
-                this.fireRate = 600 //was 800
+                this.range = 144;
+                this.fireRate = 500 //was 800
                 this.spriteName = 'tower2'
                 this.cost = prices[1]
                 this.health = 3 / this.type
                 this.popSound = game.add.audio("PopSound")
                 break;
             case 3:
-                this.range = 256;
-                this.fireRate = 800 //was 1200
+                this.range = 276;
+                this.fireRate = 600 //was 1200
                 this.spriteName = 'tower3'
                 this.cost = prices[2]
                 this.health = 3 / this.type
