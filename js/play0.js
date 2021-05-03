@@ -1221,8 +1221,8 @@ function pausing(){
     unpauseTXT.fixedToCamera = true;
     unpauseTXT.bringToTop()
 
-    resumeButton = game.add.button(473, 32*18, 'resume', unpausing, this, 1, 0, 2);
-    resumeButton.scale.setTo(.5, .5)
+    resumeButton = game.add.button(450, 500, 'resume', unpausing, this, 1, 0, 2);
+    resumeButton.scale.setTo(.8, .5)
 
     quitButton = game.add.button(480, 32*19, 'quitButton', quiting, this, 1, 0, 2);
     quitButton.scale.setTo(1, .8)
