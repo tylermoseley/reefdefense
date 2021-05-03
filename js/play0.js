@@ -163,7 +163,9 @@ playState0 = {
         }
         pauseKeys = {
             p: game.input.keyboard.addKey(Phaser.Keyboard.P),
-            shift: game.input.keyboard.addKey(Phaser.Keyboard.SHIFT)
+            shift: game.input.keyboard.addKey(Phaser.Keyboard.SHIFT),
+            //quiting the game
+            q: game.input.keyboard.addKey(Phaser.Keyboard.Q),
         }
         exitBuildMode = {
             esc: game.input.keyboard.addKey(Phaser.Keyboard.ESC)
@@ -1223,6 +1225,11 @@ function pausing(){
     EscapeMode2 = game.add.text(540, 480, "build/select mode",{font: "16px Arial", text: "bold()", fill: "#000000", align: "left"})
     EscapeMode2.fixedToCamera = true;
     EscapeMode2.bringToTop()
+
+    EscapeKeyImg = game.add.image(570, 520, "escapeKey")
+    EscapeKeyImg.scale.setTo(1.5,1.5);
+    EscapeKeyImg.fixedToCamera = true;
+    EscapeKeyImg.bringToTop()
     
 
     tutorial_TXT = game.add.text(110, 100, "Welcome to Reef Defense!",{font: "20px Arial", text: "bold()", fill: "#ffffff", align: "left"})
@@ -1237,10 +1244,17 @@ function pausing(){
     nextTXT.fixedToCamera = true;
     nextTXT.bringToTop()
 
-    unpauseTXT = game.add.text(265, 250, "Resume game by clicking anywhere", {font: "20px Arial", text: "bold()", fill: "#000000", align: "right"} );
+    unpauseTXT = game.add.text(230, 250, "Resume game by clicking the resume button", {font: "20px Arial", text: "bold()", fill: "#000000", align: "right"} );
     unpauseTXT.fixedToCamera = true;
     unpauseTXT.bringToTop()
-    game.input.onDown.add(unpausing, self);
+
+    resumeButton = game.add.button(450, 500, 'resume', unpausing, this, 1, 0, 2);
+    resumeButton.scale.setTo(.8, .5)
+
+    quitButton = game.add.button(480, 32*19, 'quitButton', quiting, this, 1, 0, 2);
+    quitButton.scale.setTo(1, .8)
+    
+    //game.input.onDown.add(unpausing, self);
 
 
     
@@ -1254,19 +1268,33 @@ function unpausing(){
         unpauseTXT.destroy()
         tutorial_TXT.text = tutorialTextList[0];
         nextTXT.destroy()
+
         ControlBox.destroy()
         ControlsTXT.destroy()
+
         CameraTXT.destroy()
         Camera.destroy()
+
         LmbTXT.destroy()
         LeftMouseButton.destroy()
+
         DeleteTXT.destroy()
         DeleteKey.destroy()
         DeleteTXT2.destroy()
         DeleteTXT3.destroy()
+
         EscapeMode.destroy()
         EscapeMode2.destroy()
+        EscapeKeyImg.destroy()
+
+        resumeButton.destroy()
+        quitButton.destroy()
+        
     }
+}
+function quiting(){
+    game.paused = false
+    game.state.start("menu")
 }
 
 // level start function

@@ -39,11 +39,14 @@ var loadState = {
         game.load.spritesheet('towertower', 'Assets/img/Tower List.png', 32, 40);
         game.load.image('pausemenu', 'Assets/img/backgrounds/Pause Box.png');
         game.load.image('CameraKeys', 'Assets/Sprites/WASD keys.png', 66, 96);
+        game.load.image('escapeKey', 'Assets/Sprites/Escape Key.png', 47, 43);
         game.load.image('LMB', 'Assets/Sprites/Left Mouse.png', 61, 88);
         game.load.image('DeleteKey', 'Assets/Sprites/Delete Key.png', 35, 73);
         game.load.spritesheet('tutorialButton', 'Assets/img/PlayButton/NewTutButton.png', 160, 80)
         game.load.spritesheet('playAgainButton', 'Assets/img/PlayButton/PlayAgain.png', 160, 80)
         game.load.image('gold', 'Assets/spritesheets/gold coin.png')
+        game.load.spritesheet('quitButton', 'Assets/img/PlayButton/Quit.png', 68, 32)
+        game.load.spritesheet('resume', 'Assets/img/PlayButton/Resume.png', 160, 240/3)
 
         //bosses
         game.load.spritesheet('Crab_Boss', 'Assets/spritesheets/Crab Boss.png', 32, 32);
