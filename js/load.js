@@ -45,7 +45,7 @@ var loadState = {
         game.load.spritesheet('tutorialButton', 'Assets/img/PlayButton/NewTutButton.png', 160, 80)
         game.load.spritesheet('playAgainButton', 'Assets/img/PlayButton/PlayAgain.png', 160, 80)
         game.load.image('gold', 'Assets/spritesheets/gold coin.png')
-        game.load.spritesheet('quitButton', 'Assets/img/PlayButton/Quit.png', 68, 32)
+        game.load.spritesheet('quitButton', 'Assets/img/PlayButton/QuitButton.png', 160, 80)
         game.load.spritesheet('resume', 'Assets/img/PlayButton/Resume.png', 160, 240/3)
 
         //bosses

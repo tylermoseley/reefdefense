@@ -1251,8 +1251,8 @@ function pausing(){
     resumeButton = game.add.button(450, 500, 'resume', unpausing, this, 1, 0, 2);
     resumeButton.scale.setTo(.8, .5)
 
-    quitButton = game.add.button(480, 32*19, 'quitButton', quiting, this, 1, 0, 2);
-    quitButton.scale.setTo(1, .8)
+    quitButton = game.add.button(472, 590, 'quitButton', quiting, this, 1, 0, 2);
+    quitButton.scale.setTo(.5, .5)
     
     //game.input.onDown.add(unpausing, self);
 
